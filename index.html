@@ -1,0 +1,1073 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>Dedication</title>
+  <meta name="author" content="Ronnie Wang">
+  
+  <meta name="description" content="Yet another tech blog!">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+  
+  <meta property="og:site_name" content="Dedication"/>
+
+  
+    <meta property="og:image" content="undefined"/>
+  
+
+  
+    <link rel="alternative" href="/atom.xml" title="Dedication" type="application/atom+xml">
+  
+  
+    <link href="/favicon.png" rel="icon">
+  
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="/css/themes/paper.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-53608123-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
+
+</head>
+
+ <body>
+  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+	<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+       <a class="navbar-brand" href="/">Dedication</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class="fa fa-archive"></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/links" title="Friend links.">
+			  <i class="fa fa-link"></i>Links
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class="fa fa-user"></i>About
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 <div class="page-header ">
+  <h1 class="title ">Dedication</h1>
+</div>
+
+<div class="row page">
+
+	
+	<div class="col-md-9">
+	
+
+		<div class="slogan">
+      <i class="fa fa-heart"></i>
+      You tell me I&#39;m wrong. Then you&#39;d better prove you&#39;re right.
+</div>    
+		<div id="top_search"></div>
+		<div class="mypage">
+		
+		<!-- title and entry -->
+        <!-- render top articles firstly -->
+        
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+            
+		
+        
+        <!-- render other articles -->
+        
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2016-10-11 </div>
+			<div class="article-title"><a href="/2016/10/11/Max-flow-minimum-cut/" >Max flow, minimum cut</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>在微软苏州已经入职了一个月了，生活开始渐渐稳定下来。和在北京的各种不堪相比，我要感谢这次调职，得以让我从 easy 模式开始社畜生活。同时搁置好久的算法又可以得以继续研究下去了。</p>
+<p>今天讲的算法是最大流最小割算法。实际上这个是我在《算法导论》上看来看去都看不明白的一个章节：术语太多，而且代码很少（我好菜啊）。幸运的是，hihoCoder 上面的一系列专题为我垫了不少砖头，让我得以掌握这一块知识。</p>
+<p>对于一个最大流问题，其定义一般都是这样的：有一个有向图 G，源点为 s，汇点为 t，每条边都有其对应的流最大容量 c，源点 s 只有发出的流量，汇点 t 只有汇入的流量，求能从源点到汇点的最大可能流量。</p>
+<p>那么，我先不想说证明过程，我直接给出结论：我们用一种反复查找的方法，试图在当前图 G 上找到一条从 s 到 t 的路径，其边上允许的流量非零。每次找到这一条路径之后，也就可以确定这条路径上的流量瓶颈，将路径上的边的可行流量减去这一流量瓶颈，在新图上进行下一次查找。我们一直持续这样的查找，直到无法从 s 到 t 走出一条流量瓶颈大于 0 的路径。这个算法叫做 Ford-Fulkerson 算法。这个查找方式可以使用 BFS 进行。</p>
+<p>嘛，基本上就是这样。但是由于图中可能会存在反向边，对于我上面讲的这个情况，对于下面这种情况是不成立的：</p>
+<p><img src="flow.jpg" alt="An tricky example of flow network"></p>
+<p>如果我们用 BFS 找到了 A-B-D-F 这条可行路径，其瓶颈是 3，减去该瓶颈之后无法找到更新的路径。然而其最大流是 5：由 B 分出的流量有一份到 D，另外两份到 E，然后 A-C-D 有一个流量为 2 的路径。这时候，我们需要一个“残余网络”的概念帮助我们解决这个问题：每条边维护一条对应的反向边，其大小为当前在正向上面已经消耗掉的流量，而正向边的容量为当前正向剩余的可行流量。换句话说，正向边和反向边的存在，帮助我们维护了每条边还有多少剩余流量可用。如果有一条流量容量为 1 的边，其正向流量为 1000000，反向流量为 999999，这也是可行的！我们在残余网络上找到的一条可行路径，叫做增广路径。于是我上面描述的算法可以如下表达：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">While ( findAugmentPath() ) <span class="comment">// 判断是否有增广路</span></span><br><span class="line">	maxFlow = maxFlow + delta <span class="comment">// 最大流增加</span></span><br><span class="line">	modifyGraph() <span class="comment">// 对增广路进行修改</span></span><br><span class="line">End While</span><br></pre></td></tr></table></figure>
+<h2 id="与最小割的关系">与最小割的关系</h2><p>我们通常说 max flow, minimun cut。那么什么被定义为 cut？在一个带有 s 和 t 的网络流里，有一种划分把点划分到两个不相交的 S 和 T 集合中，$s \in S, t \in T$. 净流 f(S, T) 被定义为穿过割 (S, T) 的流量之和（当一个割经过反向边的时候，反向边上的流量应为负值）。割的容量 C(S, T) 被定义为这条割上所有的容量之和（不包括反向边）。也就是说，$f(S, T) \le C(S, T)$。 可以证明，当前网络的流量总是等于任意一个割的净流。但是，任意的割不会有相同的容量。其中最小的那个割的容量对应的割，我们称之为最小割。</p>
+<p>现在有一个结论：对于任意网络流图来说，最大流一定等于最小割的容量。这个结论是最大流最小割定理的直接推论，这个定理由三个等价的表达组成：</p>
+<ol>
+<li>f 是网络的最大流；</li>
+<li>该网络的残余网络不包含任何增广路径。</li>
+<li>流网络的某个切割 (S, T) 的容量等于 f。</li>
+</ol>
+<p>因此，求出了最大流，也就求出了最小割的最大容量。使用上文所提及的 Ford-Fulkerson 算法，能够快速算出割、网络流量。</p>
+<h2 id="Production_Code">Production Code</h2><p>使用 BFS 进行每次增广路径查找的 Ford-Fulkerson 实现叫做 Edmonds-Karp 算法。由于 BFS 时间复杂度（约）为 O(E)，流量递增操作的总次数为 O(VE)，该算法的时间复杂度为 $O(VE^2)$。这并不是最快的算法。现在有一种算法，通过记录每个点到汇点 t 的最短距离维持搜索顺序，使用 DFS 的方法进行增广路径的查找，能大大降低时间复杂度。这一算法的代码如下：</p>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 本代码对应于 http://hihocoder.com/problemset/problem/1369</span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;cstdio&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;cstring&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;queue&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> inf = <span class="number">0x3f3f3f3f</span>;</span><br><span class="line"><span class="keyword">const</span> <span class="keyword">int</span> maxn = <span class="number">505</span>, maxm = <span class="number">40005</span>;</span><br><span class="line"><span class="keyword">int</span> N, M;</span><br><span class="line"></span><br><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span> &#123;</span><br><span class="line">	<span class="keyword">int</span> u, v, c, prev;</span><br><span class="line">&#125;<span class="keyword">edge_t</span>;</span><br><span class="line"><span class="keyword">int</span> head[maxn];</span><br><span class="line"><span class="keyword">edge_t</span> edges[maxm];</span><br><span class="line"></span><br><span class="line"><span class="keyword">int</span> source, sink;</span><br><span class="line"><span class="keyword">int</span> dep[maxn], depcnt[maxn], cur[maxn], <span class="built_in">stack</span>[maxn];</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">addedge</span><span class="params">(<span class="keyword">int</span> u, <span class="keyword">int</span> v, <span class="keyword">int</span> c)</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> id = <span class="number">0</span>;</span><br><span class="line">	edges[id].u = u; edges[id].v = v; edges[id].c = c; edges[id].prev = head[u]; head[u] = id++;</span><br><span class="line">	edges[id].u = v; edges[id].v = u; edges[id].c = <span class="number">0</span>; edges[id].prev = head[v]; head[v] = id++;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">bfs</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	<span class="built_in">memset</span>(dep, <span class="number">0xff</span>, <span class="keyword">sizeof</span>(dep));</span><br><span class="line">	<span class="built_in">memset</span>(depcnt, <span class="number">0</span>, <span class="keyword">sizeof</span>(depcnt));</span><br><span class="line">	dep[sink] = <span class="number">0</span>;</span><br><span class="line">	depcnt[dep[sink]] = <span class="number">1</span>;</span><br><span class="line">	<span class="built_in">std</span>::<span class="built_in">queue</span>&lt;<span class="keyword">int</span>&gt; Q;</span><br><span class="line">	Q.push(sink);</span><br><span class="line">	<span class="keyword">int</span> u, v;</span><br><span class="line">	<span class="keyword">while</span> (!Q.empty()) &#123;</span><br><span class="line">		u = Q.front();</span><br><span class="line">		Q.pop();</span><br><span class="line">		<span class="keyword">for</span> (<span class="keyword">int</span> e = head[u]; ~e; e = edges[e].prev) <span class="keyword">if</span> (edges[e].c == <span class="number">0</span> &amp;&amp; dep[edges[e].v] == -<span class="number">1</span>) &#123;</span><br><span class="line">			v = edges[e].v;</span><br><span class="line">			Q.push(v);</span><br><span class="line">			dep[v] = dep[u] + <span class="number">1</span>;</span><br><span class="line">			depcnt[dep[v]]++;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">SAP</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	bfs();</span><br><span class="line">	<span class="built_in">memcpy</span>(cur, head, <span class="keyword">sizeof</span>(head));</span><br><span class="line">	<span class="keyword">int</span> u = source, maxflow = <span class="number">0</span>, top = <span class="number">0</span>, i;</span><br><span class="line">	<span class="keyword">while</span> (dep[source]&lt;N) &#123;</span><br><span class="line">		<span class="keyword">if</span> (u == sink) &#123;</span><br><span class="line">			<span class="comment">//find the bottleneck</span></span><br><span class="line">			<span class="keyword">int</span> delta = inf, p;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> t = top - <span class="number">1</span>; t &gt;= <span class="number">0</span>; t--) &#123;</span><br><span class="line">				<span class="keyword">int</span> e = <span class="built_in">stack</span>[t];</span><br><span class="line">				<span class="keyword">if</span> (edges[e].c&lt;delta) &#123;</span><br><span class="line">					delta = edges[e].c;</span><br><span class="line">					p = t;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> t = top - <span class="number">1</span>; t &gt;= <span class="number">0</span>; t--) &#123;</span><br><span class="line">				<span class="keyword">int</span> e = <span class="built_in">stack</span>[t];</span><br><span class="line">				edges[e].c -= delta;</span><br><span class="line">				edges[e ^ <span class="number">1</span>].c += delta;</span><br><span class="line">			&#125;</span><br><span class="line">			maxflow += delta;</span><br><span class="line">			top = p;</span><br><span class="line">			u = edges[<span class="built_in">stack</span>[p]].u;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span> (i = cur[u]; ~i; i = edges[i].prev) &#123;</span><br><span class="line">			<span class="keyword">if</span> (edges[i].c&gt;<span class="number">0</span> &amp;&amp; dep[edges[i].v] == dep[u] - <span class="number">1</span>) &#123;</span><br><span class="line">				cur[u] = i;</span><br><span class="line">				u = edges[i].v;</span><br><span class="line">				<span class="built_in">stack</span>[top++] = i;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span> (i == -<span class="number">1</span>) &#123;</span><br><span class="line">			depcnt[dep[u]]--;</span><br><span class="line">			<span class="keyword">if</span> (depcnt[dep[u]] == <span class="number">0</span>) <span class="keyword">break</span>;</span><br><span class="line">			<span class="keyword">int</span> mindep = N;</span><br><span class="line">			<span class="keyword">for</span> (<span class="keyword">int</span> e = head[u]; ~e; e = edges[e].prev) &#123;</span><br><span class="line">				<span class="keyword">if</span> (edges[e].c&gt;<span class="number">0</span> &amp;&amp; mindep &gt; dep[edges[e].v]) &#123;</span><br><span class="line">					mindep = dep[edges[e].v];</span><br><span class="line">					cur[u] = e;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			dep[u] = mindep + <span class="number">1</span>;</span><br><span class="line">			depcnt[dep[u]]++;</span><br><span class="line">			<span class="keyword">if</span> (u != source) &#123;</span><br><span class="line">				u = edges[<span class="built_in">stack</span>[--top]].u;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> maxflow;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span> </span>&#123;</span><br><span class="line">	freopen(<span class="string">"testcase"</span>, <span class="string">"r"</span>, <span class="built_in">stdin</span>);</span><br><span class="line">	<span class="built_in">scanf</span>(<span class="string">"%d%d"</span>, &amp;N, &amp;M);</span><br><span class="line">	source = <span class="number">1</span>, sink = N;</span><br><span class="line">	<span class="built_in">memset</span>(head, <span class="number">0xff</span>, <span class="keyword">sizeof</span>(head));</span><br><span class="line">	<span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">1</span>; i &lt;= M; i++) &#123;</span><br><span class="line">		<span class="keyword">int</span> u, v, c;</span><br><span class="line">		<span class="built_in">scanf</span>(<span class="string">"%d%d%d"</span>, &amp;u, &amp;v, &amp;c);</span><br><span class="line">		addedge(u, v, c);</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="built_in">printf</span>(<span class="string">"%d\n"</span>, SAP());</span><br><span class="line">	<span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>嘛，这个优化后的算法叫什么我也不知道，我只是从别人的解法里学习过来的。但是这个代码做了至少这么几个工作：</p>
+<ol>
+<li>在进行 DFS 寻找增广路径之前用 BFS 从汇点搜索建立 dep 和 depcnt，即到汇点的最短距离，这样为在 DFS 的时候总是走最短路径提供了依据。</li>
+<li>正向边和反向边成对存储，索引为偶数的总是正向边；正向边和反向边可以通过索引的异或切换；</li>
+<li>stack 里面存储通过 DFS 寻找的增广路径。</li>
+<li>在每一次 DFS 寻找过后，回溯到瓶颈路径的起点重新搜索，节省时间；</li>
+<li>维护一个 cur，其在物理意义上与 head 相同，也是为了直接从当前的可行边搜索，节省时间；</li>
+<li>但是如果从某点找不到可行边，需要更新该点的 dep 与 depcnt。这也就意味着 cur 也要更新。</li>
+</ol>
+<p>就是这样！但是有的文献指出，第一步建立 dep 与 depcnt 可以不进行。这主要的实现参考 <a href="http://hihocoder.com/contest/hiho117/solution/898175。" target="_blank" rel="external">http://hihocoder.com/contest/hiho117/solution/898175。</a></p>
+<p>主要参考文献：</p>
+<ol>
+<li>hihocoder hiho一下 115、116、117、118、119 周</li>
+<li>《算法导论》（第三版）第 26 章</li>
+<li><a href="http://www.cnblogs.com/longdouhzt/archive/2012/05/13/2497770.html" target="_blank" rel="external">Max Flow-SAP-Improved Shortest Augmenting</a></li>
+</ol>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2016-06-18 </div>
+			<div class="article-title"><a href="/2016/06/18/滴滴算法大赛总结/" >滴滴算法大赛总结</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p><a href="http://research.xiaojukeji.com/competition/main.action?competitionId=DiTech2016&amp;&amp;locale=zh_CN" target="_blank" rel="external">滴滴算法大赛</a>是一场旨在预测城市交通供给需求不平衡程度的机器学习比赛。这个比赛的赛题是给定待预测的时间节点，预测整个城市在不同区块中需求与供给的差异 gap. 最终的比赛衡量方式是</p>
+<span>$$\begin{equation}
+MAPE = \frac{1}{D}\sum_{d=1}^{D}\left( \frac{1}{T} \sum_{t=1}^{T} \left| \frac{gap_{dt}-s_{dt}}{gap_{dt}}\right|\right) \forall gap_{dt}>0
+\end{equation}$$</span><!-- Has MathJax -->
+<p>在比赛中，D = 66，T = 144. 官方给出的训练数据有前三个星期的全部订单，天气和路况描述，区块属性描述。</p>
+<p>我对该大赛的代码在<a href="https://github.com/wattlebird/ditech" target="_blank" rel="external">这里</a>。下面我来描述一下我的解决方案。</p>
+<h2 id="特征提取">特征提取</h2><p>在这场比赛中我只使用订单的训练数据，无视天气、路况和区块属性数据。理由是天气、路况和区块属性最终还是会反映在订单上面。所以着重描绘订单反映的特征就可以了。我提取了如下八类特征，全部以 one-hot coding 方式呈现：</p>
+<ol>
+<li>订单所处时间是哪一小时（24维）</li>
+<li>订单时间是否为双休日（2维）</li>
+<li>订单地点在哪一区块（66维）</li>
+<li>7 天前同一时间槽供求状况（21维）</li>
+<li>订单所处时间的前一时间槽供求状况（21维）</li>
+<li>订单前两个时间槽组合供求缺口状况（49维）</li>
+<li>订单前三个时间槽的平均缺口状况（7维）</li>
+<li>订单前三个时间槽的缺口标准差状况（3维）</li>
+</ol>
+<p>“时间槽”是赛题预先定义的把一整天时间划分为 144 个时间片的每一个时间片。为了用 one-hot coding 的方式描述供求，我使用如下的方式重新定义 gap：将 gap 以 [0,0],(0,1],(1,3],(3,6],(6,12],(12,30],(30,$+\infty$) 划分，形成 7 维特征。同时将需求（也就是客户发单数）以 [0,10],(10,20],(20,$+\infty$) 划分，形成 3 维特征。对于 21 维的“供求状况”，则使用 2d feature 的方式将两个特征相组合。对于“缺口状况”，则是将两个 gap 以 2d feature 的方式相组合，形成 49 维特征。对于缺口的标准差，则使用 [0,1],(1,5],(5,$+\infty$) 划分，形成 3 维特征。</p>
+<p>但是这是远远不够的。比如说，我们想要设计的特征，能够包含一个区块在不同时间槽上的变化，这时候就必须结合时间特征和区域特征做二维特征。于是可以对所有这八类特征相互组合形成二维特征，最终形成一个一万多维的、非常稀疏特征。如果这时候按照这个特征训练一个线性回归模型，可以在测试集上面达到 0.32-0.34 的结果。但是实际上在应用的时候，并非八种特征完全相互组合，而是选取有物理意义的组合，以减少参数个数。代码中通过使用矩阵作为 mask 指定哪几类特征组合是被允许的。</p>
+<p>我们还有一维特征，使用量的大小而非 one-hot coding：训练一个线性回归模型，预测的结果形成最后一维特征。这个特征也可以与先前的八类特征相互组合形成二维特征。</p>
+<h2 id="建模">建模</h2><p>一开始我使用 scikit-learn 的线性回归模型建模的，但是这个库可能偏离了实用性。对于稀疏的 feature，我非常希望能有一范数做正则项，但是 scikit-learn 里面没有一个模型是符合我的要求的。而且，对于题目中要求的 metric，最好是对每一个训练样本进行 $\frac{1}{gap_{dt}}$的加权。并不是所有的模型在 scikit-learn 里面都有加权的选项。</p>
+<p>其实最好的工具是 xgboost。这是一个基于残差迭代方法的、专门应用于机器学习竞赛的库。通过使用基于 GBDT 的回归模型，可以达到 0.29 左右的结果。需要指出的是，我发现三次残差迭代的效果是最好的，几乎颠覆了我以前对 GBDT 的印象。</p>
+<h2 id="训练">训练</h2><p>我选取了元月 4 日、9 日、17 日、19 日和 21 日的全天数据作为 validation，其余的去除元月 1-3 日的数据作为 training. 同时复制 10 日和 16 日的记录一遍。</p>
+<p>需要指出的是，在训练的时候要去除 gap=0 的数据，因为这些数据对评价标准没有任何影响（如果真的像评价标准那样定义的话）而且还会对模型产生 bias。</p>
+<h2 id="可能存在的问题">可能存在的问题</h2><p><a href="https://twitter.com/haruki_kirigaya/status/737212998872244224" target="_blank" rel="external">先前有报导显示</a>，直接下载提交的测试文件就能达到 0.6 的 level，而按照定义，这样的测试文件应该生成 1 的 MAPE。可能我在我的 MAPE 计算程序里面有与官方理解不一致的地方。</p>
+<h2 id="总结">总结</h2><p>我原来以为这个题目还是比较简单的，因为就是一个纯纯的监督学习问题。但是我发现我与最高水平的差距还是挺大。不论是实力还是客观条件方面都与别人的队伍有着较大的差距。最为愤怒的是，在前一天我在知乎上面看到有人说使用前三个时间槽的 gap 进行加权平均就能达到 0.29 的结果，我非常愤怒。我为了达到这个值花了这么多时间和精力，竟然还不如别人这么简单的无脑方法？？？如果能有更多的人和我团队合作，我们的思路就会越来越开阔，不至于像我走这种死胡同。</p>
+<p>而且，我并非从一开始就参加这个竞赛，而是在硕士学位答辩完成之后才想着去“玩一玩”的。先前看到过 <a href="https://twitter.com/haruki_kirigaya" target="_blank" rel="external">@haruki_kirigaya</a> 也在玩这个（不过我要说，我没有看任何人的代码）。第一次提交是在 6 月 9 号，只有十次提交机会，而且中间还换了一次数据。不过，借口是无穷多的，实力的差距是绝对的。这也是我参加的第一次机器学习竞赛。我上次看到一个 Bangumi 上的人 fo 了我（我这种弱渣垃圾有什么好 fo 的），人家声称坚持打过每一场 Kaggle 竞赛，我真是无地自容。还是看书去吧。</p>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2016-02-05 </div>
+			<div class="article-title"><a href="/2016/02/05/使用-rankit-构建更科学的排名/" >使用 rankit 构建更科学的排名</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p><a href="https://github.com/wattlebird/ranking" target="_blank" rel="external">rankit</a> 是一个使用线性代数和最优化理论为基础的常见排名算法库。这个库是我写的。我说“常见”其实对于绝大部分人来说根本就闻所未闻，但是对于专门研究排名的研究者来说，这里面包含的算法都是比较基础的。自从阅读了一本介绍排名的书籍<a href="https://book.douban.com/subject/25915707/" target="_blank" rel="external">《谁排第一？关于评价和排序的科学》</a>之后，我觉得很有必要把这里面的宝藏介绍给对此一无所知的研究者。作为一个做与机器学习相关研究的研究生，竟然除了 PageRank 和 HITS 其他排名算法一个都没有听说过——课上不教，研究也涉及不到——因为生活中应用这些排名算法的场景，实在是很少接触到。然而，这些排名算法正在美国的体育比赛排名中大行其道。在那本书中，大部分案例直接来源于美国的橄榄球比赛排名。</p>
+<p>然而要我把这本书里面所有的算法都介绍出来，实在是一件难事，一是有侵犯版权的嫌疑，二是其中涉及到大量的数学推导。我在此也只能简单地说一下。每一个排名（rank）由一个既定的评分（rating）产生，评分可以被解释为被排名对象的实力。在一定数学模型的指导下，被排名对象产生了比赛结果。这时候，可以看作 rating 这一因素导致了外在的比赛结果的观测值，这和 state 与 observation 的关系是一样的。根据不同的数学模型，就有了不同的 rating 算法。另外还有一个排名算法不依靠于 rating 数值，它试图给出一个 ranking，使得该排名与比赛的结果最为相符，说白了就是 linear ordering problem.</p>
+<p>那么这种排名算法对我们有什么启示呢？现实生活中好像没有多少排名问题能够用被排名对象之间的比赛来表达啊。搜索引擎的网页排名能用 in-link 和 out-link 表达网页之间的关系，但是网页之间怎么进行比赛呢？事实上，这本书能够拓宽人的眼界的地方就在于此。如果在一个网页排名结果中，网页点击量的大小可以视作在这一场比赛中的结果。网页流量的大小也是网页实力的一个外在特征。在商品排名中，同时购买两件商品的人的评分综合也可以被视为两件商品比赛的结果。事实上，我们应该抛弃“比赛”这种概念，对两个排名对象在同等条件下比较的结果进行 fitting 要远远稳定于计算一个平均分，或是加权平均的结果。</p>
+<h2 id="小白怎样使用_rankit？">小白怎样使用 rankit？</h2><p>rankit 提供了 Converter，只要用户能提供排名对象的每一轮的比赛结果（用 pandas.DataFrame 表示并包含特定的 columns），就能够为后续的算法计算出矩阵。在不同的数学模型下，需要的观测值就会有所不同。每一个算法都有它的物理意义，那么使用某一个算法要使用与其物理意义相对应的矩阵。比如说对于 MarkovRank 来说，这种算法需要表示排名对象之间相互投票的结果。我在 rankit 里面专门提供了 RateDifferenceVoteMatrix，SimpleDifferenceVoteMatrix 和 RateVoteMatrix 把观测到的评分结果表示成这样的矩阵。对于算法适用于什么样的矩阵这个问题，我在 rankit 的 GitHub 主页上面已经给出了参考表格。</p>
+<p>rankit 还提供了排名融合的算法，排名融合能够使多种算法的排名更加稳定。用户也可以自行构建排名加入排名融合器，生成融合后的排名。另外，如果要比较排名之间的结果，rankit 还提供了两种测度描述排名列表之间的差距。</p>
+<p>尽管我接口做得比较人性化了，我还是希望有一定背景知识的人去操纵这些算法。</p>
+<h2 id="为_Bangumi_动画排名！">为 Bangumi 动画排名！</h2><p>长久以来，Bangumi 用户对 Bangumi 的动画排名争论不休<a href="http://chii.in/blog/269600" target="_blank" rel="external">[1]</a><a href="http://chii.in/blog/269560" target="_blank" rel="external">[2]</a>。由于 Bangumi 网站的高质量，某些别有用心人士试图通过刷分提高某些动画的排名或降低某些动画的排名，达到自己不可告人的宗教和政治目的<a href="http://chii.in/group/topic/337530" target="_blank" rel="external">[3]</a><a href="http://chii.in/group/topic/311903" target="_blank" rel="external">[4]</a><a href="http://chii.in/blog/270420" target="_blank" rel="external">[5]</a>。除此以外，有用户建议使用更为细致化的排名系统<a href="http://chii.in/group/topic/13906" target="_blank" rel="external">[6]</a><a href="http://chii.in/blog/48952" target="_blank" rel="external">[7]</a>，但是所有这些讨论都没有超出统计学的范畴，最多也只是在平均分上做些加加减减，或是玩一些加权的把戏。一个综合的讨论收录可以参考<a href="http://chii.in/group/topic/41475" target="_blank" rel="external">[8]</a>.</p>
+<p>我们提出了一种全新的基于不同数学模型的排名方法，这些排名方法通过比较每两部作品的表现评分。同时看过两部作品的用户，我们可以计算他们为这两部作品评分的算术平均分、对数几何平均分和倾向性概率，从而生成三种作品间两两比较的实力数据。接着，对于每一种生成方法，我们使用八种不同的算法对作品进行排名。这些排名算法由 rankit 提供技术支撑。对于生成的 24 种排名，我们使用 Borda Count 融合所有排名，生成最终的动画排名。这 8 种算法分别是：</p>
+<ol>
+<li>Colley Rank (colley)</li>
+<li>Massey Rank (massey)</li>
+<li>Difference Rank (differ)</li>
+<li>Markov Rank, using rate vote matrix as input (markov_rv)</li>
+<li>Markov Rank, using rate difference vote matrix as input (markov_rdv)</li>
+<li>Markov Rank, using simple difference vote matrix as input (markov_sdv)</li>
+<li>Offence-defence Rank (od)</li>
+<li>Keener Rank (no bias) (keener)</li>
+</ol>
+<p>使用基于算术平均的排名使用 ariavg 做前缀，使用基于对数几何平均的排名使用 geoavg 做前缀，使用概率的排名我们使用 prob 做前缀。我们把最后的排名记作 merged_rank，把 Bangumi 原始排名记作 bangumi_rank，并对每一对排名计算 Kendall Measure，我们得到以下矩阵：</p>
+<p><img src="index.png" alt="Kendall Measure Matrix"></p>
+<p>如果两个排名的 Kendall Measure 等于 1，说明两个排名的相似度比较大。如果越趋近于 -1，则两个排名完全相反。从这张图我们可以看到，使用 Borda Count 后的综合排名与各大排名的 Kenall Measure 都比 Bangumi 原始平均分排名表现要好，这充分说明了我们排名的科学性。</p>
+<p>下表是该综合排名拍出来的 Bangumi 已排名 3252 部动画的前 20 位对应的作品 id：</p>
+<table>
+<thead>
+<tr>
+<th>id</th>
+<th>rank</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>253</td>
+<td>1</td>
+</tr>
+<tr>
+<td>326</td>
+<td>2</td>
+</tr>
+<tr>
+<td>324</td>
+<td>3</td>
+</tr>
+<tr>
+<td>265</td>
+<td>4</td>
+</tr>
+<tr>
+<td>237</td>
+<td>5</td>
+</tr>
+<tr>
+<td>321</td>
+<td>6</td>
+</tr>
+<tr>
+<td>6049</td>
+<td>7</td>
+</tr>
+<tr>
+<td>1728</td>
+<td>8</td>
+</tr>
+<tr>
+<td>110467</td>
+<td>9</td>
+</tr>
+<tr>
+<td>2907</td>
+<td>10</td>
+</tr>
+<tr>
+<td>340</td>
+<td>11</td>
+</tr>
+<tr>
+<td>839</td>
+<td>12</td>
+</tr>
+<tr>
+<td>1608</td>
+<td>13</td>
+</tr>
+<tr>
+<td>876</td>
+<td>14</td>
+</tr>
+<tr>
+<td>3302</td>
+<td>15</td>
+</tr>
+<tr>
+<td>238</td>
+<td>16</td>
+</tr>
+<tr>
+<td>2734</td>
+<td>17</td>
+</tr>
+<tr>
+<td>1428</td>
+<td>18</td>
+</tr>
+<tr>
+<td>120700</td>
+<td>19</td>
+</tr>
+<tr>
+<td>37460</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<h2 id="如何在新算法下操纵排名？">如何在新算法下操纵排名？</h2><p>每一种算法都有被攻克的那一天，在提出语义搜索引擎之前，Google 一直在与 SEO 做着猫鼠游戏。当然，我这种简单的排名算法就更容易被操纵了。</p>
+<p>如果有用户进行刷分，而且每个小号只为一部作品刷分，那么我的排名算法能够阻止这种作弊行为。但是如果有用户进行刷分的小号对多部作品进行刷分，而且是为某几部作品评高分，而给某几部作品评低分，这样就会对排名算法产生影响。</p>
+<p>当然，也存在着针对这种行为的对抗方式，我们只需要对 Keener Rank 进行一些修改就能使得排名不容易被这种作弊方法操纵。</p>
+<p>而更为切实际的做法是，将人工排名与计算机排名相融合。在我看来，最为稳定的融合方式是 LeastViolatedMerge，但是这是一个 NPC 问题，目前还没有对 3000 部动画这种规模的 LeastViolatedMerge 解决方案。所以说越科学的排名需要消耗的资源也就越大。</p>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2015-06-28 </div>
+			<div class="article-title"><a href="/2015/06/28/欧拉路/" >欧拉回路</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>今天讨论的主题是一类问题，就是欧拉路问题。有两种欧拉路。第一种叫做 Eulerian path(trail)，沿着这条路径走能够走遍图中每一条边；第二种叫做 Eularian cycle，沿着这条路径走，不仅能走遍图中每一条边，而且起点和终点都是同一个顶点。注意：欧拉路要求每条边只能走一次，但是对顶点经过的次数没有限制。</p>
+<p>满足什么性质的图才能有欧拉路？根据 <a href="https://en.wikipedia.org/wiki/Eulerian_path" target="_blank" rel="external">wikipedia</a> 对欧拉路的介绍：</p>
+<ul>
+<li>在无向图中，所有顶点的度数均为偶，则存在 Eularian cycle；若有且仅有两个顶点的度数为奇，其余的都为偶，则存在 Eularian path；</li>
+<li>在有向图中，所有顶点的入度数等于出度数，则存在 Eularian cycle；若有且仅有两个顶点：其中一个入度数比出度数大 1，另一个入度数比出度数小 1，其余的顶点入度数等于出度数，则存在 Eularian path.</li>
+</ul>
+<p>另外我们还需要知道，对于那些 Eularian path，起点和终点分别在那两个度数为奇的顶点上（对于无向图）或是入度数不等于出度数的顶点上（对于有向图）。</p>
+<p>然而知道这些并没有给我们带来多少实惠。因为我们除了判定一个图有没有欧拉路之外，更想找到其中的一条欧拉路径。于是这就是我们今天的重点：寻找欧拉路径的算法。</p>
+<p>一个比较经典的算法是 Fleury 算法。Fleury 算法的思想就是：在过河拆桥之前，先想想有没有退路。为什么这么说？Fleury 算法每个回合进行到一个顶点上的时候，都会删除已经走过的边。在选择下一条边的时候，不应该出现这样的状况：在删除下一条边之后，连通图被分割成两个不连通的图。除非没有别的边可选择。该算法从一个奇度数顶点开始（若所有顶点度数均为奇，则任选一个顶点）。当所有的边都走完的时候，该算法结束，欧拉路径为删除路径的顺序。用算法伪代码描述就是：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">v_0 &#60;- a vertex with odd degree or, if no such vertex, any arbitrary vertex.&#10;Repeat:&#10;    select an vertex v_i+1 adjacent of v_i, which should not separate the graph or, the only adjacent vertex of v_i&#10;    remove edge &#60;v_i, v_i+1&#62; and jump to v_i+1&#10;Until all edges have been visited.&#10;Return the sequence of visited edges.</span><br></pre></td></tr></table></figure>
+<p>但是该算法的问题就是，怎么判断一条边是否是一个桥呢？如果使用 Tarjan 算法判断，则算法运行时间就是 $O(E^2)$。在实际写代码的时候，我可没考虑那么多。我只考虑，如果在某一点处深搜的结果导致图被分离，那么在某一个边必然走过了一个桥，那么就返回走另一条边。这样的思想形成的算法如下：</p>
+<script src="//gist.github.com/12a01616817d8ab33260.js"></script>
+<p>粗略分析一下，由于算法要经过每条边，所以时间必然是$\Omega(E)$。在最坏情况下，在每个节点处进行一次 DFS，节点会重复走所以以边计算，所以算法复杂度应该是 $O(E(E+V))$。</p>
+<p>另一种计算欧拉路的算法是 Hierholzer 算法。这种算法是基于这样的观察：</p>
+<p><img src="14341858378253.png" alt="Hierholzer"></p>
+<p>在手动寻找欧拉路的时候，我们从点 4 开始，一笔划到达了点 5，形成路径 4-5-2-3-6-5。此时我们把这条路径去掉，则剩下三条边，2-4-1-2 可以一笔画出。</p>
+<p>这两条路径在点 2 有交接处（其实点 4 也是一样的）。那么我们可以在一笔画出红色轨迹到达点 2 的时候，一笔画出黄色轨迹，再回到点 2，把剩下的红色轨迹画完。</p>
+<p>由于明显的出栈入栈过程，这个算法可以用 DFS 来描述。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DFS(u):&#10;&#9;While (u&#23384;&#22312;&#26410;&#34987;&#21024;&#38500;&#30340;&#36793;e(u,v))&#10;&#9;&#9;&#21024;&#38500;&#36793;e(u,v)&#10;&#9;&#9;DFS(v)&#10;&#9;End&#10;&#9;PathSize &#8592; PathSize + 1&#10;&#9;Path[ PathSize ] &#8592; u</span><br></pre></td></tr></table></figure>
+<p>如果想看得更仔细一点，下面是从点 4 开始到点 5 结束的 DFS 过程，其中 + 代表入栈，- 代表出栈。</p>
+<p>4+ 5+ 2+ 3+ 6+ 5+ 5- 6- 3- 1+ 4+ 2+ 2- 4- 1- 2- 5- 4-</p>
+<p>我们把所有出栈的记录连接起来，得到</p>
+<p>5-6-3-2-4-1-2-5-4</p>
+<p>诸位看官可以自己再选一条路径尝试一下。不过需要注意的是，起始点的选择和 Fleury 要求的一样。</p>
+<p>这个算法明显要比 Fleury 高效，它不用判断每条边是否是一个桥。我写的代码如下：</p>
+<script src="//gist.github.com/befdfc0a4802cac3bdfc.js"></script>
+<p>需要注意的是这个算法时间复杂度是 $O(E)$。其在 DFS 的过程中不用恢复边，靠出栈记录轨迹。</p>
+<p>Fin</p>
+<p>（本文大量论述受到 hihocoder week 49, 50 和 51 启发。代码所解决的题目为 <a href="http://hihocoder.com/contest/hiho50/problem/1" target="_blank" rel="external">http://hihocoder.com/contest/hiho50/problem/1</a>）</p>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2015-05-25 </div>
+			<div class="article-title"><a href="/2015/05/25/分解质因数/" >分解质因数</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>今天要说的题目来源于 <a href="http://codeforces.com/contest/546/problem/D" target="_blank" rel="external">Soldier and Number Game</a>. 这道题到底干什么呢，说白了就是求两个数$1 \le b \le a \le 5 000 000$之间的所有数的质因数数目之和。快速求解一个数的质因数数目是这道题的关键。</p>
+<p><a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" target="_blank" rel="external">Sieve of Eratosthenes</a> 是这道题的关键。这是一个求解质数/质数判定的方法，其思想是筛选出一个质数的整数倍，质数的整数倍必然不是质数，所以都被筛选出去。在没有筛选的结果中继续求解当前最小数字的整数倍，直至筛完为止。其 C++ 代码如下所示：</p>
+<figure class="highlight cpp"><figcaption><span>Sieve of Eratosthenes</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// prime number table from 2 to 5000000</span></span><br><span class="line"><span class="comment">// those who have number 0 are prime numbers.</span></span><br><span class="line"><span class="keyword">int</span> table[<span class="number">5000001</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build_table</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> limit = <span class="built_in">sqrt</span>(<span class="number">5000000</span>)+<span class="number">1</span>;</span><br><span class="line">    table[<span class="number">0</span>]=table[<span class="number">1</span>]=-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=limit; i++)</span><br><span class="line">        <span class="keyword">if</span>(!table[i])</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">2</span>; j*i&lt;=<span class="number">5000000</span>; j++)</span><br><span class="line">                table[i*j]=i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isprime</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;<span class="keyword">return</span> !table[i];&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以发现，在这个质数表中实际上还存储了每个数字的一个质因数。要提取出一个数的完整质因数分解，只要依据<s>基本法</s><code>a/=table[a]</code>不断迭代就可以了。</p>
+<p>但是如果按照这样的思路去数每个数的质因数个数的话，在原题中还是会超时。其一个原因是我们要求的是质因数的个数，其可以在建立质数表的时候完成。其二，求从 a 到 b 中每个质因数的个数之和，倾向于使用部分和的方法。</p>
+<p>那么怎么求每个数的质因数个数呢，在 Sieve of Eratosthenes 的基础之上？</p>
+<figure class="highlight cpp"><figcaption><span>Number of Prime Factors</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build_table</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//const int limit = sqrt(5000000)+1;</span></span><br><span class="line">    <span class="comment">//table[0]=table[1]=-1;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=<span class="number">5000000</span>; i++)</span><br><span class="line">        <span class="keyword">if</span>(!table[i])</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i; j&lt;=<span class="number">5000000</span>; j+=i)</span><br><span class="line">                table[j]=table[j/i]+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2015-04-26 </div>
+			<div class="article-title"><a href="/2015/04/26/Combination-Sum/" >Combination Sum</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>Combination sum <a href="https://leetcode.com/problems/combination-sum/" target="_blank" rel="external">1</a> and <a href="https://leetcode.com/problems/combination-sum-ii/" target="_blank" rel="external">2</a> 是 Leetcode 上面两道比较相似的题目。今天写这个题目是因为这个题目有不同的解法。</p>
+<p>这两道题目都是给定一组数，给定一个 target，然后求出这组数中哪几个可以组合成 target。不同的地方是，第一道题要求数字可以被重复利用以组合成 target；第二道题要求数字不可以被重复利用。Seems easy, hmm?</p>
+<p>首先说说我的想法和做法。首先通过观察可以得知，求一个 target 的 combination 可以被拆分成给定某个已知数的剩下数值的 combination 的子问题。于是乎，可以在确定一个 candidate 的同时试图解决这个子问题，子问题应该返回一个所有解的列表，把该 candidate 加入所有解的尾部即可。</p>
+<p>那么怎么选取 candidate 呢？我们可以先对原候选数组进行排序，从最接近 target 的最大数开始筛选 candidate。</p>
+<p>但是这里面还有不少问题。在解决子问题的时候，父问题应该传递给子问题这样的信息，使得子问题在选择 candidate 的时候，不应该出现重复的解。比如说在数组<code>[2,3,6,7]</code>，target 为 7 的时候，当目前确定一个 candidate 为 2，子问题就是相同数组中 target 为 5 的问题。但是此时是否能选择 candidate 为 3 呢？这就与 target 为 7 时 candidate 选为 3 的时候相重复了啊。为了力避这种情况，我规定父问题必须传给子问题当前的 candidate，使得子问题在选择 candidate 之时永远小于父问题 candidate。</p>
+<p>所以解决问题的代码如下：</p>
+<figure class="highlight cpp"><figcaption><span>Combination Sum I</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; combinationSum(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        sort(candidates.begin(),candidates.end());</span><br><span class="line">        <span class="keyword">return</span> dfs(candidates,target,INT_MAX);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; dfs(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;candidates, <span class="keyword">int</span> target, <span class="keyword">int</span> pred)&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::const_iterator itr;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ans;</span><br><span class="line">        itr = upper_bound(candidates.begin(), candidates.end(), target);</span><br><span class="line">        <span class="keyword">if</span>(itr==candidates.begin()) <span class="keyword">return</span> ans;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">do</span>&#123;</span><br><span class="line">            itr--;</span><br><span class="line">            <span class="keyword">int</span> t = *itr;</span><br><span class="line">            <span class="keyword">if</span>(t&gt;=pred) <span class="keyword">continue</span>;</span><br><span class="line">            <span class="keyword">if</span>(!(target%t)) ans.push_back(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(target/t,t));</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">1</span>; i&lt;=target/t; i++)&#123;</span><br><span class="line">                <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; vst = dfs(candidates, target-i*t, t);</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">size_t</span> j=<span class="number">0</span>; j!=vst.size(); j++)</span><br><span class="line">                <span class="keyword">for</span>(<span class="keyword">int</span> k=<span class="number">0</span>; k!=i; k++) vst[j].push_back(t);</span><br><span class="line">                copy(vst.begin(), vst.end(), back_inserter(ans));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">while</span>(itr!=candidates.begin());</span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>下面第二道题，第一道题之后应该不是什么难题，因为所有的数只能选择一次，所以在选择 candidate 的时候用不着去尝试多次选取的情况了。但是这里还有一个问题：位置不同、但是“看上去”结果相同的解被算作同一个！</p>
+<p>为了优雅地解决这个问题，我规定在选取下一个 candidate 的时候，需要跳过与目前 candidate 相同的值。（注意第 22 行）</p>
+<p>所以这个问题解决的代码如下：</p>
+<figure class="highlight cpp"><figcaption><span>Combination Sum II</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> Solution &#123;</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; combinationSum2(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &amp;candidates, <span class="keyword">int</span> target) &#123;</span><br><span class="line">        sort(candidates.begin(), candidates.end());</span><br><span class="line">        <span class="keyword">return</span> dfs(candidates.rbegin(),candidates.rend(),target);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; dfs(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::const_reverse_iterator b, <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::const_reverse_iterator e,</span><br><span class="line">            <span class="keyword">int</span> target)&#123;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;::const_reverse_iterator itr;</span><br><span class="line">        <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; ans;</span><br><span class="line">        itr = upper_bound(b,e,target,greater_equal&lt;<span class="keyword">int</span>&gt;());</span><br><span class="line">        <span class="keyword">if</span>(itr==e) <span class="keyword">return</span> ans;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">while</span>(itr!=e)&#123;</span><br><span class="line">            <span class="keyword">int</span> t = *itr;</span><br><span class="line">            <span class="keyword">if</span>(t==target) ans.push_back(<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt;(<span class="number">1</span>,t));</span><br><span class="line">            <span class="built_in">vector</span>&lt;<span class="built_in">vector</span>&lt;<span class="keyword">int</span>&gt; &gt; vs = dfs(++itr, e, target-t);</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">size_t</span> i=<span class="number">0</span>; i!=vs.size(); i++)&#123;</span><br><span class="line">                vs[i].push_back(t);</span><br><span class="line">                ans.push_back(vs[i]);</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">while</span>(itr!=e &amp;&amp; *itr==t) itr++;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> ans;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>但是，以上这些方法都是沿用了 dfs 的思想。既然问题能被拆分为子问题，那么为何不用 DP？这当然是一个正当的思路。</p>
+<p>我们记 target 从 0 到 target 的所有解的数组为 dp[target+1]，最终的结果就是要求 dp[target]。显然我们有 dp[target]=vector<int>({itm.push_back(candidate) for itm in dp[target-i]})（抱歉这种不伦不类的语法）</int></p>
+<p>但是状态转移方程还没有明确从哪里取得 candidate。其实只要从所有 candidate 里面一个一个抽取出来就可以了。</p>
+<p>所以说解决第一题的伪代码如下：</p>
+<figure class="highlight plain"><figcaption><span>Combination Sum I in DP</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">dp[0]=vector&#60;vector&#60;int&#62;&#62;()&#10;for c in candidates:&#10;    for j in [c, target]:&#10;        &#22914;dp[j-c]&#38750;&#31354;&#65306;&#10;        dp[j] = &#25226;dp[j-c]&#20013;&#30340;&#27599;&#19968;&#20010;&#35299;&#37117;push_back&#19968;&#20010;c</span><br></pre></td></tr></table></figure>
+<p>对于第二题用 DP 的话必须配合 Hash set。</p>
+<p>另外，您发现了，用 dp 解的话与背包问题（0-1背包和可重复背包）有什么相似之处吗？</p>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2015-03-08 </div>
+			<div class="article-title"><a href="/2015/03/08/How-I-build-up-Chi-同步率改-v0-3-实现细节/" >How I build up Chi: 同步率改 v0.3 实现细节</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>　　我想我已经好久都没写日志了，因为每天都会学到太多的新东西，虽然想记录下来，但实在是有心无力——太耗时间。不过我想仍然有里程碑意义的成果必须记录下来。这个<a href="http://ikely.me/chi/similarity" target="_blank" rel="external">同步率改 v0.3</a> 就是一个。</p>
+<p>　　Bangumi 番组计划有一个可以内置的查看用户间同步率的功能，但是这个功能很简陋，也很不科学。我通过爬取 Bangumi 用户作品收藏信息，计算出了比较科学一点的同步率，使得品味相近的用户可以互相认识。</p>
+<p>　　稍有常识的人就会看出，这实际上就是一个推荐系统嘛：推荐与你相似的用户。但是目前的同步率改不能完全算是一个推荐系统，只能说起到了某些推荐系统的功能而已。现在的“同步率改”之所以还保留着“同步率”的称法，是为了让 BGMer 在旧同步率和新同步率之间保持无缝概念接受：如果我没有标注某部作品，那么这部作品不应该在同步率上有所贡献。所以在到目前为止，所有的同步率计算都是在作品空间中进行的而非概念空间。</p>
+<p>　　同步率改的 v0.2.1 版是一个比较基本的推荐系统实现：提取用户的所有评分并减去其平均值，得到用户对作品的偏好程度。同时对于用户没有评分的作品，利用这个作品所处于的五个状态——想看、在看、看过、搁置和抛弃——加上一定评分偏置。同时为了防止只有很少评分的用户影响系统表现，系统做了不少 trick，如评分在标准差在零点几以下的用户同步率无视评分、收藏小于 3 的用户无视评分等。这样的设计方法虽然整体思路是正确的，但是存在 ad hoc 太多、评分偏置单一的现象。</p>
+<p>　　同时，在 Bangumi 社区交流的过程中，我发现用户对于不同类型的作品评分有一定的独立性。对于动画和三次元的评分准则，有些用户将其与音乐、书籍类作品相独立看待。</p>
+<p>　　基于这样的事实，我在 v0.2.1 的基础上进行了大量修改，其结果就是 v0.3。他们一脉相承的特点都是：相似度在作品空间中计算，每位用户的向量都以其自己平均分为基准，对已收藏但未评分作品根据作品收藏状态有一定偏置。但是 v0.3 使用了子空间分解技术估计用户已收藏和未评分作品的评分。同时，不同类型作品的同步率分开计算，最后整合在一起形成综合同步率。</p>
+<h2 id="评分估计模型">评分估计模型</h2><p>　　我们记 Bangumi 某一类型（比如动画）作品的 user-item utility matrix 为 $R$，其是一个 $M \times N$ 的矩阵，其中用户数为 $M$，作品数为 $N$。矩阵的元素是元素所在行对应的用户评分减去该用户评分的平均值。用户未评分的元素值记为 0。我们的目的，就是要对某一个用户已标记未评分、收藏状态为 $s$ 的作品进行评分预估：  </p>
+<span>$$\begin{equation}
+ r_{ij}=u_i v_j^T+bu_{is}+bi_{js}
+\end{equation}$$</span><!-- Has MathJax -->
+<p>　　其中 $u_{i}$ 是 $M \times Q$ 的 user-concept matirx $U$ 的第 $i$ 行行向量，$v_j$ 是 $Q \times N$ 的 concept-item matrix $V$ 的第 $j$ 列列向量。$bu_{is}$ 是用户状态偏置矩阵 $Bu$ 的元素，$bi_{js}$ 是作品状态偏置矩阵 $Bi$ 的元素。得出评分估计模型的关键就是求出这四个矩阵 $U$、$V$、$Bu$ 和 $Bi$，使得 root mean square error (RMSE)最小，同时又有较好的泛化能力。</p>
+<span>$$\begin{equation}
+RMSE = \frac{1}{\mbox{total rated item number}}\sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2
+\end{equation}$$</span><!-- Has MathJax -->
+<p>　　实际上，这个问题就是最小化 RMSE 的最优化问题。假定我们已经有了 $U$、$V$、$Bu$ 和 $Bi$ 的初始估计值，那么我们就可以通过梯度下降的方法估计出使得 RMSE 最小的局部最优解。</p>
+<p>　　在 RMSE 的表达式中，total rated item number 是一个固定的常数，$r_{ij}$ 是已经观测到的评分。我们把最优化的目标函数写成如下形式：</p>
+<span>$$\begin{equation}
+Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\left(\sum_i||u_i||^2+\sum_j||v_j||^2+\sum_i||bu_i||^2+\sum_j||bi_j||^2\right)
+\end{equation}$$</span><!-- Has MathJax -->
+<p>　　目标函数的第一项是 RMSE，第二项是为了防止 $U$、$V$、$Bu$ 和 $Bi$ 过大的罚项。此目标函数对于行向量 $u_i$ 的导数为：</p>
+<span>$$\begin{equation}
+\frac{\partial}{\partial u_i}Obj = -2\sum_j\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)v_j+\frac{1}{\sigma^2}u_i
+\end{equation}$$</span><!-- Has MathJax -->
+<p>　　对于其他项的导数可以一一推得，而且计算也很简单，这里就不赘述。</p>
+<p>　　但是目前的问题就是如何求出初始的 $U$、$V$、$Bu$ 和 $Bi$？初始值非常重要，选取一个好的初始值可以得到全局最优解。对于 $U$ 和 $V$，其是 $R$ 的一个近似分解。我们可以用 SVD 求出 $U$ 和 $V$ 的初始值。对于 $Bu$，其是一个 $M \times 5 $的矩阵，其每一行的元素是该用户处于想看、在看、看过、搁置或抛弃作品评分平均值与所有作品评分平均值之间的偏差。$Bi$ 是一个 $N \times 5$ 的矩阵，其每一行元素是该作品在 $R$ 中的不同状态中的评分平均值与 $R$ 中的总平均值之间的偏差。</p>
+<h2 id="泛化能力">泛化能力</h2><p>　　我们已经推导出了变量的初始值和梯度。通过不断迭代更新 $U$、$V$、$Bu$ 和 $Bi$ 我们可以得到很低的 RMSE。但是矩阵计算量巨大，我们需要在评分系统预估的表现和现有计算能力中取得折中。到底迭代多少次、学习率为多少时合适？</p>
+<p><img src="Anime-iterate.png" alt="Anime iterate"></p>
+<p>　　上图是在动画类别中的 RMSE 随迭代次数变化的变化场景。我按照 7:2:1 的比例将所有动画作品评分划分为训练集、验证集和测试集（后来我发现其实这个阶段还不要用测试集）。可以看出，RMSE 在训练集上可以训练到很低，但是更多的迭代次数对验证集的 RMSE 下降作用不大。因此，我选取了在验证集 RMSE 下降曲线的第二个拐点，即迭代次数约为 70 次的位置作为迭代次数。</p>
+<p>　　另外一个参数是学习率的选取。根据经验，学习率选取在 0.0002 时为合适。但即使如此，在计算动画类的时候，学习率在 0.0002、罚项 $\sigma^2$ 在 10 的时候还会发散。因此动画类的学习率在迭代 10 次之后，以 0.00002 的学习率继续迭代下降。</p>
+<h2 id="余弦距离">余弦距离</h2><p>　　在预估出所有已收藏未评分的作品评分之后，我仍然采用余弦距离计算用户之间的同步率。正如上文所说，这样用户未收藏的作品不会影响同步率。目前阶段，我不想让用户看到某位和他/她同步率很高的人看的是完全不同的动画——尽管它们有相同的概念。</p>
+<p>　　在同步率过去的反馈里，我总是听到有人抱怨有收藏了个位数作品的人进入了他们的前十榜单。但是，只要同步率还是采取这样的保守定义：即在作品空间的余弦距离，这种现象永远不会得到根治。</p>
+<p>　　设想一下，如果用户 A 看过的作品是你的子集，而用户 B 看过更多的作品，他不仅看过 A 的作品，而且还看过更多的你没看过的其他作品，那么可能谁会更高？这个答案毫无疑问是 A 与你的同步率更高——尽管你可能更想让 B 在你的同步率榜单中靠前一些。也就是说，相同条件下，余弦距离的定义使得系统必然偏向收藏数目少的人。</p>
+<p>　　鉴于这样的事实，我想同步率这个玩具，v0.3 就是它最后的一个版本了。如果要以“寻求同好”为目的，就必须抛弃“同步率”这样陈旧的概念。</p>
+<h2 id="下一步？">下一步？</h2><p>　　同步率改的设计，我想已经到达了一个里程碑了，而且我想这也完成了我对 matrix factorization 的实践。但是，寻找同好这一终极目标并没有到达。在接下来，对同好的描述可能将不是余弦距离这样直观的模型就能理解的。我已经想好了会怎么做。所以请期待下一个更棒的玩具吧。</p>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2015-01-17 </div>
+			<div class="article-title"><a href="/2015/01/17/Misha-and-Permutations-Summation/" >Misha and Permutations Summation</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>　　此题为 CF 上的一道中等难度题。题目的原文见<a href="http://codeforces.com/contest/501/problem/D" target="_blank" rel="external">这里</a>。用中文简单说一下吧：给定0到N-1的两个排列，求这两个排列的“和”。之所以会有“和”的概念出现，是因为排列的大小可以依据字典序确定。</p>
+<p>　　所以，解决这个问题需要的两个关键步骤是：根据排列确定字典序大小；根据字典序大小还原排列。</p>
+<p>　　一个排列和其字典序大小是有某种确定关系的。<a href="https://en.wikipedia.org/wiki/Factorial_number_system" target="_blank" rel="external">Factorial number system</a> 就这种关系给出了理论支持。这种关系，是一种可以一一对应并且互相转换的关系。比如说，当 N=3 的时候，所有的排列和其字典序大小关系如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>排列</th>
+<th>字典序大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>012</td>
+<td>0</td>
+</tr>
+<tr>
+<td>021</td>
+<td>1</td>
+</tr>
+<tr>
+<td>102</td>
+<td>2</td>
+</tr>
+<tr>
+<td>120</td>
+<td>3</td>
+</tr>
+<tr>
+<td>201</td>
+<td>4</td>
+</tr>
+<tr>
+<td>210</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>　　要完成互相转换的任务，必须借助于 factorial number system。这种 system 和通常的十进制、十六进制很相似，只是把“基”换成了数乘。比如说，如何表示 42，利用 factorial number system？ 4! &lt; 42 &lt; 5!</p>
+<span>$$\begin{aligned}
+42 &amp; =  1 \times 4! + 3 \times 3! + 0 \times 2! + 0 \times 1! + 0 \times 0! \\
+　 &amp; =  (((1 \times 4 + 3) \times 3 + 0) \times 2 + 0) \times 1 + 0 \\
+　 &amp; =  13000_{!}
+\end{aligned}$$</span><!-- Has MathJax -->
+<p>　　可以看到，首先 42 小于 5!，因此 42 可以由 5 以下的阶乘表示。<strong>在拆分的时候，每一位的数字不得大于当前位的阶乘数字</strong>。如$13000_{!}$的最高位为 1，1&lt;4。各位看官可以自行拆解几个数字看看。</p>
+<p>　　由此，我们可以把第一个表再增加一项，表示出每一个字典序大小的阶乘数系表示：</p>
+<table>
+<thead>
+<tr>
+<th>排列</th>
+<th>阶乘数系</th>
+<th>字典序大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>012</td>
+<td>000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>021</td>
+<td>010</td>
+<td>1</td>
+</tr>
+<tr>
+<td>102</td>
+<td>100</td>
+<td>2</td>
+</tr>
+<tr>
+<td>120</td>
+<td>110</td>
+<td>3</td>
+</tr>
+<tr>
+<td>201</td>
+<td>200</td>
+<td>4</td>
+</tr>
+<tr>
+<td>210</td>
+<td>210</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>　　那么在阶乘系统下表示出来的数字，好像和排列没有明显的联系啊。好像还不如用原始的方法，就是直接从排列计算出字典序大小呢。那么这一过程怎么计算呢，用最原始的思路？比如说我们现在有排列 120。其第一个数是 1，那么在第一个数是 0 的时候就已经有了 2! 次排列。再看第二位，是 2。在 2 的前面已经有了 0 的排列（这时候就要去掉 1 了），所以其在第一位数为 1 的情况下第二位数为 2 的之前的排列有 1! 个。再看第三位，是0，这时候排序就已经确定了，加上先前的所有排列，就是 2!+1!+1=4。鉴于字典序从 0 开始计数，减去 1 即可。</p>
+<p>　　可以看到，在使用原始方法计算字典序的时候，在计算后面的数字的时候要记住前面已经使用了什么数字（看官可以拿一个更大的排列计算一下）。因此，我们如果按照这种思路计算的话，很快就会陷入频繁的大小比较中。</p>
+<p>　　如果我们维护一个从 1 到 N 大小的数组，每个数组元素都是 1，并且再维护一个数组，计算其部分和，就会发现，每一次确定某一位之前出现过的数字等于部分和。如果一个数字被用掉了，将其减一，相应的每一位部分和表示该位之前没有被用掉的数字个数。在阶乘系统下表示的数字的每一位，其物理意义就是部分和。我们就此举一个例子：</p>
+<p>　　数组为(1,1,1)，部分和为(1,2,3)，排列为120。数组从 1 开始计数，为了方便，排列每一位加 1 变成 231.</p>
+<ul>
+<li>排列第一位数字 2 索引位置对应的部分和为 2，将其记录下来，并把该位减一. 这时候数组为(1,0,1), 部分和为(1,1,2)；</li>
+<li>排列第二位数字 3 索引位置对应的部分和为 2，将其记录下来，并把该位减一. 这时候数组为(1,0,0), 部分和为(1,1,1)；</li>
+<li>排列第三位数字 1 索引位置对应的部分和为 1，将其记录下来，并把该位减一。</li>
+</ul>
+<p>　　我们记录下来的部分和表示了在这样一个排序中，当某一位没有采用该数字的时候可选择的数字个数。由于排列已经确定，我们把记录下来的部分和减一，变成 110。这样，通过部分和，我们就可以很快计算出排列对应的阶乘系统中的数字。看官可以自己拿一个数字计算一下。</p>
+<p>　　现在我们解决了<strong>从排列到字典序大小的转换问题</strong>，下面要解决的问题就是<strong>字典序大小到排列的转换</strong>了。如何用传统方法解决？我们可以看到阶乘系统下的数字每一位都有“部分和”的意思。同时排列的每一位数字都是不同的。利用这些信息可以从最高位推出排列。首先阶乘系统下的数字的最高位前面没有被选择的数字，它既是部分和，也是排列中的确定数字。在从排列转化为字典序的过程中，确定的数字被减一，变成不可利用，因此部分和中可以利用的部分和只有第一次出现的某个部分和————因为不可利用的数字其值为 0，在部分和中表示为没有变化。</p>
+<p>　　假设我们现在有字典序 2，其对应的阶乘系统数字为 100，我们将其转化为 211。同样地，我们维护数组(1,1,1)和其部分和(1,2,3)。</p>
+<ul>
+<li>阶乘系统下数字最高位为 2，部分和中第一个出现 2 的索引位置为 2，记录该位置，并将该位置减一，现在部分和为(1,1,2);</li>
+<li>阶乘系统下数字次高位为 1，部分和中第一个出现 1 的索引位置为 1，记录该位置，并将该位置减一，现在部分和为(0,0,1)</li>
+<li>阶乘系统下数字最低位为 1，部分和中第一个出现 1 的索引位置为 3，记录该位置。</li>
+</ul>
+<p>　　看官可以发现，之所以记录下来的索引位置是不重复的，是因为每次选取第一个部分和导致了避开使用过的索引位置。记录下来的索引位置为 213，每一位减一等于 102. 看官也可以自己拿一个数字计算一下。</p>
+<p>　　那么在实际操作中，怎么计算部分和并更新部分和呢？如果一个位置发生了改变，以后所有的部分和都要发生改变。一个直接的方法就是通过维护线段树，但是更方便的方法是使用<a href="http://baike.baidu.com/view/1420784.htm" target="_blank" rel="external">树状数组</a>。</p>
+<p>　　树状数组并不直接管理部分和，而是管理某一段的和。对一个长度为 N+1 的数组，其相对应的树状数组与之等长，并且有以下性质：树状数组索引为 n 处的元素管理着索引区间为 [n-lowbit(n)+1, n] 处原始数组区间之和。所谓 lowbit，是指某一个数转化为二进制后最低非零位置转化为一个 2 的整数次方的值。其为 x &amp; (-x)。总而言之，这个数组有着与 2 的整数次方相关联的树状组织。</p>
+<p>　　<img src="tree_array.jpg" alt="Tree Like Array"><br>　　那么要计算部分和，就可以根据这个区间的信息，一块区间一块区间地叠加。可以预见，这样计算部分和的时间复杂度为 O(log n)。</p>
+<p>　　那么如何维护树状数组？我们大可以构建一个原始数组然后在其上构建树状数组，但是鉴于这个问题的部分和是按照索引递增的，而且只在原始数组上执行加减一的操作，我们可以直接构建基于树状数组的加减一操作：在包含当前索引处的区间值加减一即可。可以预见，这样维护树状数组的时间复杂度为 O(log n)。</p>
+<p>　　到了这里，我想解这道题所需要的所有知识已经明确了。下面是我本人写的代码：</p>
+<script src="//gist.github.com/3e6f9a51806662d7fdbf.js"></script>
+
+<p>　　总结：</p>
+<ol>
+<li>排列与指数系统有着一一对应的关系。排列每个数物理意义为部分和索引，指数系统每一位物理意义为部分和。</li>
+<li>树状数组每一个元素试图管理一个 2 的整数次方的大小的长度的数组，lowbit 运算可以实现这一点。</li>
+</ol>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2015-01-03 </div>
+			<div class="article-title"><a href="/2015/01/03/OJ-总结-Depricated/" >OJ 总结(Depricated)</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<h3 id="2015-01-04">2015.01.04</h3><p><a href="https://oj.leetcode.com/problems/search-insert-position/" target="_blank" rel="external">Simple Binary Search</a></p>
+<p>题目大意就是一种更好的 Binary Search，在一个已经排好序的数组里面找到 target，返回 target 索引。如果找不到，那么就返回 target 应该插入的位置。</p>
+<p>我觉得还是 <em>Acclerated C++</em> 那本书给了我很多启示。Binary  search 的搜索区间看作是一个左闭右开区间，每次迭代的过程中，不变的准则是：区间的右边是开区间。这样可以省去考虑中间点恰好是 target 的麻烦。这样做的好处除了省去中间点的考量外，也省略掉了尾端的考虑：在 C 语言中，整数类型向 0 取整，所以 4 是 end 的话，所有小于 4 的数与之相加除以 2 的结果都必然小于 4。</p>
+<p>当然这样没考虑区间左端。有一种情况区间左端小于 target，这时候就简单地和等于的情况合并喽。</p>
+<p>这道题没用迭代。用迭代还可以再缩短时间。</p>
+<p><a href="https://oj.leetcode.com/problems/merge-sorted-array/" target="_blank" rel="external">Merge Sorted Array</a></p>
+<p>给定两个已排好序的数组，把它们 merge 成一个。不要再分配空间。</p>
+<p>按照惯常的思路是从每个数组的开头开始一一比较然后插入，但这不是 Merge Sort。其实可以从每个数组尾端开始，从大到小插入。但是这样会不会污染原有数据呢？用数学方法证明一下即可。</p>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2014-11-01 </div>
+			<div class="article-title"><a href="/2014/11/01/Game-Theory-Note-week-3/" >Game Theory Note - week 3</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>This week’s material is dedicated to concepts “beyond Nash Equilibrium”: iterative removal of strictly dominated strategies, minimax strategies and the minimax theorem for zero-sum game, correlated equilibria.</p>
+<p>Different from previous weeks’ notes, I will illustrate some concepts in Chinese.</p>
+<h2 id="Dominated_Strategies">Dominated Strategies</h2><p>Strictly dominated strategies are based on every player’s rationality: that is, everybody is rational, and everybody knows other players make rational decisions, and everybody knows that also… So, those strategies that are strictly dominated are to be dominated. We can get final strategy by using iterated removal.</p>
+<h3 id="Example_1:_Prisoner’s_dilemma">Example 1: Prisoner’s dilemma</h3><table>
+<thead>
+<tr>
+<th>Prisoner 1 and 2</th>
+<th>Co</th>
+<th>Be</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Co</td>
+<td>-0.5, -0.5</td>
+<td>-10, 0</td>
+</tr>
+<tr>
+<td>Be</td>
+<td>0, -10</td>
+<td>-2, -2</td>
+</tr>
+</tbody>
+</table>
+<p>Follow the rational thinking, both prisoners will chose betrayal because choosing betrayal will definitely have him/her spent somewhat less time in prison in comparison to choosing cooperation. In this case, we say that betrayal dominates cooperation.</p>
+<p>What’s interesting is that the final strategy, which is a Nash Equilibrium, is not optimal in a overall view. This is where dilemma lies, which illustrates that 非零和博弈中，帕累托最优和纳什均衡是相冲突的.</p>
+<h3 id="Example_2:_Intelligent_Pigs">Example 2: Intelligent Pigs</h3><p>The illustration of this game can be found <a href="http://wiki.mbalib.com/wiki/%E4%B8%A5%E6%A0%BC%E5%8A%A3%E5%8A%BF%E7%AD%96%E7%95%A5" target="_blank" rel="external">here</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Small pig and big pig</th>
+<th>Press</th>
+<th>Wait</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Press</td>
+<td>1,5</td>
+<td>-1,9</td>
+</tr>
+<tr>
+<td>Wait</td>
+<td>4,4</td>
+<td>0,0</td>
+</tr>
+</tbody>
+</table>
+<p>In this experiment, we can see that for the small pig, there is a dominate strategy, so the small pig would prefer waiting. After eliminating pressing for small pig, the big pig would chose to press. However, for the big pig, there is no dominate strategy, but after iterative eliminating, (wait, press) becomes the nash equilibrium.</p>
+<p>Someone may question about the relationship between Nash equilibrium and dominant strategy equilibrium. 优势策略均衡和纳什均衡的区别在于：在优势策略均衡中，我所做的是不管你做什么，我所能做的是最好的；在纳什均衡中，我所做的是给定你所做的前提下，我所能做的是最好的，你所做的是在给定我所做的前提下你所能做的是最好的，从二者的关系可以看出，优势策略均衡是纳什均衡的一个特例，一个优势策略均衡首先是一个纳什均衡.</p>
+<h2 id="Maxmin_Strategies_and_Minmax_Strategies">Maxmin Strategies and Minmax Strategies</h2><p>Maxmin strategy is a strategy that maximizes one’s worst-case payoff. Maxmin Value of the game for player i is that minimum payoff guaranteed by a maxmin strategy. A conservative agent would prefer the maxmin strategy.</p>
+<p>Minmax strategy is a strategy that minimizes other’s worst-case payoff.</p>
+<p>Theorem<br>: In any finite, two-player, zero-sum game, in any Nash equilibrium each player receives a payoff that is equal to both his maxmin value and his minmax value.</p>
+<p>Note: in non-zero-sum game, Nash equilibrium may not equal to maxmin or minmax strategy.<a href="http://wiki.mbalib.com/zh-tw/%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E7%AD%96%E7%95%A5" target="_blank" rel="external">^1</a></p>
+<h2 id="Corrleated_Equilibrium">Corrleated Equilibrium</h2><p>Correlated Equilibrium (informal): a randomized assignment of (potentially correlated) action recommendations to agents, such that nobody wants to deviate.</p>
+<p>Reference: Correlated equilibrium<a href="https://en.wikipedia.org/wiki/Correlated_equilibrium" target="_blank" rel="external">^2</a>.</p>
+
+	
+	</div>
+</div>
+
+           
+		
+
+		</div>
+
+		<!-- pagination -->
+		<div>
+  		<center>
+		<div class="pagination">
+<ul class="pagination">
+	 
+		
+          <li class="prev disabled"><a><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+        
+
+        <li><a href="/"><i class="fa fa-home"></i>Home</a></li>
+
+		
+		   <li class="next"> <a href="/page/2/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a> </li>          
+        
+	
+</ul>
+</div>
+
+  		</center>
+		</div>
+
+		
+		
+	</div> <!-- col-md-9 -->
+
+	
+		<div class="col-md-3">
+	<div id="sidebar">
+	
+			
+  <div id="site_search">
+   <div class="form-group">
+    <input type="text" id="local-search-input" name="q" results="0" placeholder="搜索" class="st-search-input st-default-search-input form-control"/>
+   </div>  
+  <div id="local-search-result"></div>
+  </div>
+
+
+		
+			
+	<div class="widget">
+		<h4>分类</h4>
+		<ul class="tag_box inline list-unstyled">
+		
+			<li><a href="/categories/Analytical/">Analytical<span>2</span></a></li>
+		
+			<li><a href="/categories/Competition/">Competition<span>1</span></a></li>
+		
+			<li><a href="/categories/Notes/">Notes<span>6</span></a></li>
+		
+			<li><a href="/categories/OJ-Review/">OJ Review<span>5</span></a></li>
+		
+			<li><a href="/categories/OJ-review/">OJ review<span>3</span></a></li>
+		
+			<li><a href="/categories/Projects/">Projects<span>4</span></a></li>
+		
+		</ul>
+	</div>
+
+		
+			
+	<div class="widget">
+		<h4>标签云</h4>
+		<ul class="tag_box inline list-unstyled">		
+		
+			<li><a href="/tags/tools/">tools<span>1</span></a></li>
+		
+			<li><a href="/tags/Max-flow/">Max flow<span>1</span></a></li>
+		
+			<li><a href="/tags/Game-theory/">Game theory<span>3</span></a></li>
+		
+			<li><a href="/tags/Machine-Learning/">Machine Learning<span>3</span></a></li>
+		
+			<li><a href="/tags/xml/">xml<span>2</span></a></li>
+		
+			<li><a href="/tags/Data-Structure/">Data Structure<span>3</span></a></li>
+		
+			<li><a href="/tags/Minimun-cut/">Minimun cut<span>1</span></a></li>
+		
+			<li><a href="/tags/CUDA-C/">CUDA C<span>1</span></a></li>
+		
+			<li><a href="/tags/apache/">apache<span>2</span></a></li>
+		
+			<li><a href="/tags/wordpress/">wordpress<span>2</span></a></li>
+		
+			<li><a href="/tags/sublime-text-2/">sublime text 2<span>1</span></a></li>
+		
+			<li><a href="/tags/Coursera/">Coursera<span>3</span></a></li>
+		
+			<li><a href="/tags/Algorithm/">Algorithm<span>10</span></a></li>
+		
+			<li><a href="/tags/Backend/">Backend<span>2</span></a></li>
+		
+			<li><a href="/tags/C/">C++<span>10</span></a></li>
+		
+			<li><a href="/tags/matlab/">matlab<span>1</span></a></li>
+		
+		 
+		</ul>
+	</div>
+
+
+		
+			
+<div class="widget">
+  <h4>最新文章</h4>
+  <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2016/10/11/Max-flow-minimum-cut/" ><i class="fa fa-file-o"></i>Max flow, minimum cut...</a>
+      </li>
+    
+      <li>
+        <a href="/2016/06/18/滴滴算法大赛总结/" ><i class="fa fa-file-o"></i>滴滴算法大赛总结...</a>
+      </li>
+    
+      <li>
+        <a href="/2016/02/05/使用-rankit-构建更科学的排名/" ><i class="fa fa-file-o"></i>使用 rankit 构建更科学的排名...</a>
+      </li>
+    
+      <li>
+        <a href="/2015/06/28/欧拉路/" ><i class="fa fa-file-o"></i>欧拉回路...</a>
+      </li>
+    
+      <li>
+        <a href="/2015/05/25/分解质因数/" ><i class="fa fa-file-o"></i>分解质因数...</a>
+      </li>
+    
+  </ul>
+</div>
+
+		
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
+
+	
+	
+</div> <!-- row-fluid -->
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2016 Ronnie Wang
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
+</p> </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>▲</span> 
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
+  <!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    tex2jax: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+      processEscapes: true
+    }
+  });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+      }
+    });
+</script>
+
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax(), i;
+        for(i=0; i < all.length; i += 1) {
+            all[i].SourceElement().parentNode.className += ' has-jax';
+        }
+    });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+</body>
+   </html>
