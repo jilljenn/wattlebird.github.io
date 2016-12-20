@@ -5,7 +5,7 @@
     
     <entry>
       <title><![CDATA[Max flow, minimum cut]]></title>
-      <url>http://wattlebird.github.io/2016/10/11/Max-flow-minimum-cut/</url>
+      <url>https://wattlebird.github.io/2016/10/11/Max-flow-minimum-cut/</url>
       <content type="html"><![CDATA[<p>在微软苏州已经入职了一个月了，生活开始渐渐稳定下来。和在北京的各种不堪相比，我要感谢这次调职，得以让我从 easy 模式开始社畜生活。同时搁置好久的算法又可以得以继续研究下去了。</p>
 <p>今天讲的算法是最大流最小割算法。实际上这个是我在《算法导论》上看来看去都看不明白的一个章节：术语太多，而且代码很少（我好菜啊）。幸运的是，hihoCoder 上面的一系列专题为我垫了不少砖头，让我得以掌握这一块知识。</p>
 <p>对于一个最大流问题，其定义一般都是这样的：有一个有向图 G，源点为 s，汇点为 t，每条边都有其对应的流最大容量 c，源点 s 只有发出的流量，汇点 t 只有汇入的流量，求能从源点到汇点的最大可能流量。</p>
@@ -45,7 +45,7 @@
     
     <entry>
       <title><![CDATA[滴滴算法大赛总结]]></title>
-      <url>http://wattlebird.github.io/2016/06/18/%E6%BB%B4%E6%BB%B4%E7%AE%97%E6%B3%95%E5%A4%A7%E8%B5%9B%E6%80%BB%E7%BB%93/</url>
+      <url>https://wattlebird.github.io/2016/06/18/%E6%BB%B4%E6%BB%B4%E7%AE%97%E6%B3%95%E5%A4%A7%E8%B5%9B%E6%80%BB%E7%BB%93/</url>
       <content type="html"><![CDATA[<p><a href="http://research.xiaojukeji.com/competition/main.action?competitionId=DiTech2016&amp;&amp;locale=zh_CN" target="_blank" rel="external">滴滴算法大赛</a>是一场旨在预测城市交通供给需求不平衡程度的机器学习比赛。这个比赛的赛题是给定待预测的时间节点，预测整个城市在不同区块中需求与供给的差异 gap. 最终的比赛衡量方式是</p>
 <span>$$\begin{equation}
 MAPE = \frac{1}{D}\sum_{d=1}^{D}\left( \frac{1}{T} \sum_{t=1}^{T} \left| \frac{gap_{dt}-s_{dt}}{gap_{dt}}\right|\right) \forall gap_{dt}>0
@@ -78,7 +78,7 @@ MAPE = \frac{1}{D}\sum_{d=1}^{D}\left( \frac{1}{T} \sum_{t=1}^{T} \left| \frac{g
     
     <entry>
       <title><![CDATA[使用 rankit 构建更科学的排名]]></title>
-      <url>http://wattlebird.github.io/2016/02/05/%E4%BD%BF%E7%94%A8-rankit-%E6%9E%84%E5%BB%BA%E6%9B%B4%E7%A7%91%E5%AD%A6%E7%9A%84%E6%8E%92%E5%90%8D/</url>
+      <url>https://wattlebird.github.io/2016/02/05/%E4%BD%BF%E7%94%A8-rankit-%E6%9E%84%E5%BB%BA%E6%9B%B4%E7%A7%91%E5%AD%A6%E7%9A%84%E6%8E%92%E5%90%8D/</url>
       <content type="html"><![CDATA[<p><a href="https://github.com/wattlebird/ranking" target="_blank" rel="external">rankit</a> 是一个使用线性代数和最优化理论为基础的常见排名算法库。这个库是我写的。我说“常见”其实对于绝大部分人来说根本就闻所未闻，但是对于专门研究排名的研究者来说，这里面包含的算法都是比较基础的。自从阅读了一本介绍排名的书籍<a href="https://book.douban.com/subject/25915707/" target="_blank" rel="external">《谁排第一？关于评价和排序的科学》</a>之后，我觉得很有必要把这里面的宝藏介绍给对此一无所知的研究者。作为一个做与机器学习相关研究的研究生，竟然除了 PageRank 和 HITS 其他排名算法一个都没有听说过——课上不教，研究也涉及不到——因为生活中应用这些排名算法的场景，实在是很少接触到。然而，这些排名算法正在美国的体育比赛排名中大行其道。在那本书中，大部分案例直接来源于美国的橄榄球比赛排名。</p>
 <p>然而要我把这本书里面所有的算法都介绍出来，实在是一件难事，一是有侵犯版权的嫌疑，二是其中涉及到大量的数学推导。我在此也只能简单地说一下。每一个排名（rank）由一个既定的评分（rating）产生，评分可以被解释为被排名对象的实力。在一定数学模型的指导下，被排名对象产生了比赛结果。这时候，可以看作 rating 这一因素导致了外在的比赛结果的观测值，这和 state 与 observation 的关系是一样的。根据不同的数学模型，就有了不同的 rating 算法。另外还有一个排名算法不依靠于 rating 数值，它试图给出一个 ranking，使得该排名与比赛的结果最为相符，说白了就是 linear ordering problem.</p>
 <p>那么这种排名算法对我们有什么启示呢？现实生活中好像没有多少排名问题能够用被排名对象之间的比赛来表达啊。搜索引擎的网页排名能用 in-link 和 out-link 表达网页之间的关系，但是网页之间怎么进行比赛呢？事实上，这本书能够拓宽人的眼界的地方就在于此。如果在一个网页排名结果中，网页点击量的大小可以视作在这一场比赛中的结果。网页流量的大小也是网页实力的一个外在特征。在商品排名中，同时购买两件商品的人的评分综合也可以被视为两件商品比赛的结果。事实上，我们应该抛弃“比赛”这种概念，对两个排名对象在同等条件下比较的结果进行 fitting 要远远稳定于计算一个平均分，或是加权平均的结果。</p>
@@ -200,7 +200,7 @@ MAPE = \frac{1}{D}\sum_{d=1}^{D}\left( \frac{1}{T} \sum_{t=1}^{T} \left| \frac{g
     
     <entry>
       <title><![CDATA[欧拉回路]]></title>
-      <url>http://wattlebird.github.io/2015/06/28/%E6%AC%A7%E6%8B%89%E8%B7%AF/</url>
+      <url>https://wattlebird.github.io/2015/06/28/%E6%AC%A7%E6%8B%89%E8%B7%AF/</url>
       <content type="html"><![CDATA[<p>今天讨论的主题是一类问题，就是欧拉路问题。有两种欧拉路。第一种叫做 Eulerian path(trail)，沿着这条路径走能够走遍图中每一条边；第二种叫做 Eularian cycle，沿着这条路径走，不仅能走遍图中每一条边，而且起点和终点都是同一个顶点。注意：欧拉路要求每条边只能走一次，但是对顶点经过的次数没有限制。</p>
 <p>满足什么性质的图才能有欧拉路？根据 <a href="https://en.wikipedia.org/wiki/Eulerian_path" target="_blank" rel="external">wikipedia</a> 对欧拉路的介绍：</p>
 <ul>
@@ -235,7 +235,7 @@ MAPE = \frac{1}{D}\sum_{d=1}^{D}\left( \frac{1}{T} \sum_{t=1}^{T} \left| \frac{g
     
     <entry>
       <title><![CDATA[分解质因数]]></title>
-      <url>http://wattlebird.github.io/2015/05/25/%E5%88%86%E8%A7%A3%E8%B4%A8%E5%9B%A0%E6%95%B0/</url>
+      <url>https://wattlebird.github.io/2015/05/25/%E5%88%86%E8%A7%A3%E8%B4%A8%E5%9B%A0%E6%95%B0/</url>
       <content type="html"><![CDATA[<p>今天要说的题目来源于 <a href="http://codeforces.com/contest/546/problem/D" target="_blank" rel="external">Soldier and Number Game</a>. 这道题到底干什么呢，说白了就是求两个数$1 \le b \le a \le 5 000 000$之间的所有数的质因数数目之和。快速求解一个数的质因数数目是这道题的关键。</p>
 <p><a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" target="_blank" rel="external">Sieve of Eratosthenes</a> 是这道题的关键。这是一个求解质数/质数判定的方法，其思想是筛选出一个质数的整数倍，质数的整数倍必然不是质数，所以都被筛选出去。在没有筛选的结果中继续求解当前最小数字的整数倍，直至筛完为止。其 C++ 代码如下所示：</p>
 <figure class="highlight cpp"><figcaption><span>Sieve of Eratosthenes</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// prime number table from 2 to 5000000</span></span><br><span class="line"><span class="comment">// those who have number 0 are prime numbers.</span></span><br><span class="line"><span class="keyword">int</span> table[<span class="number">5000001</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build_table</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> limit = <span class="built_in">sqrt</span>(<span class="number">5000000</span>)+<span class="number">1</span>;</span><br><span class="line">    table[<span class="number">0</span>]=table[<span class="number">1</span>]=-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=limit; i++)</span><br><span class="line">        <span class="keyword">if</span>(!table[i])</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">2</span>; j*i&lt;=<span class="number">5000000</span>; j++)</span><br><span class="line">                table[i*j]=i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isprime</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;<span class="keyword">return</span> !table[i];&#125;</span><br></pre></td></tr></table></figure>
@@ -248,7 +248,7 @@ MAPE = \frac{1}{D}\sum_{d=1}^{D}\left( \frac{1}{T} \sum_{t=1}^{T} \left| \frac{g
     
     <entry>
       <title><![CDATA[Combination Sum]]></title>
-      <url>http://wattlebird.github.io/2015/04/26/Combination-Sum/</url>
+      <url>https://wattlebird.github.io/2015/04/26/Combination-Sum/</url>
       <content type="html"><![CDATA[<p>Combination sum <a href="https://leetcode.com/problems/combination-sum/" target="_blank" rel="external">1</a> and <a href="https://leetcode.com/problems/combination-sum-ii/" target="_blank" rel="external">2</a> 是 Leetcode 上面两道比较相似的题目。今天写这个题目是因为这个题目有不同的解法。</p>
 <p>这两道题目都是给定一组数，给定一个 target，然后求出这组数中哪几个可以组合成 target。不同的地方是，第一道题要求数字可以被重复利用以组合成 target；第二道题要求数字不可以被重复利用。Seems easy, hmm?</p>
 <p>首先说说我的想法和做法。首先通过观察可以得知，求一个 target 的 combination 可以被拆分成给定某个已知数的剩下数值的 combination 的子问题。于是乎，可以在确定一个 candidate 的同时试图解决这个子问题，子问题应该返回一个所有解的列表，把该 candidate 加入所有解的尾部即可。</p>
@@ -272,7 +272,7 @@ MAPE = \frac{1}{D}\sum_{d=1}^{D}\left( \frac{1}{T} \sum_{t=1}^{T} \left| \frac{g
     
     <entry>
       <title><![CDATA[How I build up Chi: 同步率改 v0.3 实现细节]]></title>
-      <url>http://wattlebird.github.io/2015/03/08/How-I-build-up-Chi-%E5%90%8C%E6%AD%A5%E7%8E%87%E6%94%B9-v0-3-%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82/</url>
+      <url>https://wattlebird.github.io/2015/03/08/How-I-build-up-Chi-%E5%90%8C%E6%AD%A5%E7%8E%87%E6%94%B9-v0-3-%E5%AE%9E%E7%8E%B0%E7%BB%86%E8%8A%82/</url>
       <content type="html"><![CDATA[<p>　　我想我已经好久都没写日志了，因为每天都会学到太多的新东西，虽然想记录下来，但实在是有心无力——太耗时间。不过我想仍然有里程碑意义的成果必须记录下来。这个<a href="http://ikely.me/chi/similarity" target="_blank" rel="external">同步率改 v0.3</a> 就是一个。</p>
 <p>　　Bangumi 番组计划有一个可以内置的查看用户间同步率的功能，但是这个功能很简陋，也很不科学。我通过爬取 Bangumi 用户作品收藏信息，计算出了比较科学一点的同步率，使得品味相近的用户可以互相认识。</p>
 <p>　　稍有常识的人就会看出，这实际上就是一个推荐系统嘛：推荐与你相似的用户。但是目前的同步率改不能完全算是一个推荐系统，只能说起到了某些推荐系统的功能而已。现在的“同步率改”之所以还保留着“同步率”的称法，是为了让 BGMer 在旧同步率和新同步率之间保持无缝概念接受：如果我没有标注某部作品，那么这部作品不应该在同步率上有所贡献。所以在到目前为止，所有的同步率计算都是在作品空间中进行的而非概念空间。</p>
@@ -312,7 +312,7 @@ Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\le
     
     <entry>
       <title><![CDATA[Misha and Permutations Summation]]></title>
-      <url>http://wattlebird.github.io/2015/01/17/Misha-and-Permutations-Summation/</url>
+      <url>https://wattlebird.github.io/2015/01/17/Misha-and-Permutations-Summation/</url>
       <content type="html"><![CDATA[<p>　　此题为 CF 上的一道中等难度题。题目的原文见<a href="http://codeforces.com/contest/501/problem/D" target="_blank" rel="external">这里</a>。用中文简单说一下吧：给定0到N-1的两个排列，求这两个排列的“和”。之所以会有“和”的概念出现，是因为排列的大小可以依据字典序确定。</p>
 <p>　　所以，解决这个问题需要的两个关键步骤是：根据排列确定字典序大小；根据字典序大小还原排列。</p>
 <p>　　一个排列和其字典序大小是有某种确定关系的。<a href="https://en.wikipedia.org/wiki/Factorial_number_system" target="_blank" rel="external">Factorial number system</a> 就这种关系给出了理论支持。这种关系，是一种可以一一对应并且互相转换的关系。比如说，当 N=3 的时候，所有的排列和其字典序大小关系如下所示：</p>
@@ -434,7 +434,7 @@ Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\le
     
     <entry>
       <title><![CDATA[OJ 总结(Depricated)]]></title>
-      <url>http://wattlebird.github.io/2015/01/03/OJ-%E6%80%BB%E7%BB%93-Depricated/</url>
+      <url>https://wattlebird.github.io/2015/01/03/OJ-%E6%80%BB%E7%BB%93-Depricated/</url>
       <content type="html"><![CDATA[<h3 id="2015-01-04">2015.01.04</h3><p><a href="https://oj.leetcode.com/problems/search-insert-position/" target="_blank" rel="external">Simple Binary Search</a></p>
 <p>题目大意就是一种更好的 Binary Search，在一个已经排好序的数组里面找到 target，返回 target 索引。如果找不到，那么就返回 target 应该插入的位置。</p>
 <p>我觉得还是 <em>Acclerated C++</em> 那本书给了我很多启示。Binary  search 的搜索区间看作是一个左闭右开区间，每次迭代的过程中，不变的准则是：区间的右边是开区间。这样可以省去考虑中间点恰好是 target 的麻烦。这样做的好处除了省去中间点的考量外，也省略掉了尾端的考虑：在 C 语言中，整数类型向 0 取整，所以 4 是 end 的话，所有小于 4 的数与之相加除以 2 的结果都必然小于 4。</p>
@@ -448,7 +448,7 @@ Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\le
     
     <entry>
       <title><![CDATA[Game Theory Note - week 3]]></title>
-      <url>http://wattlebird.github.io/2014/11/01/Game-Theory-Note-week-3/</url>
+      <url>https://wattlebird.github.io/2014/11/01/Game-Theory-Note-week-3/</url>
       <content type="html"><![CDATA[<p>This week’s material is dedicated to concepts “beyond Nash Equilibrium”: iterative removal of strictly dominated strategies, minimax strategies and the minimax theorem for zero-sum game, correlated equilibria.</p>
 <p>Different from previous weeks’ notes, I will illustrate some concepts in Chinese.</p>
 <h2 id="Dominated_Strategies">Dominated Strategies</h2><p>Strictly dominated strategies are based on every player’s rationality: that is, everybody is rational, and everybody knows other players make rational decisions, and everybody knows that also… So, those strategies that are strictly dominated are to be dominated. We can get final strategy by using iterated removal.</p>
@@ -510,7 +510,7 @@ Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\le
     
     <entry>
       <title><![CDATA[Game Theory Note - week 2]]></title>
-      <url>http://wattlebird.github.io/2014/10/18/Game-Theory-Note-week-2/</url>
+      <url>https://wattlebird.github.io/2014/10/18/Game-Theory-Note-week-2/</url>
       <content type="html"><![CDATA[<p>This week’s Game Theory is dedicated to Mixed-Strategy Nash Equilibrium.</p>
 <p>Mixed strategy, different from pure strategy, means that players can choose an action according to a specific probability distribution (among all possible actions). The following concepts and definitions all derives from this idea:</p>
 <p>Strategy $s_i$<br>: any probability distribution over the actions $A_i$ for agent i.</p>
@@ -533,7 +533,7 @@ P(a|s) = \prod_{j \in N} s_j(a_j)
     
     <entry>
       <title><![CDATA[Game Theory Note - week 1]]></title>
-      <url>http://wattlebird.github.io/2014/10/12/Game-Theory-Note-week-1/</url>
+      <url>https://wattlebird.github.io/2014/10/12/Game-Theory-Note-week-1/</url>
       <content type="html"><![CDATA[<p>This week’s game theory was dedicated to introduction, overview, uses of game theory, some applications and examples, and formal definitions of: the normal form, payoffs, strategies, pure strategy Nash equilibrium, dominant strategies..</p>
 <h2 id="Define_a_Game">Define a Game</h2><ol>
 <li>Normal form: List what payoffs get as a function of their actions.</li>
@@ -585,7 +585,7 @@ P(a|s) = \prod_{j \in N} s_j(a_j)
     
     <entry>
       <title><![CDATA[一种树的表达法]]></title>
-      <url>http://wattlebird.github.io/2014/10/04/%E4%B8%80%E7%A7%8D%E6%A0%91%E7%9A%84%E8%A1%A8%E8%BE%BE%E6%B3%95/</url>
+      <url>https://wattlebird.github.io/2014/10/04/%E4%B8%80%E7%A7%8D%E6%A0%91%E7%9A%84%E8%A1%A8%E8%BE%BE%E6%B3%95/</url>
       <content type="html"><![CDATA[<p>《算法导论》教导我们，图有两种表达方法：邻接链表和邻接矩阵。至少是对于有环的图来说，的确是这样。对于树和图究竟怎样表达最好，我一直都在摸索之中。以前在写与图有关的算法的时候，总是要把整个邻接链表（通常是一个很大的<code>std::vector&lt;std::list&lt;T&gt;&gt;&amp;</code>）当作参数的一部分送进去。这样看着就很别扭，但是这确实是严格按照《算法导论》的定义实现的。</p>
 <p>因此我对我的代码质量深表担忧。但是幸运的是，最近我开始学习起别人的代码，从中获得了一些启示。今天总结的是这么一种特殊的图————自由树的表达方法。这种方法高效，无论是从时间上还是空间上。</p>
 <p>假定现在给出一系列树边，每行一条树边记录，由两个数组成。第一个数代表父结点，第二个数代表子结点。这一系列树边可以组成一棵树（或一片森林）。对于这样的信息，利用下面这种方法可以给出高效的表达。</p>
@@ -614,7 +614,7 @@ P(a|s) = \prod_{j \in N} s_j(a_j)
     
     <entry>
       <title><![CDATA[树的直径]]></title>
-      <url>http://wattlebird.github.io/2014/09/21/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/</url>
+      <url>https://wattlebird.github.io/2014/09/21/%E6%A0%91%E7%9A%84%E7%9B%B4%E5%BE%84/</url>
       <content type="html"><![CDATA[<p>求一个自由树的直径。对于直径，《算法导论》第三版 349 页练习 22.2-8 上面这么定义道：</p>
 <blockquote>
 <p>树中所有最短路径的最大值即为树的直径。</p>
@@ -653,7 +653,7 @@ P(a|s) = \prod_{j \in N} s_j(a_j)
     
     <entry>
       <title><![CDATA[二叉搜索树与快速排序的内在相似性]]></title>
-      <url>http://wattlebird.github.io/2014/07/27/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%9A%84%E5%86%85%E5%9C%A8%E7%9B%B8%E4%BC%BC%E6%80%A7/</url>
+      <url>https://wattlebird.github.io/2014/07/27/%E4%BA%8C%E5%8F%89%E6%90%9C%E7%B4%A2%E6%A0%91%E4%B8%8E%E5%BF%AB%E9%80%9F%E6%8E%92%E5%BA%8F%E7%9A%84%E5%86%85%E5%9C%A8%E7%9B%B8%E4%BC%BC%E6%80%A7/</url>
       <content type="html"><![CDATA[<p>对我来说，对随机事件的分析，恐怕是最难的。我原以为我数学学得还可以，直到我遇上了随机过程。这篇 blog 所讲的是算法分析，其中涉及到大量对随机情况的分析。因此我在此将其梳理一下，特别注重挖掘不同算法之间的分析过程的相似性。</p>
 <p>快速排序是一种原址排序方法，随机化的快排具有 <em>O(nlgn)</em> 的期望运行时间。这个在《算法导论》（第三版）的 7.4.2 节中有一个以比较操作为中心的证明方法。这个证明的核心思想就是：快速排序是由多次 partition 过程组成的，因此关键问题就在于获得 partition 过程的运行时间和运行 partition 过程的次数。partition 过程的最大运行次数是 n-1 次，可以记为 <em>O(n)</em> ，对于其运行时间，练习 7.1-3 给出的结论是 <em>Θ(n)</em> 。这样乍一算，似乎是 <em>O($n^2$)</em> 的时间复杂度。这样计算是错误的，因为 partition 的时间复杂度与其长度有关。这里，我们需要更为细致的分析。决定 partition 运行时间的是其内部循环次数。这个循环次数可以统计每次必须运行的比较次数而得到。通过计算整个 quicksort 的比较次数，我们就可以得到真正的 partition 循环次数。而这个比较次数的期望值，可以通过拆分成示性随机变量相加得到。这个分析的精华之处就在于分析出每两个元素进行比较的概率。很有意思，可以进行比较的组合是 <em>Θ($n^2$)</em> ，但是最终全部比较次数的期望是 <em>O(n lgn)</em> 。</p>
 <p>当然这个只是作为复习，不是今天的重点。这个方法实在是太不直观了点。这次我们用类似于 merge-sort 的分析方法进行分析。</p>
@@ -687,7 +687,7 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
     
     <entry>
       <title><![CDATA[简单易懂的XML parsing——Qt篇]]></title>
-      <url>http://wattlebird.github.io/2014/05/30/%E7%AE%80%E5%8D%95%E6%98%93%E6%87%82%E7%9A%84XML-parsing%E2%80%94%E2%80%94Qt%E7%AF%87/</url>
+      <url>https://wattlebird.github.io/2014/05/30/%E7%AE%80%E5%8D%95%E6%98%93%E6%87%82%E7%9A%84XML-parsing%E2%80%94%E2%80%94Qt%E7%AF%87/</url>
       <content type="html"><![CDATA[<p>关于XML的文章我先前写过一篇。之后就再也没写过。原因是很简单的。虽然那篇文章是用Matlab的代码说明XML解析，但是XML的基本概念都是一致的，我也没必要再就C++或是Python等语言再写一遍在其他语言下面怎么用其他的库解析XML，都是大同小异。</p>
 <p>可是这个世界上奇葩比较多。最近在做《网络通信原理》的project的时候，用到了Qt里面的QXmlStreamReader。有意思的是，这个东西不按常理出牌。为说明这个特性，我引用Qt 5关于QXmlStreamReader上面的一段话：</p>
 <blockquote>
@@ -712,7 +712,7 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
     
     <entry>
       <title><![CDATA[简单易懂的XML parsing]]></title>
-      <url>http://wattlebird.github.io/2014/03/11/%E7%AE%80%E5%8D%95%E6%98%93%E6%87%82%E7%9A%84XML-parsing/</url>
+      <url>https://wattlebird.github.io/2014/03/11/%E7%AE%80%E5%8D%95%E6%98%93%E6%87%82%E7%9A%84XML-parsing/</url>
       <content type="html"><![CDATA[<p>读取一个XML文件，返回一个DOM对象。</p>
 <p>什么是DOM对象？全称为Document Object Model, XML文件中的每一个东西都对应为一个node。DOM node的属性和方法遵循国际互联网的标准。</p>
 <p>有以下类型的nodes：</p>
@@ -747,7 +747,7 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
     
     <entry>
       <title><![CDATA[简单易懂的Sublime Text 2]]></title>
-      <url>http://wattlebird.github.io/2014/02/04/%E7%AE%80%E5%8D%95%E6%98%93%E6%87%82%E7%9A%84Sublime-Text-2/</url>
+      <url>https://wattlebird.github.io/2014/02/04/%E7%AE%80%E5%8D%95%E6%98%93%E6%87%82%E7%9A%84Sublime-Text-2/</url>
       <content type="html"><![CDATA[<p>由于这几天一看见Python自带的IDLE我就作呕，我觉得很有必要花点时间研究一下<a href="http://www.sublimetext.com/" target="_blank" rel="external">Sublime Text 2</a>。</p>
 <p>为什么要用Sublime Text 2？其实我也不知道。我第一次知道这个编辑器是在Azure的培训上。后来我发现，许多专业人士都非常推崇此编辑器。Sublime Text 2在Windows、Mac和Linux下都有相应的版本。</p>
 <p>如果你去看Sublime Text 2的主页，你会发现这个编辑器的最大优点就是多光标编辑。没有其他任何一个编辑器能做到这一点。</p>
@@ -778,7 +778,7 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
     
     <entry>
       <title><![CDATA[坡道的起点——AWS上Wordpress建站小记]]></title>
-      <url>http://wattlebird.github.io/2014/01/26/%E5%9D%A1%E9%81%93%E7%9A%84%E8%B5%B7%E7%82%B9%E2%80%94%E2%80%94AWS%E4%B8%8AWordpress%E5%BB%BA%E7%AB%99%E5%B0%8F%E8%AE%B0/</url>
+      <url>https://wattlebird.github.io/2014/01/26/%E5%9D%A1%E9%81%93%E7%9A%84%E8%B5%B7%E7%82%B9%E2%80%94%E2%80%94AWS%E4%B8%8AWordpress%E5%BB%BA%E7%AB%99%E5%B0%8F%E8%AE%B0/</url>
       <content type="html"><![CDATA[<p>经过若干天的反复瞎搞，这个名为”Pursuing Freedom”的博客终于上线了。</p>
 <p>建立一个个人博客本来不是难事，只要你肯花钱。国内国外本来就有很多主机提供商，而且有些还是提供注册域名、服务器搭建的一条龙服务。但是Ike酱认为，有钱首先应该花在手办上，其他的能省就省～上个学期接受了一个Azure的培训，从那个培训中Ike酱得知现在云服务可以做很多事情。而且亚马逊的AWS在一定的使用范围内是免费的，这就提供了无限多的可能构造一个自由定制的主页。下面Ike将会把这次建站的各个方面记录一下，供以后参考。</p>
 <p>首先我们从AWS讲起。AWS全称Amazon Web Services。和Windows Azure一样，AWS提供了一系列云解决方案。在注册AWS用户的一年时间之内，可以在限定的范围内，免费使用AWS的部分服务。有关这些详情，请参考<a href="http://docs.aws.amazon.com/gettingstarted/latest/awsgsg-intro/gsg-aws-free-tier.html" target="_blank" rel="external">How Do I Get Started with the Free Usage Tier?</a>。</p>
@@ -798,7 +798,7 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
     
     <entry>
       <title><![CDATA[Permalink 404 Error 之解决方案]]></title>
-      <url>http://wattlebird.github.io/2014/01/26/Permalink-404-Error-%E4%B9%8B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
+      <url>https://wattlebird.github.io/2014/01/26/Permalink-404-Error-%E4%B9%8B%E8%A7%A3%E5%86%B3%E6%96%B9%E6%A1%88/</url>
       <content type="html"><![CDATA[<p>Ike本人在设置wordpress的时候，在settings里面发现了Permalink。从这个页面的主要介绍来看，Permalink的作用就是自定义文章的Link，使之更为结构化和友好。</p>
 <p>但是当Ike设置了某个除Default之外的某个Permalink的时候，如果点击一篇发表的文章，就会出现Page Not Found的404错误。</p>
 <p>经反复查证，Ike发现Permalink与.htaccess和Apache的设置紧密相关。</p>
@@ -821,7 +821,7 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
     
     <entry>
       <title><![CDATA[关于 CUDA 中 reduction 运算的优化]]></title>
-      <url>http://wattlebird.github.io/2013/07/20/%E5%85%B3%E4%BA%8E-CUDA-%E4%B8%AD-reduction-%E8%BF%90%E7%AE%97%E7%9A%84%E4%BC%98%E5%8C%96/</url>
+      <url>https://wattlebird.github.io/2013/07/20/%E5%85%B3%E4%BA%8E-CUDA-%E4%B8%AD-reduction-%E8%BF%90%E7%AE%97%E7%9A%84%E4%BC%98%E5%8C%96/</url>
       <content type="html"><![CDATA[<p>最近在Udacity上学习有关基于CUDA的并行运算。在学习当中除了Udacity上面所给的资源以外，我本人还查找了很多其他资料。我计划把我所查找到的这些资料写成技术blog，以供以后查阅。</p>
 <p>在Unit 3当中，讲到了三种常见的并行运算：reduce、scan和histogram。简单地讲，reduce运算的输入是一个数据集，和一个运算符（二值，结合性），输出为一个数据，其为数据集中的数据依次与运算符相作用后的结果，如求和、求最大值、求最小值都是reduce. Scan运算的输入是一个数组，一个二值运算符和一个identity element. 这个identity element正如0之于加，1之于乘。常见的scan运算为求累积概率。当然我这种说法很不科学，只要能意会就行了。</p>
 <p>最常见的reduce算法就是利用了完全二叉树的结构，分两步完成：</p>
