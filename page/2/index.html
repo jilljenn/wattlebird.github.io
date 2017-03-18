@@ -118,6 +118,84 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
+			<div class="date"> 2014-11-01 </div>
+			<div class="article-title"><a href="/2014/11/01/Game-Theory-Note-week-3/" >Game Theory Note - week 3</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>This week’s material is dedicated to concepts “beyond Nash Equilibrium”: iterative removal of strictly dominated strategies, minimax strategies and the minimax theorem for zero-sum game, correlated equilibria.</p>
+<p>Different from previous weeks’ notes, I will illustrate some concepts in Chinese.</p>
+<h2 id="Dominated_Strategies">Dominated Strategies</h2><p>Strictly dominated strategies are based on every player’s rationality: that is, everybody is rational, and everybody knows other players make rational decisions, and everybody knows that also… So, those strategies that are strictly dominated are to be dominated. We can get final strategy by using iterated removal.</p>
+<h3 id="Example_1:_Prisoner’s_dilemma">Example 1: Prisoner’s dilemma</h3><table>
+<thead>
+<tr>
+<th>Prisoner 1 and 2</th>
+<th>Co</th>
+<th>Be</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Co</td>
+<td>-0.5, -0.5</td>
+<td>-10, 0</td>
+</tr>
+<tr>
+<td>Be</td>
+<td>0, -10</td>
+<td>-2, -2</td>
+</tr>
+</tbody>
+</table>
+<p>Follow the rational thinking, both prisoners will chose betrayal because choosing betrayal will definitely have him/her spent somewhat less time in prison in comparison to choosing cooperation. In this case, we say that betrayal dominates cooperation.</p>
+<p>What’s interesting is that the final strategy, which is a Nash Equilibrium, is not optimal in a overall view. This is where dilemma lies, which illustrates that 非零和博弈中，帕累托最优和纳什均衡是相冲突的.</p>
+<h3 id="Example_2:_Intelligent_Pigs">Example 2: Intelligent Pigs</h3><p>The illustration of this game can be found <a href="http://wiki.mbalib.com/wiki/%E4%B8%A5%E6%A0%BC%E5%8A%A3%E5%8A%BF%E7%AD%96%E7%95%A5" target="_blank" rel="external">here</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Small pig and big pig</th>
+<th>Press</th>
+<th>Wait</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Press</td>
+<td>1,5</td>
+<td>-1,9</td>
+</tr>
+<tr>
+<td>Wait</td>
+<td>4,4</td>
+<td>0,0</td>
+</tr>
+</tbody>
+</table>
+<p>In this experiment, we can see that for the small pig, there is a dominate strategy, so the small pig would prefer waiting. After eliminating pressing for small pig, the big pig would chose to press. However, for the big pig, there is no dominate strategy, but after iterative eliminating, (wait, press) becomes the nash equilibrium.</p>
+<p>Someone may question about the relationship between Nash equilibrium and dominant strategy equilibrium. 优势策略均衡和纳什均衡的区别在于：在优势策略均衡中，我所做的是不管你做什么，我所能做的是最好的；在纳什均衡中，我所做的是给定你所做的前提下，我所能做的是最好的，你所做的是在给定我所做的前提下你所能做的是最好的，从二者的关系可以看出，优势策略均衡是纳什均衡的一个特例，一个优势策略均衡首先是一个纳什均衡.</p>
+<h2 id="Maxmin_Strategies_and_Minmax_Strategies">Maxmin Strategies and Minmax Strategies</h2><p>Maxmin strategy is a strategy that maximizes one’s worst-case payoff. Maxmin Value of the game for player i is that minimum payoff guaranteed by a maxmin strategy. A conservative agent would prefer the maxmin strategy.</p>
+<p>Minmax strategy is a strategy that minimizes other’s worst-case payoff.</p>
+<p>Theorem<br>: In any finite, two-player, zero-sum game, in any Nash equilibrium each player receives a payoff that is equal to both his maxmin value and his minmax value.</p>
+<p>Note: in non-zero-sum game, Nash equilibrium may not equal to maxmin or minmax strategy.<a href="http://wiki.mbalib.com/zh-tw/%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E7%AD%96%E7%95%A5" target="_blank" rel="external">^1</a></p>
+<h2 id="Corrleated_Equilibrium">Corrleated Equilibrium</h2><p>Correlated Equilibrium (informal): a randomized assignment of (potentially correlated) action recommendations to agents, such that nobody wants to deviate.</p>
+<p>Reference: Correlated equilibrium<a href="https://en.wikipedia.org/wiki/Correlated_equilibrium" target="_blank" rel="external">^2</a>.</p>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
 			<div class="date"> 2014-10-18 </div>
 			<div class="article-title"><a href="/2014/10/18/Game-Theory-Note-week-2/" >Game Theory Note - week 2</a></div>						
 		</h3>
@@ -545,45 +623,6 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 
            
 		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2014-01-26 </div>
-			<div class="article-title"><a href="/2014/01/26/Permalink-404-Error-之解决方案/" >Permalink 404 Error 之解决方案</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>Ike本人在设置wordpress的时候，在settings里面发现了Permalink。从这个页面的主要介绍来看，Permalink的作用就是自定义文章的Link，使之更为结构化和友好。</p>
-<p>但是当Ike设置了某个除Default之外的某个Permalink的时候，如果点击一篇发表的文章，就会出现Page Not Found的404错误。</p>
-<p>经反复查证，Ike发现Permalink与.htaccess和Apache的设置紧密相关。</p>
-<p>如果我们在Settings页面的Permalink中就某个选项进行了保存，wordpress在后台就会改写.htaccess：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"># BEGIN WordPress&#10;&#60;IfModule mod_rewrite.c&#62;&#10;RewriteEngine On&#10;RewriteBase /blog/&#10;RewriteRule ^index\.php$ - [L]&#10;RewriteCond %&#123;REQUEST_FILENAME&#125; !-f&#10;RewriteCond %&#123;REQUEST_FILENAME&#125; !-d&#10;RewriteRule . /blog/index.php [L]&#10;&#60;/IfModule&#62;&#10;# END WordPress</span><br></pre></td></tr></table></figure>
-<p>这个.htaccess文件是存放在网页的根目录下的，和wp-config.php存放的位置一样。如果wordpress不能改写此文件，则需要手动改写，但需要注意到的是Ike本人的网页是放在/blog文件夹下的，如果放在别的文件夹下，正确的.htaccess内容可能和上面不一样。</p>
-<p>如果成功改写.htaccess，只是成功了一半。因为Ike本人发现即使赋予了后台改写.htaccess的权限，还是不能访问。</p>
-<p>有文献报道指出，Apache需要使能rewrite_module才能使得Permalink正常工作。这就需要改写Aapche的配置文件。</p>
-<p>运行以下命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo find / -type f -iname &#34;httpd.conf&#34;</span><br></pre></td></tr></table></figure>
-<p>找到Apache的配置文件的位置。据相关文献报道，需要做的是将</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#LoadModule rewrite_module modules/mod_rewrite.so</span><br></pre></td></tr></table></figure>
-<p>的注释去掉。</p>
-<p>但甚为坑爹的是，Ike发现虚拟机上的Apache配置文件本来就没有把这一行给注释掉。</p>
-<p>经过一番查证，这里一篇<a href="https://stackoverflow.com/questions/17206524/404-error-after-changing-permalinks-wordpress" target="_blank" rel="external">帖子</a>为我们给出了解决方案的暗示。于是Ike在配置文件下找到了如下若干行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">#&#10;# Each directory to which Apache has access can be configured with respect&#10;# to which services and features are allowed and/or disabled in that&#10;# directory (and its subdirectories).&#10;#&#10;# First, we configure the &#34;default&#34; to be a very restrictive set of&#10;# features.&#10;#&#10;&#60;Directory /&#62;&#10;    Options FollowSymLinks&#10;    AllowOverride All&#10;&#60;/Directory&#62;&#10;&#10;...&#10;&#10;#&#10;# Possible values for the Options directive are &#34;None&#34;, &#34;All&#34;,&#10;# or any combination of:&#10;#   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews&#10;#&#10;# Note that &#34;MultiViews&#34; must be named *explicitly* --- &#34;Options All&#34;&#10;# doesn&#39;t give it to you.&#10;#&#10;# The Options directive is both complicated and important.  Please see&#10;# http://httpd.apache.org/docs/2.2/mod/core.html#options&#10;# for more information.&#10;#&#10;    Options Indexes FollowSymLinks&#10;&#10;#&#10;# AllowOverride controls what directives may be placed in .htaccess files.&#10;# AllowOverride controls what directives may be placed in .htaccess files.&#10;# It can be &#34;All&#34;, &#34;None&#34;, or any combination of the keywords:&#10;#   Options FileInfo AuthConfig Limit&#10;#&#10;    AllowOverride All</span><br></pre></td></tr></table></figure>
-<p>按照上面配置，再重启Apache即可。大功告成。</p>
-
-	
-	</div>
-</div>
-
-           
-		
 
 		</div>
 
@@ -634,7 +673,7 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 		
 			<li><a href="/categories/Analytical/">Analytical<span>2</span></a></li>
 		
-			<li><a href="/categories/Competition/">Competition<span>1</span></a></li>
+			<li><a href="/categories/Competition/">Competition<span>2</span></a></li>
 		
 			<li><a href="/categories/Notes/">Notes<span>6</span></a></li>
 		
@@ -653,37 +692,37 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 		<h4>标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/xml/">xml<span>2</span></a></li>
-		
-			<li><a href="/tags/apache/">apache<span>2</span></a></li>
-		
-			<li><a href="/tags/tools/">tools<span>1</span></a></li>
-		
-			<li><a href="/tags/Coursera/">Coursera<span>3</span></a></li>
-		
 			<li><a href="/tags/wordpress/">wordpress<span>2</span></a></li>
-		
-			<li><a href="/tags/sublime-text-2/">sublime text 2<span>1</span></a></li>
-		
-			<li><a href="/tags/C/">C++<span>10</span></a></li>
-		
-			<li><a href="/tags/Backend/">Backend<span>2</span></a></li>
-		
-			<li><a href="/tags/Algorithm/">Algorithm<span>10</span></a></li>
 		
 			<li><a href="/tags/matlab/">matlab<span>1</span></a></li>
 		
-			<li><a href="/tags/Max-flow/">Max flow<span>1</span></a></li>
+			<li><a href="/tags/tools/">tools<span>1</span></a></li>
 		
 			<li><a href="/tags/CUDA-C/">CUDA C<span>1</span></a></li>
 		
-			<li><a href="/tags/Machine-Learning/">Machine Learning<span>3</span></a></li>
+			<li><a href="/tags/C/">C++<span>10</span></a></li>
+		
+			<li><a href="/tags/xml/">xml<span>2</span></a></li>
 		
 			<li><a href="/tags/Game-theory/">Game theory<span>3</span></a></li>
+		
+			<li><a href="/tags/Algorithm/">Algorithm<span>10</span></a></li>
+		
+			<li><a href="/tags/Machine-Learning/">Machine Learning<span>4</span></a></li>
+		
+			<li><a href="/tags/Backend/">Backend<span>2</span></a></li>
+		
+			<li><a href="/tags/apache/">apache<span>2</span></a></li>
+		
+			<li><a href="/tags/sublime-text-2/">sublime text 2<span>1</span></a></li>
+		
+			<li><a href="/tags/Coursera/">Coursera<span>3</span></a></li>
 		
 			<li><a href="/tags/Data-Structure/">Data Structure<span>3</span></a></li>
 		
 			<li><a href="/tags/Minimun-cut/">Minimun cut<span>1</span></a></li>
+		
+			<li><a href="/tags/Max-flow/">Max flow<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -695,6 +734,10 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 <div class="widget">
   <h4>最新文章</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2017/03/18/机器学习的疯狂三月——NCAA-男篮预测竞赛/" ><i class="fa fa-file-o"></i>机器学习的疯狂三月——NCAA 男篮预测竞赛...</a>
+      </li>
     
       <li>
         <a href="/2016/10/11/Max-flow-minimum-cut/" ><i class="fa fa-file-o"></i>Max flow, minimum cut...</a>
@@ -710,10 +753,6 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
     
       <li>
         <a href="/2015/06/28/欧拉路/" ><i class="fa fa-file-o"></i>欧拉回路...</a>
-      </li>
-    
-      <li>
-        <a href="/2015/05/25/分解质因数/" ><i class="fa fa-file-o"></i>分解质因数...</a>
       </li>
     
   </ul>
@@ -732,7 +771,7 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2016 Ronnie Wang
+  &copy; 2017 Ronnie Wang
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>

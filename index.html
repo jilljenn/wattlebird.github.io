@@ -154,9 +154,48 @@
 		
             
 		
+            
+		
         
         <!-- render other articles -->
         
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2017-03-18 </div>
+			<div class="article-title"><a href="/2017/03/18/机器学习的疯狂三月——NCAA-男篮预测竞赛/" >机器学习的疯狂三月——NCAA 男篮预测竞赛</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>这篇文章我们讨论 <a href="https://en.wikipedia.org/wiki/NCAA_Division_I_Men%27s_Basketball_Tournament" target="_blank" rel="external">NCAA 一级男子篮球锦标赛</a>的比赛结果预测。这同样是一个 Kaggle 例行举行的<a href="https://www.kaggle.com/c/march-machine-learning-mania-2017" target="_blank" rel="external">算法竞赛</a>。这篇文章所要讲的就是我的解题思路。不过鉴于这是赛前预测，真正的结果需要到四月才能得知，众看官在察觉这是一口毒奶之后大可拿真正比赛结果打我脸。</p>
+<h2 id="数据">数据</h2><p>这个算法竞赛给出了如下数据：从 1985 年到 2017 年所有常规赛季的得分记录和 2003 年到 2017 年所有常规赛季的详细记录。详细记录包括一堆复杂的篮球统计数字，由于敝人并不会打篮球所以也不知道中文翻译成什么合适。同时也包括 1985 年到 2016 年所有锦标赛季的得分记录和从 2003 到 2016 的锦标赛季详细。所要预测的是 2017 年进入锦标赛的所有 68 支队伍的所有可能组合的获胜概率——由于每一支队伍都已经标上了序号，预测的是每一对组合中序号较小的队伍的获胜概率。所以需要预测 $\frac{68 \times 67}{2}=2278$种情况。该比赛的目标函数是使得比赛实际出现的组合的获胜情况的 log loss 最小。</p>
+<p>$$<br>\textrm{LogLoss} = - \frac{1}{n} \sum_{i=1}^n \left[ y_i \log(\hat{y}_i) + (1 - y_i) \log(1 - \hat{y}_i)\right]<br>$$</p>
+<p>其中 n 是实际会发生的比赛的次数。</p>
+<h2 id="思路">思路</h2><p>由于我对体育比赛一无所知，经过论坛的讨论观察，我决定<strong>仅</strong>拿当年的常规赛季预测当年的锦标赛季结果。如果你去读了 NCAA 的比赛规则之后，你会发现一个最明显的 feature：seed。Seed 一定程度上包含了比赛队伍的排名强弱信息。<a href="https://www.kaggle.com/ajniggles/march-machine-learning-mania-2017/logistic-regression-and-game-round-calculator" target="_blank" rel="external">在论坛里有人告诉我们</a>，如果仅仅拿 seed 进行一个简单的预测：seed 小的一方必定会赢过 seed 大的一方，就已经能够得到 72.75% 的准确率了。然而 accuracy 与 logloss 还是有很大差别的，这个数字也只是给人们一个选取 feature 的直观感受而已。经过实验，如果单单使用两队 seed 之差一个 feature 进行 logistic regression 的 training，使用 2003-2012 的数据作为 training set，2013-2016 的数据作为 test set，可以得到 0.62 左右的 logloss。（论坛里有人拿到了 0.55 左右的 logloss，这是事后预测结果，不可应用于事前预测。）</p>
+<p>当然这个结果就是给人保个底。之后就可以在这个基础之上进行模型增强了。经过多方挖掘，我又发现了一些奇妙的统计数据：<a href="http://www.basketball-reference.com/about/factors.html" target="_blank" rel="external">Four Factors of Basketball Success</a>. 把这些 feature 加入之后，使用 LR 可以得到 0.60 左右的 logloss. 其实还可以自己造一些类似的 feature，比如说 $\frac{Assist}{FGA+0.44\times FTA+Assist}$。这些也有益于提升模型性能。但是这些提升聊胜于无，让我深感失望。</p>
+<p>我决定使用我写的无监督排序库 <a href="https://github.com/wattlebird/ranking" target="_blank" rel="external">rankit</a> 提升模型性能。在 rankit 里，我提供了 Massey rank, Colley rank, Point difference rank, Markov Rank, Offence-Defence rank 还有 Keener rank. 光是这些 rank 方法在 得分上堆砌起来就能获得很多 feature 了。rating 比 ranking 能提供更多的信息，所以我使用两队的 rating 之差作为 feature. 至于 normalization, 我对每一个 feature 的 Cumulative distribution function 把所有 feature normalize 到 [0, 1]. 到这里，如果使用 MPN，可以获得 0.58 左右的 logloss.</p>
+<p>然而 rankit 仅仅是对比赛得分进行排名，也太浪费了。我们有那么多统计数据，我们可以对那么多的统计数据每个进行一次 rating 的计算，可以得到更有价值的信息。如果我们对两支队伍的防守篮板进行 rating 计算，和对进攻篮板的 rating 计算在物理意义上就有防守能力与进攻能力的差别。于是我们可以把所有统计数据用所有可能的无监督排序方法计算一下 rating.</p>
+<p>于是，最终使用的 model 采用了两类 feature：一种是统计数据的直接简单归纳，如篮板计算赛季均值，助攻计算赛季均值，加上上文提到的 Four factors of basketball success。还有一类 feature 则是对统计数据的无监督排序处理化。</p>
+<p>那么，每一队都有了能够足够表示自己的 feature，是不是应该直接相减得到 两队发生一次比赛的 feature，继而用这个 feature 训练一个 LR 或 GBDT 进行 classification 呢。事实上我用的是 CNN。为什么看上了 CNN 呢，我把表示一场比赛的 feature 组织成一个两行的矩阵，每一行就是描述一个队伍的 feature。如果你使用 CNN，你加一个卷积核在上面，你比使用两个 feature 直接相减有了更多的控制参数：至少对于两支队伍同一个 feature 你的特征抽取方式是 $c_1~x_1+c_2~x_2+c_3$，而如果使用 feature 直接相减就相当于 $c_1=-c_2$，少了模型的控制自由度。而且，我希望得到 feature 之间相互 cross 的效果，使用一种连接主义模型就能得到这样的效果。当然有人就会说了，你这样会不会有过拟合啊，因为你这个模型复杂度太大了。事实上，我的实验表明使用一个很简单的四层神经网络（输入层，卷积层，全连接层，输出层）就能很好地得到我的效果，而且比 GBDT （使用 xgboost 和 lightgbm 做的实验，feature 是两支队伍的 feature 相减）要好。</p>
+<p>这个模型的代码在<a href="https://github.com/wattlebird/KaggleMarchMania2017/blob/master/March%20Machine%20Learning%20Mania%202017.ipynb" target="_blank" rel="external">这里</a>。</p>
+<h2 id="坑">坑</h2><p>我一开始的设想还是 feature cross，也就是构造一些队伍之间相互交互的 feature 达到更加细粒度的队伍实力描述，然后我发现这个甚至不如直接使用 seed delta train 一个 lr. 我认为其主要原因是训练数据太少：由于是对锦标赛进行预测，而可用的训练数据也只有两千多个，我用一个十万维度的 model 能 train 出什么东西来？</p>
+<h2 id="后续工作">后续工作</h2><p>现在的 rankit 非常难用，连我用的时候都不得不去查看源代码确认用法或是确认是否已经添加了我希望的功能。我希望今年的锦标赛结束之前能把 rankit 升级到 0.2. </p>
+<p>另外，我在上文说过，我仅仅使用当前赛季的常规赛比赛情况预测锦标赛比赛情况。但是一直队伍在历史上的长期表现应该也会对该季锦标赛产生影响，但是我没有做。使用历史数据的麻烦就在于生成特征需要一年一年地生成，sequentially.</p>
+<p>此外，论坛中也有提到使用 elo 评分作为特征。Elo 评分体系是一个重要的体系，却没有被加入 rankit。在比赛最后两天我试图实现这个，但是时间太少，就没有做。这也是一个待办事项。</p>
+
+	
+	</div>
+</div>
+
+           
+		
            
 			  
 	
@@ -744,84 +783,6 @@ Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\le
 
            
 		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2014-11-01 </div>
-			<div class="article-title"><a href="/2014/11/01/Game-Theory-Note-week-3/" >Game Theory Note - week 3</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>This week’s material is dedicated to concepts “beyond Nash Equilibrium”: iterative removal of strictly dominated strategies, minimax strategies and the minimax theorem for zero-sum game, correlated equilibria.</p>
-<p>Different from previous weeks’ notes, I will illustrate some concepts in Chinese.</p>
-<h2 id="Dominated_Strategies">Dominated Strategies</h2><p>Strictly dominated strategies are based on every player’s rationality: that is, everybody is rational, and everybody knows other players make rational decisions, and everybody knows that also… So, those strategies that are strictly dominated are to be dominated. We can get final strategy by using iterated removal.</p>
-<h3 id="Example_1:_Prisoner’s_dilemma">Example 1: Prisoner’s dilemma</h3><table>
-<thead>
-<tr>
-<th>Prisoner 1 and 2</th>
-<th>Co</th>
-<th>Be</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Co</td>
-<td>-0.5, -0.5</td>
-<td>-10, 0</td>
-</tr>
-<tr>
-<td>Be</td>
-<td>0, -10</td>
-<td>-2, -2</td>
-</tr>
-</tbody>
-</table>
-<p>Follow the rational thinking, both prisoners will chose betrayal because choosing betrayal will definitely have him/her spent somewhat less time in prison in comparison to choosing cooperation. In this case, we say that betrayal dominates cooperation.</p>
-<p>What’s interesting is that the final strategy, which is a Nash Equilibrium, is not optimal in a overall view. This is where dilemma lies, which illustrates that 非零和博弈中，帕累托最优和纳什均衡是相冲突的.</p>
-<h3 id="Example_2:_Intelligent_Pigs">Example 2: Intelligent Pigs</h3><p>The illustration of this game can be found <a href="http://wiki.mbalib.com/wiki/%E4%B8%A5%E6%A0%BC%E5%8A%A3%E5%8A%BF%E7%AD%96%E7%95%A5" target="_blank" rel="external">here</a>.</p>
-<table>
-<thead>
-<tr>
-<th>Small pig and big pig</th>
-<th>Press</th>
-<th>Wait</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Press</td>
-<td>1,5</td>
-<td>-1,9</td>
-</tr>
-<tr>
-<td>Wait</td>
-<td>4,4</td>
-<td>0,0</td>
-</tr>
-</tbody>
-</table>
-<p>In this experiment, we can see that for the small pig, there is a dominate strategy, so the small pig would prefer waiting. After eliminating pressing for small pig, the big pig would chose to press. However, for the big pig, there is no dominate strategy, but after iterative eliminating, (wait, press) becomes the nash equilibrium.</p>
-<p>Someone may question about the relationship between Nash equilibrium and dominant strategy equilibrium. 优势策略均衡和纳什均衡的区别在于：在优势策略均衡中，我所做的是不管你做什么，我所能做的是最好的；在纳什均衡中，我所做的是给定你所做的前提下，我所能做的是最好的，你所做的是在给定我所做的前提下你所能做的是最好的，从二者的关系可以看出，优势策略均衡是纳什均衡的一个特例，一个优势策略均衡首先是一个纳什均衡.</p>
-<h2 id="Maxmin_Strategies_and_Minmax_Strategies">Maxmin Strategies and Minmax Strategies</h2><p>Maxmin strategy is a strategy that maximizes one’s worst-case payoff. Maxmin Value of the game for player i is that minimum payoff guaranteed by a maxmin strategy. A conservative agent would prefer the maxmin strategy.</p>
-<p>Minmax strategy is a strategy that minimizes other’s worst-case payoff.</p>
-<p>Theorem<br>: In any finite, two-player, zero-sum game, in any Nash equilibrium each player receives a payoff that is equal to both his maxmin value and his minmax value.</p>
-<p>Note: in non-zero-sum game, Nash equilibrium may not equal to maxmin or minmax strategy.<a href="http://wiki.mbalib.com/zh-tw/%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E7%AD%96%E7%95%A5" target="_blank" rel="external">^1</a></p>
-<h2 id="Corrleated_Equilibrium">Corrleated Equilibrium</h2><p>Correlated Equilibrium (informal): a randomized assignment of (potentially correlated) action recommendations to agents, such that nobody wants to deviate.</p>
-<p>Reference: Correlated equilibrium<a href="https://en.wikipedia.org/wiki/Correlated_equilibrium" target="_blank" rel="external">^2</a>.</p>
-
-	
-	</div>
-</div>
-
-           
-		
 
 		</div>
 
@@ -872,7 +833,7 @@ Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\le
 		
 			<li><a href="/categories/Analytical/">Analytical<span>2</span></a></li>
 		
-			<li><a href="/categories/Competition/">Competition<span>1</span></a></li>
+			<li><a href="/categories/Competition/">Competition<span>2</span></a></li>
 		
 			<li><a href="/categories/Notes/">Notes<span>6</span></a></li>
 		
@@ -891,37 +852,37 @@ Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\le
 		<h4>标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/Coursera/">Coursera<span>3</span></a></li>
-		
-			<li><a href="/tags/Backend/">Backend<span>2</span></a></li>
+			<li><a href="/tags/wordpress/">wordpress<span>2</span></a></li>
 		
 			<li><a href="/tags/sublime-text-2/">sublime text 2<span>1</span></a></li>
 		
-			<li><a href="/tags/Max-flow/">Max flow<span>1</span></a></li>
-		
-			<li><a href="/tags/Minimun-cut/">Minimun cut<span>1</span></a></li>
-		
-			<li><a href="/tags/Data-Structure/">Data Structure<span>3</span></a></li>
-		
 			<li><a href="/tags/tools/">tools<span>1</span></a></li>
 		
-			<li><a href="/tags/CUDA-C/">CUDA C<span>1</span></a></li>
+			<li><a href="/tags/Coursera/">Coursera<span>3</span></a></li>
 		
-			<li><a href="/tags/Machine-Learning/">Machine Learning<span>3</span></a></li>
+			<li><a href="/tags/Machine-Learning/">Machine Learning<span>4</span></a></li>
+		
+			<li><a href="/tags/xml/">xml<span>2</span></a></li>
 		
 			<li><a href="/tags/Game-theory/">Game theory<span>3</span></a></li>
 		
-			<li><a href="/tags/apache/">apache<span>2</span></a></li>
+			<li><a href="/tags/Algorithm/">Algorithm<span>10</span></a></li>
+		
+			<li><a href="/tags/Minimun-cut/">Minimun cut<span>1</span></a></li>
+		
+			<li><a href="/tags/Max-flow/">Max flow<span>1</span></a></li>
 		
 			<li><a href="/tags/matlab/">matlab<span>1</span></a></li>
 		
-			<li><a href="/tags/wordpress/">wordpress<span>2</span></a></li>
-		
-			<li><a href="/tags/Algorithm/">Algorithm<span>10</span></a></li>
+			<li><a href="/tags/Data-Structure/">Data Structure<span>3</span></a></li>
 		
 			<li><a href="/tags/C/">C++<span>10</span></a></li>
 		
-			<li><a href="/tags/xml/">xml<span>2</span></a></li>
+			<li><a href="/tags/Backend/">Backend<span>2</span></a></li>
+		
+			<li><a href="/tags/apache/">apache<span>2</span></a></li>
+		
+			<li><a href="/tags/CUDA-C/">CUDA C<span>1</span></a></li>
 		
 		 
 		</ul>
@@ -933,6 +894,10 @@ Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\le
 <div class="widget">
   <h4>最新文章</h4>
   <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2017/03/18/机器学习的疯狂三月——NCAA-男篮预测竞赛/" ><i class="fa fa-file-o"></i>机器学习的疯狂三月——NCAA 男篮预测竞赛...</a>
+      </li>
     
       <li>
         <a href="/2016/10/11/Max-flow-minimum-cut/" ><i class="fa fa-file-o"></i>Max flow, minimum cut...</a>
@@ -948,10 +913,6 @@ Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\le
     
       <li>
         <a href="/2015/06/28/欧拉路/" ><i class="fa fa-file-o"></i>欧拉回路...</a>
-      </li>
-    
-      <li>
-        <a href="/2015/05/25/分解质因数/" ><i class="fa fa-file-o"></i>分解质因数...</a>
       </li>
     
   </ul>
@@ -970,7 +931,7 @@ Obj = \sum\left(r_{ij}-u_i v_j^T-bu_{is}-bi_{js}\right)^2+\frac{1}{2\sigma^2}\le
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2016 Ronnie Wang
+  &copy; 2017 Ronnie Wang
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
