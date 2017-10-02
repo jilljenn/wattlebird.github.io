@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>Game Theory Note - week 1 | Dedication</title>
-  <meta name="author" content="Ronnie Wang">
+  <meta name="author" content="Yet another tech blog!">
   
-  <meta name="description" content="Yet another tech blog!">
+  <meta name="description" content="This week’s game theory was dedicated to introduction, overview, uses of game theory, some applications and examples, and formal definitions of: the n">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -45,7 +45,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-53608123-1', 'auto');
   ga('send', 'pageview');
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -53,7 +53,7 @@
 </head>
 
  <body>
-  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	<span class="sr-only">Toggle navigation</span>
@@ -117,16 +117,16 @@
 	  		
 
 	  <p>This week’s game theory was dedicated to introduction, overview, uses of game theory, some applications and examples, and formal definitions of: the normal form, payoffs, strategies, pure strategy Nash equilibrium, dominant strategies..</p>
-<h2 id="Define_a_Game">Define a Game</h2><ol>
+<h2 id="Define-a-Game"><a href="#Define-a-Game" class="headerlink" title="Define a Game"></a>Define a Game</h2><ol>
 <li>Normal form: List what payoffs get as a function of their actions.</li>
 <li>Extensive form: Includes timing of moves, players moves sequentially, represented as a tree.</li>
 </ol>
-<h3 id="Finite,_n-person_normal_form_game:_$$:">Finite, n-person normal form game: $<n, a,="" u="">$:</n,></h3><ul>
+<h3 id="Finite-n-person-normal-form-game"><a href="#Finite-n-person-normal-form-game" class="headerlink" title="Finite, n-person normal form game: $$:"></a>Finite, n-person normal form game: $<n, a,="" u="">$:</n,></h3><ul>
 <li>Players: $N={1, \ldots, n}$, indexed by i;</li>
 <li>Action set for player i: $a=(a_1, \ldots, a_n) \in A = A_1 \times \ldots \times A_n$ is an action profile;</li>
 <li>Utility function or Payoff function for player i: $u_i:A \mapsto \mathbf{R} $, $u=(u_1, \ldots, u_n)$ is a profile of utility functions.</li>
 </ul>
-<h2 id="Type_of_Games">Type of Games</h2><table>
+<h2 id="Type-of-Games"><a href="#Type-of-Games" class="headerlink" title="Type of Games"></a>Type of Games</h2><table>
 <thead>
 <tr>
 <th>Type of Game</th>
@@ -152,14 +152,14 @@
 </tr>
 </tbody>
 </table>
-<h2 id="Nash_Equilibrium">Nash Equilibrium</h2><p>In game theory, the Nash equilibrium is a solution concept of a <strong>non-cooperative game</strong> involving two or more players, in which each player is assumed to know the equilibrium strategies of the other players, and no player has anything to gain by changing only their own strategy. If each player has chosen a strategy and no player can benefit by changing strategies while the other players keep theirs unchanged, then the current set of strategy choices and the corresponding payoffs constitute a Nash equilibrium.[^1]</p>
+<h2 id="Nash-Equilibrium"><a href="#Nash-Equilibrium" class="headerlink" title="Nash Equilibrium"></a>Nash Equilibrium</h2><p>In game theory, the Nash equilibrium is a solution concept of a <strong>non-cooperative game</strong> involving two or more players, in which each player is assumed to know the equilibrium strategies of the other players, and no player has anything to gain by changing only their own strategy. If each player has chosen a strategy and no player can benefit by changing strategies while the other players keep theirs unchanged, then the current set of strategy choices and the corresponding payoffs constitute a Nash equilibrium.[^1]</p>
 <p>Someone has an incentive to deviate from a profile of actions that do not form an equilibrium.</p>
 <p>Best Resopnse<br>: If you knew what everyone else was going to do, it would be easy to pick your own action.<br>: Nash equilibrium looks for stable action profiles.</p>
-<h2 id="Dominant_Strategies">Dominant Strategies</h2><p>Strategy (currently) is choosing an action (“pure strategy”)</p>
+<h2 id="Dominant-Strategies"><a href="#Dominant-Strategies" class="headerlink" title="Dominant Strategies"></a>Dominant Strategies</h2><p>Strategy (currently) is choosing an action (“pure strategy”)</p>
 <p>Denote $s_i$ and $s_i’$ as two strategies for player i, and $S_{-i}$ be the set of all possible strategy profiles for the other players.</p>
 <p>$s_i$ strictly dominates $s_i’$ if $ \forall s_{-i} \in S_{-i}, u_{i}(s_i, s_{-i}) \gt u_{i}(s_i’, s_{-i})$<br>$s_i$ very weakly dominates $s_i’$ if $ \forall s_{-i} \in S_{-i}, u_{i}(s_i, s_{-i} ) \ge u_{i}(s_i’, s_{-i})$<br>Please pay attention to the difference between best response, which lies in the definition of strategy.</p>
 <p>A strategy profile consisting of dominant strategies for every player must be a Nash equilibrium! An equilibrium in strictly dominant strategies must be unique.</p>
-<h2 id="Pareto_Optimality">Pareto Optimality</h2><p>Some times, one outcome $o$ is at least as good for every agent as another outcome $o’$, and there’s some agent who strictly prefers $o$ to $o’$.</p>
+<h2 id="Pareto-Optimality"><a href="#Pareto-Optimality" class="headerlink" title="Pareto Optimality"></a>Pareto Optimality</h2><p>Some times, one outcome $o$ is at least as good for every agent as another outcome $o’$, and there’s some agent who strictly prefers $o$ to $o’$.</p>
 <p>An outcome $o^*$ is Pareto-optimal if there is no other outcome that  Pareto-dominates it.</p>
 <p>[^1]: Nash equilibrium, <a href="https://en.wikipedia.org/wiki/Real_number" target="_blank" rel="external">https://en.wikipedia.org/wiki/Real_number</a></p>
 	  
@@ -292,7 +292,7 @@ var disqus_shortname = 'wattlebirdgithubio';
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Ronnie Wang
+  &copy; 2017 Yet another tech blog!
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -321,15 +321,6 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
   <!-- mathjax config similar to math.stackexchange -->
 
@@ -360,6 +351,23 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.2/latest.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
    </html>

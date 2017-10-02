@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>二叉搜索树与快速排序的内在相似性 | Dedication</title>
-  <meta name="author" content="Ronnie Wang">
+  <meta name="author" content="Yet another tech blog!">
   
-  <meta name="description" content="Yet another tech blog!">
+  <meta name="description" content="对我来说，对随机事件的分析，恐怕是最难的。我原以为我数学学得还可以，直到我遇上了随机过程。这篇 blog 所讲的是算法分析，其中涉及到大量对随机情况的分析。因此我在此将其梳理一下，特别注重挖掘不同算法之间的分析过程的相似性。
+快速排序是一种原址排序方法，随机化的快排具有 O(nlgn) 的期望运行时">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -45,7 +46,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-53608123-1', 'auto');
   ga('send', 'pageview');
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -53,7 +54,7 @@
 </head>
 
  <body>
-  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	<span class="sr-only">Toggle navigation</span>
@@ -119,17 +120,17 @@
 	  <p>对我来说，对随机事件的分析，恐怕是最难的。我原以为我数学学得还可以，直到我遇上了随机过程。这篇 blog 所讲的是算法分析，其中涉及到大量对随机情况的分析。因此我在此将其梳理一下，特别注重挖掘不同算法之间的分析过程的相似性。</p>
 <p>快速排序是一种原址排序方法，随机化的快排具有 <em>O(nlgn)</em> 的期望运行时间。这个在《算法导论》（第三版）的 7.4.2 节中有一个以比较操作为中心的证明方法。这个证明的核心思想就是：快速排序是由多次 partition 过程组成的，因此关键问题就在于获得 partition 过程的运行时间和运行 partition 过程的次数。partition 过程的最大运行次数是 n-1 次，可以记为 <em>O(n)</em> ，对于其运行时间，练习 7.1-3 给出的结论是 <em>Θ(n)</em> 。这样乍一算，似乎是 <em>O($n^2$)</em> 的时间复杂度。这样计算是错误的，因为 partition 的时间复杂度与其长度有关。这里，我们需要更为细致的分析。决定 partition 运行时间的是其内部循环次数。这个循环次数可以统计每次必须运行的比较次数而得到。通过计算整个 quicksort 的比较次数，我们就可以得到真正的 partition 循环次数。而这个比较次数的期望值，可以通过拆分成示性随机变量相加得到。这个分析的精华之处就在于分析出每两个元素进行比较的概率。很有意思，可以进行比较的组合是 <em>Θ($n^2$)</em> ，但是最终全部比较次数的期望是 <em>O(n lgn)</em> 。</p>
 <p>当然这个只是作为复习，不是今天的重点。这个方法实在是太不直观了点。这次我们用类似于 merge-sort 的分析方法进行分析。</p>
-<h3 id="快速排序分析">快速排序分析</h3><p>按照 merge-sort 的分析思路，quicksort 是将一个问题拆分成了两个子问题，但是由于子问题大小不是固定的，这时候就只能分析运行时间的期望。随机化的快速排序使得任何一个元素成为主元都是等可能的。因此我们有如下式子：</p>
+<h3 id="快速排序分析"><a href="#快速排序分析" class="headerlink" title="快速排序分析"></a>快速排序分析</h3><p>按照 merge-sort 的分析思路，quicksort 是将一个问题拆分成了两个子问题，但是由于子问题大小不是固定的，这时候就只能分析运行时间的期望。随机化的快速排序使得任何一个元素成为主元都是等可能的。因此我们有如下式子：</p>
 <span>$$\begin{aligned}
-E[T(n)] & =  E \left[ \sum^{n}_{q=1} X_q \left( T(q-1) + T(n-q) + \Theta (n) \right) \right] \\
-            & =  \frac{2}{n} \sum^{n-1}_{q=2} E[T(q)] + \Theta (n)
+E[T(n)] &amp; =  E \left[ \sum^{n}_{q=1} X_q \left( T(q-1) + T(n-q) + \Theta (n) \right) \right] \\
+            &amp; =  \frac{2}{n} \sum^{n-1}_{q=2} E[T(q)] + \Theta (n)
 \end{aligned}$$</span><!-- Has MathJax -->
 <p>随后，可以通过代入法，把 <em>n lgn</em> 代入 T(n)。其中，有如下不等式可以利用：</p>
 <span>$$\begin{equation}
 \sum^{n-1}_{k=2} k \log k \le \frac{1}{2} n^2 \log n - \frac{1}{8} n^2
 \end{equation}$$</span><!-- Has MathJax -->
 <p>由于这个不等式的天赐特性，我们只能记住，有如（1）式的结论就是 <em>O(n lgn)</em> 。</p>
-<h3 id="二叉搜索树分析">二叉搜索树分析</h3><p>我们知道，二叉搜索树的动态操作时间复杂度是 <em>O(h)</em> 。但是对于随机构建的二叉搜索树来说，其期望树高是 <em>O(n lgn)</em> ，对于随机构建的二叉搜索树来说。这里我们证明的是一个稍弱于此定理的定理：<strong>随机构建的二叉搜索树的平均节点深度为 <em>O(n lgn)</em></strong>。</p>
+<h3 id="二叉搜索树分析"><a href="#二叉搜索树分析" class="headerlink" title="二叉搜索树分析"></a>二叉搜索树分析</h3><p>我们知道，二叉搜索树的动态操作时间复杂度是 <em>O(h)</em> 。但是对于随机构建的二叉搜索树来说，其期望树高是 <em>O(n lgn)</em> ，对于随机构建的二叉搜索树来说。这里我们证明的是一个稍弱于此定理的定理：<strong>随机构建的二叉搜索树的平均节点深度为 <em>O(n lgn)</em></strong>。</p>
 <p>为表示每一个节点的深度，我们记树<strong><em>T</em></strong>的节点x的深度为 <em>d(x, T)</em> ，而全部节点的深度之和记为 <em>P(T)</em> 。节点平均深度可以表示为</p>
 <span>$$\begin{equation}
 \frac{1}{n} \sum_{x \in T} d(x, T) = \frac{1}{n} P(T)
@@ -274,7 +275,7 @@ var disqus_shortname = 'wattlebirdgithubio';
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Ronnie Wang
+  &copy; 2017 Yet another tech blog!
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -303,15 +304,6 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
   <!-- mathjax config similar to math.stackexchange -->
 
@@ -342,36 +334,23 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
 </script>
-<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
     }
   });
 </script>
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.2/latest.js">
 </script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
    </html>

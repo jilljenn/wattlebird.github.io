@@ -1,12 +1,10 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>第 2 页 | Dedication</title>
-  <meta name="author" content="Ronnie Wang">
-  
-  <meta name="description" content="Yet another tech blog!">
+  <meta name="author" content="Yet another tech blog!">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -45,7 +43,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-53608123-1', 'auto');
   ga('send', 'pageview');
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -53,7 +51,7 @@
 </head>
 
  <body>
-  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	<span class="sr-only">Toggle navigation</span>
@@ -118,6 +116,144 @@
 	
 	<!-- display as entry -->	
 		<h3 class="title">
+			<div class="date"> 2015-01-17 </div>
+			<div class="article-title"><a href="/2015/01/17/Misha-and-Permutations-Summation/" >Misha and Permutations Summation</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>　　此题为 CF 上的一道中等难度题。题目的原文见<a href="http://codeforces.com/contest/501/problem/D" target="_blank" rel="external">这里</a>。用中文简单说一下吧：给定0到N-1的两个排列，求这两个排列的“和”。之所以会有“和”的概念出现，是因为排列的大小可以依据字典序确定。</p>
+<p>　　所以，解决这个问题需要的两个关键步骤是：根据排列确定字典序大小；根据字典序大小还原排列。</p>
+<p>　　一个排列和其字典序大小是有某种确定关系的。<a href="https://en.wikipedia.org/wiki/Factorial_number_system" target="_blank" rel="external">Factorial number system</a> 就这种关系给出了理论支持。这种关系，是一种可以一一对应并且互相转换的关系。比如说，当 N=3 的时候，所有的排列和其字典序大小关系如下所示：</p>
+<table>
+<thead>
+<tr>
+<th>排列</th>
+<th>字典序大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>012</td>
+<td>0</td>
+</tr>
+<tr>
+<td>021</td>
+<td>1</td>
+</tr>
+<tr>
+<td>102</td>
+<td>2</td>
+</tr>
+<tr>
+<td>120</td>
+<td>3</td>
+</tr>
+<tr>
+<td>201</td>
+<td>4</td>
+</tr>
+<tr>
+<td>210</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>　　要完成互相转换的任务，必须借助于 factorial number system。这种 system 和通常的十进制、十六进制很相似，只是把“基”换成了数乘。比如说，如何表示 42，利用 factorial number system？ 4! &lt; 42 &lt; 5!</p>
+<span>$$\begin{aligned}
+42 &amp;amp; =  1 \times 4! + 3 \times 3! + 0 \times 2! + 0 \times 1! + 0 \times 0! \\
+　 &amp;amp; =  (((1 \times 4 + 3) \times 3 + 0) \times 2 + 0) \times 1 + 0 \\
+　 &amp;amp; =  13000_{!}
+\end{aligned}$$</span><!-- Has MathJax -->
+<p>　　可以看到，首先 42 小于 5!，因此 42 可以由 5 以下的阶乘表示。<strong>在拆分的时候，每一位的数字不得大于当前位的阶乘数字</strong>。如$13000_{!}$的最高位为 1，1&lt;4。各位看官可以自行拆解几个数字看看。</p>
+<p>　　由此，我们可以把第一个表再增加一项，表示出每一个字典序大小的阶乘数系表示：</p>
+<table>
+<thead>
+<tr>
+<th>排列</th>
+<th>阶乘数系</th>
+<th>字典序大小</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>012</td>
+<td>000</td>
+<td>0</td>
+</tr>
+<tr>
+<td>021</td>
+<td>010</td>
+<td>1</td>
+</tr>
+<tr>
+<td>102</td>
+<td>100</td>
+<td>2</td>
+</tr>
+<tr>
+<td>120</td>
+<td>110</td>
+<td>3</td>
+</tr>
+<tr>
+<td>201</td>
+<td>200</td>
+<td>4</td>
+</tr>
+<tr>
+<td>210</td>
+<td>210</td>
+<td>5</td>
+</tr>
+</tbody>
+</table>
+<p>　　那么在阶乘系统下表示出来的数字，好像和排列没有明显的联系啊。好像还不如用原始的方法，就是直接从排列计算出字典序大小呢。那么这一过程怎么计算呢，用最原始的思路？比如说我们现在有排列 120。其第一个数是 1，那么在第一个数是 0 的时候就已经有了 2! 次排列。再看第二位，是 2。在 2 的前面已经有了 0 的排列（这时候就要去掉 1 了），所以其在第一位数为 1 的情况下第二位数为 2 的之前的排列有 1! 个。再看第三位，是0，这时候排序就已经确定了，加上先前的所有排列，就是 2!+1!+1=4。鉴于字典序从 0 开始计数，减去 1 即可。</p>
+<p>　　可以看到，在使用原始方法计算字典序的时候，在计算后面的数字的时候要记住前面已经使用了什么数字（看官可以拿一个更大的排列计算一下）。因此，我们如果按照这种思路计算的话，很快就会陷入频繁的大小比较中。</p>
+<p>　　如果我们维护一个从 1 到 N 大小的数组，每个数组元素都是 1，并且再维护一个数组，计算其部分和，就会发现，每一次确定某一位之前出现过的数字等于部分和。如果一个数字被用掉了，将其减一，相应的每一位部分和表示该位之前没有被用掉的数字个数。在阶乘系统下表示的数字的每一位，其物理意义就是部分和。我们就此举一个例子：</p>
+<p>　　数组为(1,1,1)，部分和为(1,2,3)，排列为120。数组从 1 开始计数，为了方便，排列每一位加 1 变成 231.</p>
+<ul>
+<li>排列第一位数字 2 索引位置对应的部分和为 2，将其记录下来，并把该位减一. 这时候数组为(1,0,1), 部分和为(1,1,2)；</li>
+<li>排列第二位数字 3 索引位置对应的部分和为 2，将其记录下来，并把该位减一. 这时候数组为(1,0,0), 部分和为(1,1,1)；</li>
+<li>排列第三位数字 1 索引位置对应的部分和为 1，将其记录下来，并把该位减一。</li>
+</ul>
+<p>　　我们记录下来的部分和表示了在这样一个排序中，当某一位没有采用该数字的时候可选择的数字个数。由于排列已经确定，我们把记录下来的部分和减一，变成 110。这样，通过部分和，我们就可以很快计算出排列对应的阶乘系统中的数字。看官可以自己拿一个数字计算一下。</p>
+<p>　　现在我们解决了<strong>从排列到字典序大小的转换问题</strong>，下面要解决的问题就是<strong>字典序大小到排列的转换</strong>了。如何用传统方法解决？我们可以看到阶乘系统下的数字每一位都有“部分和”的意思。同时排列的每一位数字都是不同的。利用这些信息可以从最高位推出排列。首先阶乘系统下的数字的最高位前面没有被选择的数字，它既是部分和，也是排列中的确定数字。在从排列转化为字典序的过程中，确定的数字被减一，变成不可利用，因此部分和中可以利用的部分和只有第一次出现的某个部分和————因为不可利用的数字其值为 0，在部分和中表示为没有变化。</p>
+<p>　　假设我们现在有字典序 2，其对应的阶乘系统数字为 100，我们将其转化为 211。同样地，我们维护数组(1,1,1)和其部分和(1,2,3)。</p>
+<ul>
+<li>阶乘系统下数字最高位为 2，部分和中第一个出现 2 的索引位置为 2，记录该位置，并将该位置减一，现在部分和为(1,1,2);</li>
+<li>阶乘系统下数字次高位为 1，部分和中第一个出现 1 的索引位置为 1，记录该位置，并将该位置减一，现在部分和为(0,0,1)</li>
+<li>阶乘系统下数字最低位为 1，部分和中第一个出现 1 的索引位置为 3，记录该位置。</li>
+</ul>
+<p>　　看官可以发现，之所以记录下来的索引位置是不重复的，是因为每次选取第一个部分和导致了避开使用过的索引位置。记录下来的索引位置为 213，每一位减一等于 102. 看官也可以自己拿一个数字计算一下。</p>
+<p>　　那么在实际操作中，怎么计算部分和并更新部分和呢？如果一个位置发生了改变，以后所有的部分和都要发生改变。一个直接的方法就是通过维护线段树，但是更方便的方法是使用<a href="http://baike.baidu.com/view/1420784.htm" target="_blank" rel="external">树状数组</a>。</p>
+<p>　　树状数组并不直接管理部分和，而是管理某一段的和。对一个长度为 N+1 的数组，其相对应的树状数组与之等长，并且有以下性质：树状数组索引为 n 处的元素管理着索引区间为 [n-lowbit(n)+1, n] 处原始数组区间之和。所谓 lowbit，是指某一个数转化为二进制后最低非零位置转化为一个 2 的整数次方的值。其为 x &amp; (-x)。总而言之，这个数组有着与 2 的整数次方相关联的树状组织。</p>
+<p>　　<img src="tree_array.jpg" alt="Tree Like Array"><br>　　那么要计算部分和，就可以根据这个区间的信息，一块区间一块区间地叠加。可以预见，这样计算部分和的时间复杂度为 O(log n)。</p>
+<p>　　那么如何维护树状数组？我们大可以构建一个原始数组然后在其上构建树状数组，但是鉴于这个问题的部分和是按照索引递增的，而且只在原始数组上执行加减一的操作，我们可以直接构建基于树状数组的加减一操作：在包含当前索引处的区间值加减一即可。可以预见，这样维护树状数组的时间复杂度为 O(log n)。</p>
+<p>　　到了这里，我想解这道题所需要的所有知识已经明确了。下面是我本人写的代码：</p>
+<script src="//gist.github.com/3e6f9a51806662d7fdbf.js"></script>
+
+<p>　　总结：</p>
+<ol>
+<li>排列与指数系统有着一一对应的关系。排列每个数物理意义为部分和索引，指数系统每一位物理意义为部分和。</li>
+<li>树状数组每一个元素试图管理一个 2 的整数次方的大小的长度的数组，lowbit 运算可以实现这一点。</li>
+</ol>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
 			<div class="date"> 2015-01-03 </div>
 			<div class="article-title"><a href="/2015/01/03/OJ-总结-Depricated/" >OJ 总结(Depricated)</a></div>						
 		</h3>
@@ -128,7 +264,7 @@
   <div class="row">
 	
 	
-		<h3 id="2015-01-04">2015.01.04</h3><p><a href="https://oj.leetcode.com/problems/search-insert-position/" target="_blank" rel="external">Simple Binary Search</a></p>
+		<h3 id="2015-01-04"><a href="#2015-01-04" class="headerlink" title="2015.01.04"></a>2015.01.04</h3><p><a href="https://oj.leetcode.com/problems/search-insert-position/" target="_blank" rel="external">Simple Binary Search</a></p>
 <p>题目大意就是一种更好的 Binary Search，在一个已经排好序的数组里面找到 target，返回 target 索引。如果找不到，那么就返回 target 应该插入的位置。</p>
 <p>我觉得还是 <em>Acclerated C++</em> 那本书给了我很多启示。Binary  search 的搜索区间看作是一个左闭右开区间，每次迭代的过程中，不变的准则是：区间的右边是开区间。这样可以省去考虑中间点恰好是 target 的麻烦。这样做的好处除了省去中间点的考量外，也省略掉了尾端的考虑：在 C 语言中，整数类型向 0 取整，所以 4 是 end 的话，所有小于 4 的数与之相加除以 2 的结果都必然小于 4。</p>
 <p>当然这样没考虑区间左端。有一种情况区间左端小于 target，这时候就简单地和等于的情况合并喽。</p>
@@ -160,8 +296,8 @@
 	
 		<p>This week’s material is dedicated to concepts “beyond Nash Equilibrium”: iterative removal of strictly dominated strategies, minimax strategies and the minimax theorem for zero-sum game, correlated equilibria.</p>
 <p>Different from previous weeks’ notes, I will illustrate some concepts in Chinese.</p>
-<h2 id="Dominated_Strategies">Dominated Strategies</h2><p>Strictly dominated strategies are based on every player’s rationality: that is, everybody is rational, and everybody knows other players make rational decisions, and everybody knows that also… So, those strategies that are strictly dominated are to be dominated. We can get final strategy by using iterated removal.</p>
-<h3 id="Example_1:_Prisoner’s_dilemma">Example 1: Prisoner’s dilemma</h3><table>
+<h2 id="Dominated-Strategies"><a href="#Dominated-Strategies" class="headerlink" title="Dominated Strategies"></a>Dominated Strategies</h2><p>Strictly dominated strategies are based on every player’s rationality: that is, everybody is rational, and everybody knows other players make rational decisions, and everybody knows that also… So, those strategies that are strictly dominated are to be dominated. We can get final strategy by using iterated removal.</p>
+<h3 id="Example-1-Prisoner’s-dilemma"><a href="#Example-1-Prisoner’s-dilemma" class="headerlink" title="Example 1: Prisoner’s dilemma"></a>Example 1: Prisoner’s dilemma</h3><table>
 <thead>
 <tr>
 <th>Prisoner 1 and 2</th>
@@ -184,7 +320,7 @@
 </table>
 <p>Follow the rational thinking, both prisoners will chose betrayal because choosing betrayal will definitely have him/her spent somewhat less time in prison in comparison to choosing cooperation. In this case, we say that betrayal dominates cooperation.</p>
 <p>What’s interesting is that the final strategy, which is a Nash Equilibrium, is not optimal in a overall view. This is where dilemma lies, which illustrates that 非零和博弈中，帕累托最优和纳什均衡是相冲突的.</p>
-<h3 id="Example_2:_Intelligent_Pigs">Example 2: Intelligent Pigs</h3><p>The illustration of this game can be found <a href="http://wiki.mbalib.com/wiki/%E4%B8%A5%E6%A0%BC%E5%8A%A3%E5%8A%BF%E7%AD%96%E7%95%A5" target="_blank" rel="external">here</a>.</p>
+<h3 id="Example-2-Intelligent-Pigs"><a href="#Example-2-Intelligent-Pigs" class="headerlink" title="Example 2: Intelligent Pigs"></a>Example 2: Intelligent Pigs</h3><p>The illustration of this game can be found <a href="http://wiki.mbalib.com/wiki/%E4%B8%A5%E6%A0%BC%E5%8A%A3%E5%8A%BF%E7%AD%96%E7%95%A5" target="_blank" rel="external">here</a>.</p>
 <table>
 <thead>
 <tr>
@@ -208,11 +344,11 @@
 </table>
 <p>In this experiment, we can see that for the small pig, there is a dominate strategy, so the small pig would prefer waiting. After eliminating pressing for small pig, the big pig would chose to press. However, for the big pig, there is no dominate strategy, but after iterative eliminating, (wait, press) becomes the nash equilibrium.</p>
 <p>Someone may question about the relationship between Nash equilibrium and dominant strategy equilibrium. 优势策略均衡和纳什均衡的区别在于：在优势策略均衡中，我所做的是不管你做什么，我所能做的是最好的；在纳什均衡中，我所做的是给定你所做的前提下，我所能做的是最好的，你所做的是在给定我所做的前提下你所能做的是最好的，从二者的关系可以看出，优势策略均衡是纳什均衡的一个特例，一个优势策略均衡首先是一个纳什均衡.</p>
-<h2 id="Maxmin_Strategies_and_Minmax_Strategies">Maxmin Strategies and Minmax Strategies</h2><p>Maxmin strategy is a strategy that maximizes one’s worst-case payoff. Maxmin Value of the game for player i is that minimum payoff guaranteed by a maxmin strategy. A conservative agent would prefer the maxmin strategy.</p>
+<h2 id="Maxmin-Strategies-and-Minmax-Strategies"><a href="#Maxmin-Strategies-and-Minmax-Strategies" class="headerlink" title="Maxmin Strategies and Minmax Strategies"></a>Maxmin Strategies and Minmax Strategies</h2><p>Maxmin strategy is a strategy that maximizes one’s worst-case payoff. Maxmin Value of the game for player i is that minimum payoff guaranteed by a maxmin strategy. A conservative agent would prefer the maxmin strategy.</p>
 <p>Minmax strategy is a strategy that minimizes other’s worst-case payoff.</p>
 <p>Theorem<br>: In any finite, two-player, zero-sum game, in any Nash equilibrium each player receives a payoff that is equal to both his maxmin value and his minmax value.</p>
 <p>Note: in non-zero-sum game, Nash equilibrium may not equal to maxmin or minmax strategy.<a href="http://wiki.mbalib.com/zh-tw/%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E7%AD%96%E7%95%A5" target="_blank" rel="external">^1</a></p>
-<h2 id="Corrleated_Equilibrium">Corrleated Equilibrium</h2><p>Correlated Equilibrium (informal): a randomized assignment of (potentially correlated) action recommendations to agents, such that nobody wants to deviate.</p>
+<h2 id="Corrleated-Equilibrium"><a href="#Corrleated-Equilibrium" class="headerlink" title="Corrleated Equilibrium"></a>Corrleated Equilibrium</h2><p>Correlated Equilibrium (informal): a randomized assignment of (potentially correlated) action recommendations to agents, such that nobody wants to deviate.</p>
 <p>Reference: Correlated equilibrium<a href="https://en.wikipedia.org/wiki/Correlated_equilibrium" target="_blank" rel="external">^2</a>.</p>
 
 	
@@ -276,16 +412,16 @@ P(a|s) = \prod_{j \in N} s_j(a_j)
 	
 	
 		<p>This week’s game theory was dedicated to introduction, overview, uses of game theory, some applications and examples, and formal definitions of: the normal form, payoffs, strategies, pure strategy Nash equilibrium, dominant strategies..</p>
-<h2 id="Define_a_Game">Define a Game</h2><ol>
+<h2 id="Define-a-Game"><a href="#Define-a-Game" class="headerlink" title="Define a Game"></a>Define a Game</h2><ol>
 <li>Normal form: List what payoffs get as a function of their actions.</li>
 <li>Extensive form: Includes timing of moves, players moves sequentially, represented as a tree.</li>
 </ol>
-<h3 id="Finite,_n-person_normal_form_game:_$$:">Finite, n-person normal form game: $<n, a,="" u="">$:</n,></h3><ul>
+<h3 id="Finite-n-person-normal-form-game"><a href="#Finite-n-person-normal-form-game" class="headerlink" title="Finite, n-person normal form game: $$:"></a>Finite, n-person normal form game: $<n, a,="" u="">$:</n,></h3><ul>
 <li>Players: $N={1, \ldots, n}$, indexed by i;</li>
 <li>Action set for player i: $a=(a_1, \ldots, a_n) \in A = A_1 \times \ldots \times A_n$ is an action profile;</li>
 <li>Utility function or Payoff function for player i: $u_i:A \mapsto \mathbf{R} $, $u=(u_1, \ldots, u_n)$ is a profile of utility functions.</li>
 </ul>
-<h2 id="Type_of_Games">Type of Games</h2><table>
+<h2 id="Type-of-Games"><a href="#Type-of-Games" class="headerlink" title="Type of Games"></a>Type of Games</h2><table>
 <thead>
 <tr>
 <th>Type of Game</th>
@@ -311,14 +447,14 @@ P(a|s) = \prod_{j \in N} s_j(a_j)
 </tr>
 </tbody>
 </table>
-<h2 id="Nash_Equilibrium">Nash Equilibrium</h2><p>In game theory, the Nash equilibrium is a solution concept of a <strong>non-cooperative game</strong> involving two or more players, in which each player is assumed to know the equilibrium strategies of the other players, and no player has anything to gain by changing only their own strategy. If each player has chosen a strategy and no player can benefit by changing strategies while the other players keep theirs unchanged, then the current set of strategy choices and the corresponding payoffs constitute a Nash equilibrium.[^1]</p>
+<h2 id="Nash-Equilibrium"><a href="#Nash-Equilibrium" class="headerlink" title="Nash Equilibrium"></a>Nash Equilibrium</h2><p>In game theory, the Nash equilibrium is a solution concept of a <strong>non-cooperative game</strong> involving two or more players, in which each player is assumed to know the equilibrium strategies of the other players, and no player has anything to gain by changing only their own strategy. If each player has chosen a strategy and no player can benefit by changing strategies while the other players keep theirs unchanged, then the current set of strategy choices and the corresponding payoffs constitute a Nash equilibrium.[^1]</p>
 <p>Someone has an incentive to deviate from a profile of actions that do not form an equilibrium.</p>
 <p>Best Resopnse<br>: If you knew what everyone else was going to do, it would be easy to pick your own action.<br>: Nash equilibrium looks for stable action profiles.</p>
-<h2 id="Dominant_Strategies">Dominant Strategies</h2><p>Strategy (currently) is choosing an action (“pure strategy”)</p>
+<h2 id="Dominant-Strategies"><a href="#Dominant-Strategies" class="headerlink" title="Dominant Strategies"></a>Dominant Strategies</h2><p>Strategy (currently) is choosing an action (“pure strategy”)</p>
 <p>Denote $s_i$ and $s_i’$ as two strategies for player i, and $S_{-i}$ be the set of all possible strategy profiles for the other players.</p>
 <p>$s_i$ strictly dominates $s_i’$ if $ \forall s_{-i} \in S_{-i}, u_{i}(s_i, s_{-i}) \gt u_{i}(s_i’, s_{-i})$<br>$s_i$ very weakly dominates $s_i’$ if $ \forall s_{-i} \in S_{-i}, u_{i}(s_i, s_{-i} ) \ge u_{i}(s_i’, s_{-i})$<br>Please pay attention to the difference between best response, which lies in the definition of strategy.</p>
 <p>A strategy profile consisting of dominant strategies for every player must be a Nash equilibrium! An equilibrium in strictly dominant strategies must be unique.</p>
-<h2 id="Pareto_Optimality">Pareto Optimality</h2><p>Some times, one outcome $o$ is at least as good for every agent as another outcome $o’$, and there’s some agent who strictly prefers $o$ to $o’$.</p>
+<h2 id="Pareto-Optimality"><a href="#Pareto-Optimality" class="headerlink" title="Pareto Optimality"></a>Pareto Optimality</h2><p>Some times, one outcome $o$ is at least as good for every agent as another outcome $o’$, and there’s some agent who strictly prefers $o$ to $o’$.</p>
 <p>An outcome $o^*$ is Pareto-optimal if there is no other outcome that  Pareto-dominates it.</p>
 <p>[^1]: Nash equilibrium, <a href="https://en.wikipedia.org/wiki/Real_number" target="_blank" rel="external">https://en.wikipedia.org/wiki/Real_number</a></p>
 
@@ -347,9 +483,9 @@ P(a|s) = \prod_{j \in N} s_j(a_j)
 <p>因此我对我的代码质量深表担忧。但是幸运的是，最近我开始学习起别人的代码，从中获得了一些启示。今天总结的是这么一种特殊的图————自由树的表达方法。这种方法高效，无论是从时间上还是空间上。</p>
 <p>假定现在给出一系列树边，每行一条树边记录，由两个数组成。第一个数代表父结点，第二个数代表子结点。这一系列树边可以组成一棵树（或一片森林）。对于这样的信息，利用下面这种方法可以给出高效的表达。</p>
 <p>首先我们定义如下结构和数组：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v;</span><br><span class="line">    <span class="keyword">int</span> prev;</span><br><span class="line">&#125;<span class="keyword">edge_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">edge_t</span> edges[N]; <span class="comment">//边</span></span><br><span class="line"><span class="keyword">int</span> head[N];     <span class="comment">//结点</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></div><div class="line">    <span class="keyword">int</span> v;</div><div class="line">    <span class="keyword">int</span> prev;</div><div class="line">&#125;<span class="keyword">edge_t</span>;</div><div class="line"></div><div class="line"><span class="keyword">edge_t</span> edges[N]; <span class="comment">//边</span></div><div class="line"><span class="keyword">int</span> head[N];     <span class="comment">//结点</span></div></pre></td></tr></table></figure>
 <p>我们知道，在一棵结点数为V的树中，一共有V-1条边。因此给结点和边各开V大小的数组是没问题的。利用这样的数据结构，我们使用如下方法读取边：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//for each edge (u,v)</span></span><br><span class="line">edges[i].v=v;</span><br><span class="line">edges[i].prev=head[u];</span><br><span class="line">head[u]=i;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//for each edge (u,v)</span></div><div class="line">edges[i].v=v;</div><div class="line">edges[i].prev=head[u];</div><div class="line">head[u]=i;</div></pre></td></tr></table></figure>
 <p>从这段代码中，我们可以看出如下基本事实：</p>
 <ol>
 <li>edges以边序号为索引，其中v记录的是该边的子结点，prev记录的是另一条边序号；</li>
@@ -359,7 +495,7 @@ P(a|s) = \prod_{j \in N} s_j(a_j)
 <li>因此，head实际上存储着以某个结点为父结点时，其在读取顺序中的最后一条边。如果无子结点，则为0.</li>
 </ol>
 <p>那么，每个结点最多只存储一条边，如何实现多个子结点的情况？事实上，我们在读到这“最后一条边”时，依照读取顺序的上一条边已经被存储在edges[i].prev中了。按照如下代码，可以方便地完成对某个结点所有子结点的遍历：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> k=head[i]; k!=<span class="number">0</span>; k=edges[k].prev)&#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> k=head[i]; k!=<span class="number">0</span>; k=edges[k].prev)&#123;</div><div class="line">    <span class="comment">//do something</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这种方法适用于：</p>
 <ul>
 <li>数据以自由树形式表达；</li>
@@ -446,17 +582,17 @@ P(a|s) = \prod_{j \in N} s_j(a_j)
 		<p>对我来说，对随机事件的分析，恐怕是最难的。我原以为我数学学得还可以，直到我遇上了随机过程。这篇 blog 所讲的是算法分析，其中涉及到大量对随机情况的分析。因此我在此将其梳理一下，特别注重挖掘不同算法之间的分析过程的相似性。</p>
 <p>快速排序是一种原址排序方法，随机化的快排具有 <em>O(nlgn)</em> 的期望运行时间。这个在《算法导论》（第三版）的 7.4.2 节中有一个以比较操作为中心的证明方法。这个证明的核心思想就是：快速排序是由多次 partition 过程组成的，因此关键问题就在于获得 partition 过程的运行时间和运行 partition 过程的次数。partition 过程的最大运行次数是 n-1 次，可以记为 <em>O(n)</em> ，对于其运行时间，练习 7.1-3 给出的结论是 <em>Θ(n)</em> 。这样乍一算，似乎是 <em>O($n^2$)</em> 的时间复杂度。这样计算是错误的，因为 partition 的时间复杂度与其长度有关。这里，我们需要更为细致的分析。决定 partition 运行时间的是其内部循环次数。这个循环次数可以统计每次必须运行的比较次数而得到。通过计算整个 quicksort 的比较次数，我们就可以得到真正的 partition 循环次数。而这个比较次数的期望值，可以通过拆分成示性随机变量相加得到。这个分析的精华之处就在于分析出每两个元素进行比较的概率。很有意思，可以进行比较的组合是 <em>Θ($n^2$)</em> ，但是最终全部比较次数的期望是 <em>O(n lgn)</em> 。</p>
 <p>当然这个只是作为复习，不是今天的重点。这个方法实在是太不直观了点。这次我们用类似于 merge-sort 的分析方法进行分析。</p>
-<h3 id="快速排序分析">快速排序分析</h3><p>按照 merge-sort 的分析思路，quicksort 是将一个问题拆分成了两个子问题，但是由于子问题大小不是固定的，这时候就只能分析运行时间的期望。随机化的快速排序使得任何一个元素成为主元都是等可能的。因此我们有如下式子：</p>
+<h3 id="快速排序分析"><a href="#快速排序分析" class="headerlink" title="快速排序分析"></a>快速排序分析</h3><p>按照 merge-sort 的分析思路，quicksort 是将一个问题拆分成了两个子问题，但是由于子问题大小不是固定的，这时候就只能分析运行时间的期望。随机化的快速排序使得任何一个元素成为主元都是等可能的。因此我们有如下式子：</p>
 <span>$$\begin{aligned}
-E[T(n)] & =  E \left[ \sum^{n}_{q=1} X_q \left( T(q-1) + T(n-q) + \Theta (n) \right) \right] \\
-            & =  \frac{2}{n} \sum^{n-1}_{q=2} E[T(q)] + \Theta (n)
+E[T(n)] &amp; =  E \left[ \sum^{n}_{q=1} X_q \left( T(q-1) + T(n-q) + \Theta (n) \right) \right] \\
+            &amp; =  \frac{2}{n} \sum^{n-1}_{q=2} E[T(q)] + \Theta (n)
 \end{aligned}$$</span><!-- Has MathJax -->
 <p>随后，可以通过代入法，把 <em>n lgn</em> 代入 T(n)。其中，有如下不等式可以利用：</p>
 <span>$$\begin{equation}
 \sum^{n-1}_{k=2} k \log k \le \frac{1}{2} n^2 \log n - \frac{1}{8} n^2
 \end{equation}$$</span><!-- Has MathJax -->
 <p>由于这个不等式的天赐特性，我们只能记住，有如（1）式的结论就是 <em>O(n lgn)</em> 。</p>
-<h3 id="二叉搜索树分析">二叉搜索树分析</h3><p>我们知道，二叉搜索树的动态操作时间复杂度是 <em>O(h)</em> 。但是对于随机构建的二叉搜索树来说，其期望树高是 <em>O(n lgn)</em> ，对于随机构建的二叉搜索树来说。这里我们证明的是一个稍弱于此定理的定理：<strong>随机构建的二叉搜索树的平均节点深度为 <em>O(n lgn)</em></strong>。</p>
+<h3 id="二叉搜索树分析"><a href="#二叉搜索树分析" class="headerlink" title="二叉搜索树分析"></a>二叉搜索树分析</h3><p>我们知道，二叉搜索树的动态操作时间复杂度是 <em>O(h)</em> 。但是对于随机构建的二叉搜索树来说，其期望树高是 <em>O(n lgn)</em> ，对于随机构建的二叉搜索树来说。这里我们证明的是一个稍弱于此定理的定理：<strong>随机构建的二叉搜索树的平均节点深度为 <em>O(n lgn)</em></strong>。</p>
 <p>为表示每一个节点的深度，我们记树<strong><em>T</em></strong>的节点x的深度为 <em>d(x, T)</em> ，而全部节点的深度之和记为 <em>P(T)</em> 。节点平均深度可以表示为</p>
 <span>$$\begin{equation}
 \frac{1}{n} \sum_{x \in T} d(x, T) = \frac{1}{n} P(T)
@@ -501,16 +637,16 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 <p>由这段话我们可以看出，QXmlStreamReader的一个重要特点是，它是一个增量parser。QXmlStreamReader有一个特别的构造函数<code>QXmlStreamReader::QXmlStreamReader(QIODevice * device)</code>，这个device可以是QNetworkReply也可以是QFile。相信这样的好处大家都可以看得出来。为了应付不同IODevice的特性，QXmlStreamReader也只能采取增量解析的方法。然后又有了下面的概念：token.</p>
 <p>QXmlStreamReader不在内存中保存全部的DOM tree，现在解析的位置和所解析的对象用token说明。关于什么是token，其实我也不知道。但是QXmlStreamReader提供了一个函数：<code>TokenType QXmlStreamReader::readNext()</code>，有关这个函数的说明是“Reads the next token and returns its type.”</p>
 <p>按照官方文档上面的解释，一个可行的解析模型可以是这样：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">QXmlStreamReader xml;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">while</span> (!xml.atEnd()) &#123;</span><br><span class="line">      xml.readNext();</span><br><span class="line">      ... <span class="comment">// do processing</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (xml.hasError()) &#123;</span><br><span class="line">      ... <span class="comment">// do error handling</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">QXmlStreamReader xml;</div><div class="line">...</div><div class="line"><span class="keyword">while</span> (!xml.atEnd()) &#123;</div><div class="line">      xml.readNext();</div><div class="line">      ... <span class="comment">// do processing</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (xml.hasError()) &#123;</div><div class="line">      ... <span class="comment">// do error handling</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>由此可见，QXmlStreamReader在解析xml的时候，以token为单位解析xml文档数据。</p>
 <p>我在上一篇文章中讲过，xml有Element node，Element node以Text node作为child，Attribute node从属于Element node，comment node相对独立，而以上四种node都由document node生成，document node可以说是一个xml文档的代表，xml parsing的核心是element node。但是在Qt中，token与这种标准的概念似乎完全无关。它更关心我现在读到的东西是什么。在TokenType的定义中，一共给出了9种不同token的定义，而判断当前parser的tokenType是什么的函数一共有十二种。</p>
 <p>我们可以想象，这种parser，一块一块地读取xml文档，只前进不后退，每一块代表一种既定的token，直到全部读完xml为止（也就是<code>atEnd()</code>为真的时候）。</p>
 <p>下面让我展示一段我这个project中的一段代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(reply-&gt;error()==QNetworkReply::NoError)&#123;</span><br><span class="line">    ui-&gt;listWidget-&gt;clear();</span><br><span class="line">    articlelist.clear();</span><br><span class="line">    <span class="function">QXmlStreamReader <span class="title">xml</span><span class="params">(reply)</span></span>;</span><br><span class="line">    <span class="keyword">if</span>(xml.readNextStartElement() &amp;&amp; xml.name()==<span class="string">"articles"</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(xml.readNextStartElement() &amp;&amp; xml.name()==<span class="string">"article"</span>)&#123;</span><br><span class="line">            Article record;</span><br><span class="line">            <span class="keyword">while</span>(xml.readNextStartElement())&#123;</span><br><span class="line">                <span class="keyword">if</span>(xml.name()==<span class="string">"author"</span>)&#123;</span><br><span class="line">                    record.author = xml.readElementText();</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"date"</span>)&#123;</span><br><span class="line">                    record.date = xml.readElementText();</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"title"</span>)&#123;</span><br><span class="line">                    QString t = xml.readElementText();</span><br><span class="line">                    ui-&gt;listWidget-&gt;addItem(t);</span><br><span class="line">                    record.title = t;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"content"</span>)&#123;</span><br><span class="line">                    record.content = xml.readElementText();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            articlelist.push_back(record);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(reply-&gt;error()==QNetworkReply::NoError)&#123;</div><div class="line">    ui-&gt;listWidget-&gt;clear();</div><div class="line">    articlelist.clear();</div><div class="line">    <span class="function">QXmlStreamReader <span class="title">xml</span><span class="params">(reply)</span></span>;</div><div class="line">    <span class="keyword">if</span>(xml.readNextStartElement() &amp;&amp; xml.name()==<span class="string">"articles"</span>)&#123;</div><div class="line">        <span class="keyword">while</span>(xml.readNextStartElement() &amp;&amp; xml.name()==<span class="string">"article"</span>)&#123;</div><div class="line">            Article record;</div><div class="line">            <span class="keyword">while</span>(xml.readNextStartElement())&#123;</div><div class="line">                <span class="keyword">if</span>(xml.name()==<span class="string">"author"</span>)&#123;</div><div class="line">                    record.author = xml.readElementText();</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"date"</span>)&#123;</div><div class="line">                    record.date = xml.readElementText();</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"title"</span>)&#123;</div><div class="line">                    QString t = xml.readElementText();</div><div class="line">                    ui-&gt;listWidget-&gt;addItem(t);</div><div class="line">                    record.title = t;</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"content"</span>)&#123;</div><div class="line">                    record.content = xml.readElementText();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            articlelist.push_back(record);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>xml文档格式如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">articles</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">article</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">author</span>&gt;</span>...<span class="tag">&lt;/<span class="title">author</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">date</span>&gt;</span>...<span class="tag">&lt;/<span class="title">date</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>...<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">content</span>&gt;</span>...<span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">article</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">article</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;/<span class="title">article</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="title">articles</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">articles</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">article</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span>...<span class="tag">&lt;/<span class="name">author</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">date</span>&gt;</span>...<span class="tag">&lt;/<span class="name">date</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>...<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">content</span>&gt;</span>...<span class="tag">&lt;/<span class="name">content</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">article</span>&gt;</span></div><div class="line">  ...</div><div class="line">  <span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line">  ...</div><div class="line"><span class="tag">&lt;/<span class="name">articles</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>代码中reply是个API请求的回应，我的目的是吧这个回应中的每一条信息存放在articlelist中。值得注意的是14-16行那段代码，由于这个是一个增量parser，我们不能使用</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ui-&gt;listWidget-&gt;addItem(xml.readElementText());</span><br><span class="line">record.title = xml.readElementText();</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ui-&gt;listWidget-&gt;addItem(xml.readElementText());</div><div class="line">record.title = xml.readElementText();</div></pre></td></tr></table></figure>
 <p>否则<code>record.title</code>将为空。</p>
 
 	
@@ -543,9 +679,9 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 <li>Comment nodes*   Document nodes 只有使用document node的方法才能创造新element, text, attribute, comment</li>
 </ul>
 <p>现有以下xml文档：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">listitem</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">label</span>&gt;</span>Import Wizard<span class="tag">&lt;/<span class="title">label</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">callback</span>&gt;</span>uiimport<span class="tag">&lt;/<span class="title">callback</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">icon</span>&gt;</span>ApplicationIcon.GENERIC_GUI<span class="tag">&lt;/<span class="title">icon</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">listitem</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">listitem</span>&gt;</span></span><br><span class="line">    ...</span><br><span class="line"><span class="tag">&lt;/<span class="title">listitem</span>&gt;</span></span><br><span class="line">    ...</span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">listitem</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">label</span>&gt;</span>Import Wizard<span class="tag">&lt;/<span class="name">label</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">callback</span>&gt;</span>uiimport<span class="tag">&lt;/<span class="name">callback</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">icon</span>&gt;</span>ApplicationIcon.GENERIC_GUI<span class="tag">&lt;/<span class="name">icon</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">listitem</span>&gt;</span></div><div class="line"><span class="tag">&lt;<span class="name">listitem</span>&gt;</span></div><div class="line">    ...</div><div class="line"><span class="tag">&lt;/<span class="name">listitem</span>&gt;</span></div><div class="line">    ...</div></pre></td></tr></table></figure>
 <p>其中的一个label标签有字符Plot Tools。假设你想在同样的listitem里面寻找callback标签的字符：</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">findLabel = <span class="string">'Plot Tools'</span>;</span><br><span class="line">findCbk = <span class="string">''</span>;</span><br><span class="line">xDoc = xmlread(fullfile(matlabroot, ...</span><br><span class="line">               <span class="string">'toolbox'</span>,<span class="string">'matlab'</span>,<span class="string">'general'</span>,<span class="string">'info.xml'</span>));</span><br><span class="line">allListitems = xDoc.getElementsByTagName(<span class="string">'listitem'</span>);</span><br><span class="line"><span class="keyword">for</span> k = <span class="number">0</span>:allListitems.getLength-<span class="number">1</span></span><br><span class="line">    thisListitem = allListitems.item(k);</span><br><span class="line"></span><br><span class="line">    <span class="comment">% Get the label element. In this file, each</span></span><br><span class="line">    <span class="comment">% listitem contains only one label.</span></span><br><span class="line">    thisList = thisListitem.getElementsByTagName(<span class="string">'label'</span>);</span><br><span class="line">    thisElement = thisList.item(<span class="number">0</span>);</span><br><span class="line">    <span class="comment">% Check whether this is the label you want.</span></span><br><span class="line">    <span class="comment">% The text is in the first child node.</span></span><br><span class="line">    <span class="keyword">if</span> strcmp(thisElement.getFirstChild.getData, findLabel)</span><br><span class="line">        thisList = thisListitem.getElementsByTagName(<span class="string">'callback'</span>);</span><br><span class="line">        thisElement = thisList.item(<span class="number">0</span>);</span><br><span class="line">        findCbk = char(thisElement.getFirstChild.getData);</span><br><span class="line">        <span class="keyword">break</span>;</span><br><span class="line">    <span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ~<span class="built_in">isempty</span>(findCbk)</span><br><span class="line">    msg = sprintf(<span class="string">'Item "%s" has a callback of "%s."'</span>,...</span><br><span class="line">                      findLabel, findCbk);</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">   msg = sprintf(<span class="string">'Did not find the "%s" item.'</span>, findLabel);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"><span class="built_in">disp</span>(msg);</span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div></pre></td><td class="code"><pre><div class="line">findLabel = <span class="string">'Plot Tools'</span>;</div><div class="line">findCbk = <span class="string">''</span>;</div><div class="line">xDoc = xmlread(fullfile(matlabroot, ...</div><div class="line">               <span class="string">'toolbox'</span>,<span class="string">'matlab'</span>,<span class="string">'general'</span>,<span class="string">'info.xml'</span>));</div><div class="line">allListitems = xDoc.getElementsByTagName(<span class="string">'listitem'</span>);</div><div class="line"><span class="keyword">for</span> k = <span class="number">0</span>:allListitems.getLength<span class="number">-1</span></div><div class="line">    thisListitem = allListitems.item(k);</div><div class="line"></div><div class="line">    <span class="comment">% Get the label element. In this file, each</span></div><div class="line">    <span class="comment">% listitem contains only one label.</span></div><div class="line">    thisList = thisListitem.getElementsByTagName(<span class="string">'label'</span>);</div><div class="line">    thisElement = thisList.item(<span class="number">0</span>);</div><div class="line">    <span class="comment">% Check whether this is the label you want.</span></div><div class="line">    <span class="comment">% The text is in the first child node.</span></div><div class="line">    <span class="keyword">if</span> strcmp(thisElement.getFirstChild.getData, findLabel)</div><div class="line">        thisList = thisListitem.getElementsByTagName(<span class="string">'callback'</span>);</div><div class="line">        thisElement = thisList.item(<span class="number">0</span>);</div><div class="line">        findCbk = char(thisElement.getFirstChild.getData);</div><div class="line">        <span class="keyword">break</span>;</div><div class="line">    <span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line"><span class="keyword">if</span> ~<span class="built_in">isempty</span>(findCbk)</div><div class="line">    msg = sprintf(<span class="string">'Item "%s" has a callback of "%s."'</span>,...</div><div class="line">                      findLabel, findCbk);</div><div class="line"><span class="keyword">else</span></div><div class="line">   msg = sprintf(<span class="string">'Did not find the "%s" item.'</span>, findLabel);</div><div class="line"><span class="keyword">end</span></div><div class="line"><span class="built_in">disp</span>(msg);</div></pre></td></tr></table></figure>
 <p>MATLAB本身就提供一个xmlread函数，其返回的是Document Node。根节点哦。其余与Document Node的函数都是标准已经定义了的，这个标准详情请见<a href="http://download.oracle.com/javase/6/docs/api/" target="_blank" rel="external">这里</a>.在上面一段代码中，我们可以看见几个常用的API：</p>
 <ul>
 <li><code>getElementsByTagName</code>是Document Node的方法，返回一个list。</li>
@@ -553,9 +689,9 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 <li>一个有child的element node，获得其内容，要调用<code>getFirstChild.getData</code>。</li>
 </ul>
 <p>如果我们想写一个XML文档：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="pi">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="title">toc</span> <span class="attribute">version</span>=<span class="value">"2.0"</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">tocitem</span> <span class="attribute">target</span>=<span class="value">"upslope_product_page.html"</span>&gt;</span>Upslope Area Toolbox<span class="comment">&lt;!-- Functions --&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">tocitem</span> <span class="attribute">target</span>=<span class="value">"demFlow_help.html"</span>&gt;</span>demFlow<span class="tag">&lt;/<span class="title">tocitem</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">tocitem</span> <span class="attribute">target</span>=<span class="value">"facetFlow_help.html"</span>&gt;</span>facetFlow<span class="tag">&lt;/<span class="title">tocitem</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">tocitem</span> <span class="attribute">target</span>=<span class="value">"flowMatrix_help.html"</span>&gt;</span>flowMatrix<span class="tag">&lt;/<span class="title">tocitem</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="title">tocitem</span> <span class="attribute">target</span>=<span class="value">"pixelFlow_help.html"</span>&gt;</span>pixelFlow<span class="tag">&lt;/<span class="title">tocitem</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="title">tocitem</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="title">toc</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line"><span class="php"><span class="meta">&lt;?</span>xml version=<span class="string">"1.0"</span> encoding=<span class="string">"utf-8"</span><span class="meta">?&gt;</span></span></div><div class="line"><span class="tag">&lt;<span class="name">toc</span> <span class="attr">version</span>=<span class="string">"2.0"</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">tocitem</span> <span class="attr">target</span>=<span class="string">"upslope_product_page.html"</span>&gt;</span>Upslope Area Toolbox<span class="comment">&lt;!-- Functions --&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tocitem</span> <span class="attr">target</span>=<span class="string">"demFlow_help.html"</span>&gt;</span>demFlow<span class="tag">&lt;/<span class="name">tocitem</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tocitem</span> <span class="attr">target</span>=<span class="string">"facetFlow_help.html"</span>&gt;</span>facetFlow<span class="tag">&lt;/<span class="name">tocitem</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tocitem</span> <span class="attr">target</span>=<span class="string">"flowMatrix_help.html"</span>&gt;</span>flowMatrix<span class="tag">&lt;/<span class="name">tocitem</span>&gt;</span></div><div class="line">        <span class="tag">&lt;<span class="name">tocitem</span> <span class="attr">target</span>=<span class="string">"pixelFlow_help.html"</span>&gt;</span>pixelFlow<span class="tag">&lt;/<span class="name">tocitem</span>&gt;</span></div><div class="line">    <span class="tag">&lt;/<span class="name">tocitem</span>&gt;</span></div><div class="line"><span class="tag">&lt;/<span class="name">toc</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>MATLAB代码如下：</p>
-<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">docNode = com.mathworks.xml.XMLUtils.createDocument(<span class="string">'toc'</span>);</span><br><span class="line"></span><br><span class="line">toc = docNode.getDocumentElement;</span><br><span class="line">toc.setAttribute(<span class="string">'version'</span>,<span class="string">'2.0'</span>);</span><br><span class="line"></span><br><span class="line">product = docNode.createElement(<span class="string">'tocitem'</span>);</span><br><span class="line">product.setAttribute(<span class="string">'target'</span>,<span class="string">'upslope_product_page.html'</span>);</span><br><span class="line">product.appendChild(docNode.createTextNode(<span class="string">'Upslope Area Toolbox'</span>));</span><br><span class="line">toc.appendChild(product)</span><br><span class="line"></span><br><span class="line">product.appendChild(docNode.createComment(<span class="string">' Functions '</span>));</span><br><span class="line"></span><br><span class="line">functions = <span class="cell">&#123;<span class="string">'demFlow'</span>,<span class="string">'facetFlow'</span>,<span class="string">'flowMatrix'</span>,<span class="string">'pixelFlow'</span>&#125;</span>;</span><br><span class="line"><span class="keyword">for</span> idx = <span class="number">1</span>:<span class="built_in">numel</span>(functions)</span><br><span class="line">    curr_node = docNode.createElement(<span class="string">'tocitem'</span>);</span><br><span class="line"></span><br><span class="line">    curr_file = <span class="matrix">[functions&#123;idx&#125; <span class="string">'_help.html'</span>]</span>;</span><br><span class="line">    curr_node.setAttribute(<span class="string">'target'</span>,curr_file);</span><br><span class="line"></span><br><span class="line">    <span class="comment">% Child text is the function name.</span></span><br><span class="line">    curr_node.appendChild(docNode.createTextNode(functions<span class="cell">&#123;idx&#125;</span>));</span><br><span class="line">    product.appendChild(curr_node);</span><br><span class="line"><span class="keyword">end</span></span><br><span class="line"></span><br><span class="line">xmlwrite(<span class="string">'info.xml'</span>,docNode);</span><br><span class="line">type(<span class="string">'info.xml'</span>);</span><br></pre></td></tr></table></figure>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div></pre></td><td class="code"><pre><div class="line">docNode = com.mathworks.xml.XMLUtils.createDocument(<span class="string">'toc'</span>);</div><div class="line"></div><div class="line">toc = docNode.getDocumentElement;</div><div class="line">toc.setAttribute(<span class="string">'version'</span>,<span class="string">'2.0'</span>);</div><div class="line"></div><div class="line">product = docNode.createElement(<span class="string">'tocitem'</span>);</div><div class="line">product.setAttribute(<span class="string">'target'</span>,<span class="string">'upslope_product_page.html'</span>);</div><div class="line">product.appendChild(docNode.createTextNode(<span class="string">'Upslope Area Toolbox'</span>));</div><div class="line">toc.appendChild(product)</div><div class="line"></div><div class="line">product.appendChild(docNode.createComment(<span class="string">' Functions '</span>));</div><div class="line"></div><div class="line">functions = &#123;<span class="string">'demFlow'</span>,<span class="string">'facetFlow'</span>,<span class="string">'flowMatrix'</span>,<span class="string">'pixelFlow'</span>&#125;;</div><div class="line"><span class="keyword">for</span> idx = <span class="number">1</span>:<span class="built_in">numel</span>(functions)</div><div class="line">    curr_node = docNode.createElement(<span class="string">'tocitem'</span>);</div><div class="line"></div><div class="line">    curr_file = [functions&#123;idx&#125; <span class="string">'_help.html'</span>];</div><div class="line">    curr_node.setAttribute(<span class="string">'target'</span>,curr_file);</div><div class="line"></div><div class="line">    <span class="comment">% Child text is the function name.</span></div><div class="line">    curr_node.appendChild(docNode.createTextNode(functions&#123;idx&#125;));</div><div class="line">    product.appendChild(curr_node);</div><div class="line"><span class="keyword">end</span></div><div class="line"></div><div class="line">xmlwrite(<span class="string">'info.xml'</span>,docNode);</div><div class="line">type(<span class="string">'info.xml'</span>);</div></pre></td></tr></table></figure>
 <ul>
 <li>这个函数首先先创建出一个Document Node，也就是最重要的根节点；</li>
 <li><code>SetAttribute</code>是Element Node的方法；</li>
@@ -563,53 +699,6 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 <li>Element Node间的父子关系由<code>appendChild</code>确定。</li>
 </ul>
 <p>以上就是MATLAB里面处理XML文档的最基本知识。由于XML文档的处理方式是统一的，因此很容易就能拓展到其他语言。从代码中就可以挖掘出许多东西。在实际中，要使用到的XML API恐怕还远远不够。这篇文章只是作为一个入门性质的导引。</p>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2014-02-04 </div>
-			<div class="article-title"><a href="/2014/02/04/简单易懂的Sublime-Text-2/" >简单易懂的Sublime Text 2</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>由于这几天一看见Python自带的IDLE我就作呕，我觉得很有必要花点时间研究一下<a href="http://www.sublimetext.com/" target="_blank" rel="external">Sublime Text 2</a>。</p>
-<p>为什么要用Sublime Text 2？其实我也不知道。我第一次知道这个编辑器是在Azure的培训上。后来我发现，许多专业人士都非常推崇此编辑器。Sublime Text 2在Windows、Mac和Linux下都有相应的版本。</p>
-<p>如果你去看Sublime Text 2的主页，你会发现这个编辑器的最大优点就是多光标编辑。没有其他任何一个编辑器能做到这一点。</p>
-<p>下面，我把Sublime的文档简要翻译了一下，权作参考。如果没有特殊说明，下面都是在Windows平台下操作。</p>
-<h2 id="大规模行选择">大规模行选择</h2><p><img src="!--￼0--&gt;/img/column-select.png" alt="multiple line selecting"><br>方法一：Shift+右键拖动，或按下中键拖动。<br>如果要额外添加一行光标，使用Ctrl+左键选择。（虽然文档上说Alt是撤销一行光标，但是我从来都没试成功过）<br>方法二：使用键盘：Ctrl+Alt+Up向上选择，Ctrl+Alt+Down向下选择。</p>
-<h2 id="多重选择">多重选择</h2><h3 id="选择块区域并分裂成多行">选择块区域并分裂成多行</h3><p>选择一个块区域，然后按下Ctrl+Shift+L，可把一整块的选择区域分成每一行一块的选择区。</p>
-<h3 id="快速添加下一相同区域">快速添加下一相同区域</h3><p>我们在文字编辑器里会有相同的变量名，如果我们的光标在其中一个变量名之上，按下Ctrl+D，整个变量名就会被选择。<br>如果再按下Ctrl+D，下一个相同的变量名也会被选择。<br><img src="!--￼1--&gt;/img/multiple-selection.png" alt="multiple block selecting"></p>
-<h3 id="一起选定所有相同区域">一起选定所有相同区域</h3><p>光标在变量名上，按下Alt+F3</p>
-<h3 id="退回到单个选择模式">退回到单个选择模式</h3><p>按下Esc</p>
-<h2 id="自动补全">自动补全</h2><p>自动补全是自动开启的，设置在Preferences/Settings-Default里面，有个”auto_complete”。<br>如果当前弹出窗没有弹出，可以按下Ctrl+空格，强制显示当前可补全选项。不会引发输入法吗，我想。<br>在HTML文档里，’&lt;’键是触发自动补全的按键。</p>
-<h2 id="Tab补全">Tab补全</h2><p>Tab补全是自动开启的，有个”tab_completion”的选项。<br>如果当前的补全结果并非为我所愿，可以按下Ctrl+空格，显示补全选框。<br>如果按下Tab不想补全而是写下制表符，可以按下Shift+Tab。</p>
-<h2 id="不受干扰模式">不受干扰模式</h2><p>这种模式跟全屏模式还有些区别。<br>View/Enter Distraction Free Mode打开此模式。或直接按Shift+F11。<br>设置不受干扰模式：与上文不同，路径在_Preferences/Settings - More</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;  &#10;    &#34;line_numbers&#34;: false,  &#10;    &#34;gutter&#34;: false,  &#10;    &#34;draw_centered&#34;: true,  &#10;    &#34;wrap_width&#34;: 80,  &#10;    &#34;word_wrap&#34;: true,  &#10;    &#34;scroll_past_end&#34;: true  &#10;&#125;</span><br></pre></td></tr></table></figure>
-<p>这是一个设置样本。特别注意的是”wrap_width”这个选项，这个选项之大小决定了该模式下的编辑宽度。</p>
-<h2 id="Vintage_Mode">Vintage Mode</h2><p>这个是Vi模式。此模式在默认状态下是关闭的，你需要做的是将其从ignored-packages中去除。编辑<code>&quot;ignored_packages&quot;: [&quot;Vintage&quot;]</code>至<code>&quot;ignored_packages&quot;: []</code>即可。</p>
-<p>Vintage模式默认状态是insert mode。如有不适请添加如下一行：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#34;vintage_start_in_command_mode&#34;: true</span><br></pre></td></tr></table></figure>
-<p>需要注意的是，Vintage模式下的insert模式是Sublime正常工作的模式，在此情况下的vi快捷键不可用。而且Ex模式也不可用。</p>
-<p>Ctrl快捷键与Sublime冲突，默认关闭。如需启用，请打开</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#34;vintage_ctrl_keys&#34;: true</span><br></pre></td></tr></table></figure>
-<h2 id="Projects">Projects</h2><p>在Sublime Text 2中，Projects由两个文件组成：</p>
-<ul>
-<li>Sublime Project File：定义Project，需要加入版本控制；*   Sublime-workspace file：用户的数据。</li>
-</ul>
-<p>Sublime-Project File是一个JSON文件，顶层分三大部分：Folders明确包含的文件，Settings会覆写用户设置，还有Build_systems。</p>
 
 	
 	</div>
@@ -667,7 +756,7 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 		
 			<li><a href="/categories/Analytical/">Analytical<span>2</span></a></li>
 		
-			<li><a href="/categories/Competition/">Competition<span>2</span></a></li>
+			<li><a href="/categories/Competition/">Competition<span>3</span></a></li>
 		
 			<li><a href="/categories/Notes/">Notes<span>7</span></a></li>
 		
@@ -686,41 +775,41 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 		<h4>标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/sublime-text-2/">sublime text 2<span>1</span></a></li>
-		
-			<li><a href="/tags/Max-flow/">Max flow<span>1</span></a></li>
-		
 			<li><a href="/tags/wordpress/">wordpress<span>2</span></a></li>
-		
-			<li><a href="/tags/apache/">apache<span>2</span></a></li>
-		
-			<li><a href="/tags/tools/">tools<span>2</span></a></li>
-		
-			<li><a href="/tags/Machine-Learning/">Machine Learning<span>4</span></a></li>
-		
-			<li><a href="/tags/coreutils/">coreutils<span>1</span></a></li>
-		
-			<li><a href="/tags/Coursera/">Coursera<span>3</span></a></li>
-		
-			<li><a href="/tags/Backend/">Backend<span>2</span></a></li>
-		
-			<li><a href="/tags/linux/">linux<span>1</span></a></li>
-		
-			<li><a href="/tags/Algorithm/">Algorithm<span>10</span></a></li>
 		
 			<li><a href="/tags/xml/">xml<span>2</span></a></li>
 		
-			<li><a href="/tags/Data-Structure/">Data Structure<span>3</span></a></li>
+			<li><a href="/tags/Max-flow/">Max flow<span>1</span></a></li>
 		
 			<li><a href="/tags/CUDA-C/">CUDA C<span>1</span></a></li>
 		
-			<li><a href="/tags/C/">C++<span>10</span></a></li>
+			<li><a href="/tags/sublime-text-2/">sublime text 2<span>1</span></a></li>
+		
+			<li><a href="/tags/linux/">linux<span>1</span></a></li>
+		
+			<li><a href="/tags/matlab/">matlab<span>1</span></a></li>
+		
+			<li><a href="/tags/Coursera/">Coursera<span>3</span></a></li>
+		
+			<li><a href="/tags/apache/">apache<span>2</span></a></li>
 		
 			<li><a href="/tags/Minimun-cut/">Minimun cut<span>1</span></a></li>
 		
+			<li><a href="/tags/Backend/">Backend<span>2</span></a></li>
+		
+			<li><a href="/tags/Algorithm/">Algorithm<span>10</span></a></li>
+		
+			<li><a href="/tags/tools/">tools<span>2</span></a></li>
+		
 			<li><a href="/tags/Game-theory/">Game theory<span>3</span></a></li>
 		
-			<li><a href="/tags/matlab/">matlab<span>1</span></a></li>
+			<li><a href="/tags/Data-Structure/">Data Structure<span>3</span></a></li>
+		
+			<li><a href="/tags/Machine-Learning/">Machine Learning<span>5</span></a></li>
+		
+			<li><a href="/tags/coreutils/">coreutils<span>1</span></a></li>
+		
+			<li><a href="/tags/C/">C++<span>10</span></a></li>
 		
 		 
 		</ul>
@@ -734,23 +823,23 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
   <ul class="entry list-unstyled">
     
       <li>
+        <a href="/2017/10/02/Mangaki-Data-challange-1st-place-solution/" ><i class="fa fa-file-o"></i>Mangaki Data challange 1st ...</a>
+      </li>
+    
+      <li>
         <a href="/2017/04/14/Console-as-a-SQL-interface-for-quick-text-file-processing/" ><i class="fa fa-file-o"></i>Console as a SQL interface ...</a>
       </li>
     
       <li>
-        <a href="/2017/03/18/机器学习的疯狂三月——NCAA-男篮预测竞赛/" ><i class="fa fa-file-o"></i>机器学习的疯狂三月——NCAA 男篮预测竞赛...</a>
+        <a href="/2017/03/18/机器学习的疯狂三月——NCAA-男篮预测竞赛/" ><i class="fa fa-file-o"></i>机器学习的疯狂三月——NCAA 男篮预测竞赛</a>
       </li>
     
       <li>
-        <a href="/2016/10/11/Max-flow-minimum-cut/" ><i class="fa fa-file-o"></i>Max flow, minimum cut...</a>
+        <a href="/2016/10/11/Max-flow-minimum-cut/" ><i class="fa fa-file-o"></i>Max flow, minimum cut</a>
       </li>
     
       <li>
-        <a href="/2016/06/18/滴滴算法大赛总结/" ><i class="fa fa-file-o"></i>滴滴算法大赛总结...</a>
-      </li>
-    
-      <li>
-        <a href="/2016/02/05/使用-rankit-构建更科学的排名/" ><i class="fa fa-file-o"></i>使用 rankit 构建更科学的排名...</a>
+        <a href="/2016/06/18/滴滴算法大赛总结/" ><i class="fa fa-file-o"></i>滴滴算法大赛总结</a>
       </li>
     
   </ul>
@@ -769,7 +858,7 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Ronnie Wang
+  &copy; 2017 Yet another tech blog!
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -798,15 +887,6 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 </script>
 
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
   <!-- mathjax config similar to math.stackexchange -->
 
@@ -837,36 +917,23 @@ E[P(n)]=E\left[ \frac{1}{n} \sum_{k=0}^{n-1}(P(k)+P(n-k-1)+n-1)\right]
 </script>
 
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
 </script>
-<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
     }
   });
 </script>
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.2/latest.js">
 </script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
    </html>

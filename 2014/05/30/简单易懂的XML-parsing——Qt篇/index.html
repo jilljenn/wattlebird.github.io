@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>简单易懂的XML parsing——Qt篇 | Dedication</title>
-  <meta name="author" content="Ronnie Wang">
+  <meta name="author" content="Yet another tech blog!">
   
-  <meta name="description" content="Yet another tech blog!">
+  <meta name="description" content="关于XML的文章我先前写过一篇。之后就再也没写过。原因是很简单的。虽然那篇文章是用Matlab的代码说明XML解析，但是XML的基本概念都是一致的，我也没必要再就C++或是Python等语言再写一遍在其他语言下面怎么用其他的库解析XML，都是大同小异。
+可是这个世界上奇葩比较多。最近在做《网络通信原">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -45,7 +46,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-53608123-1', 'auto');
   ga('send', 'pageview');
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -53,7 +54,7 @@
 </head>
 
  <body>
-  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	<span class="sr-only">Toggle navigation</span>
@@ -124,16 +125,16 @@
 <p>由这段话我们可以看出，QXmlStreamReader的一个重要特点是，它是一个增量parser。QXmlStreamReader有一个特别的构造函数<code>QXmlStreamReader::QXmlStreamReader(QIODevice * device)</code>，这个device可以是QNetworkReply也可以是QFile。相信这样的好处大家都可以看得出来。为了应付不同IODevice的特性，QXmlStreamReader也只能采取增量解析的方法。然后又有了下面的概念：token.</p>
 <p>QXmlStreamReader不在内存中保存全部的DOM tree，现在解析的位置和所解析的对象用token说明。关于什么是token，其实我也不知道。但是QXmlStreamReader提供了一个函数：<code>TokenType QXmlStreamReader::readNext()</code>，有关这个函数的说明是“Reads the next token and returns its type.”</p>
 <p>按照官方文档上面的解释，一个可行的解析模型可以是这样：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">QXmlStreamReader xml;</span><br><span class="line">...</span><br><span class="line"><span class="keyword">while</span> (!xml.atEnd()) &#123;</span><br><span class="line">      xml.readNext();</span><br><span class="line">      ... <span class="comment">// do processing</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> (xml.hasError()) &#123;</span><br><span class="line">      ... <span class="comment">// do error handling</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">QXmlStreamReader xml;</div><div class="line">...</div><div class="line"><span class="keyword">while</span> (!xml.atEnd()) &#123;</div><div class="line">      xml.readNext();</div><div class="line">      ... <span class="comment">// do processing</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">if</span> (xml.hasError()) &#123;</div><div class="line">      ... <span class="comment">// do error handling</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>由此可见，QXmlStreamReader在解析xml的时候，以token为单位解析xml文档数据。</p>
 <p>我在上一篇文章中讲过，xml有Element node，Element node以Text node作为child，Attribute node从属于Element node，comment node相对独立，而以上四种node都由document node生成，document node可以说是一个xml文档的代表，xml parsing的核心是element node。但是在Qt中，token与这种标准的概念似乎完全无关。它更关心我现在读到的东西是什么。在TokenType的定义中，一共给出了9种不同token的定义，而判断当前parser的tokenType是什么的函数一共有十二种。</p>
 <p>我们可以想象，这种parser，一块一块地读取xml文档，只前进不后退，每一块代表一种既定的token，直到全部读完xml为止（也就是<code>atEnd()</code>为真的时候）。</p>
 <p>下面让我展示一段我这个project中的一段代码：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span>(reply-&gt;error()==QNetworkReply::NoError)&#123;</span><br><span class="line">    ui-&gt;listWidget-&gt;clear();</span><br><span class="line">    articlelist.clear();</span><br><span class="line">    <span class="function">QXmlStreamReader <span class="title">xml</span><span class="params">(reply)</span></span>;</span><br><span class="line">    <span class="keyword">if</span>(xml.readNextStartElement() &amp;&amp; xml.name()==<span class="string">"articles"</span>)&#123;</span><br><span class="line">        <span class="keyword">while</span>(xml.readNextStartElement() &amp;&amp; xml.name()==<span class="string">"article"</span>)&#123;</span><br><span class="line">            Article record;</span><br><span class="line">            <span class="keyword">while</span>(xml.readNextStartElement())&#123;</span><br><span class="line">                <span class="keyword">if</span>(xml.name()==<span class="string">"author"</span>)&#123;</span><br><span class="line">                    record.author = xml.readElementText();</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"date"</span>)&#123;</span><br><span class="line">                    record.date = xml.readElementText();</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"title"</span>)&#123;</span><br><span class="line">                    QString t = xml.readElementText();</span><br><span class="line">                    ui-&gt;listWidget-&gt;addItem(t);</span><br><span class="line">                    record.title = t;</span><br><span class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"content"</span>)&#123;</span><br><span class="line">                    record.content = xml.readElementText();</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            articlelist.push_back(record);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">if</span>(reply-&gt;error()==QNetworkReply::NoError)&#123;</div><div class="line">    ui-&gt;listWidget-&gt;clear();</div><div class="line">    articlelist.clear();</div><div class="line">    <span class="function">QXmlStreamReader <span class="title">xml</span><span class="params">(reply)</span></span>;</div><div class="line">    <span class="keyword">if</span>(xml.readNextStartElement() &amp;&amp; xml.name()==<span class="string">"articles"</span>)&#123;</div><div class="line">        <span class="keyword">while</span>(xml.readNextStartElement() &amp;&amp; xml.name()==<span class="string">"article"</span>)&#123;</div><div class="line">            Article record;</div><div class="line">            <span class="keyword">while</span>(xml.readNextStartElement())&#123;</div><div class="line">                <span class="keyword">if</span>(xml.name()==<span class="string">"author"</span>)&#123;</div><div class="line">                    record.author = xml.readElementText();</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"date"</span>)&#123;</div><div class="line">                    record.date = xml.readElementText();</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"title"</span>)&#123;</div><div class="line">                    QString t = xml.readElementText();</div><div class="line">                    ui-&gt;listWidget-&gt;addItem(t);</div><div class="line">                    record.title = t;</div><div class="line">                &#125;<span class="keyword">else</span> <span class="keyword">if</span>(xml.name()==<span class="string">"content"</span>)&#123;</div><div class="line">                    record.content = xml.readElementText();</div><div class="line">                &#125;</div><div class="line">            &#125;</div><div class="line">            articlelist.push_back(record);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    ...</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>xml文档格式如下：</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="title">articles</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">article</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">author</span>&gt;</span>...<span class="tag">&lt;/<span class="title">author</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="title">date</span>&gt;</span>...<span class="tag">&lt;/<span class="title">date</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">title</span>&gt;</span>...<span class="tag">&lt;/<span class="title">title</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="title">content</span>&gt;</span>...<span class="tag">&lt;/<span class="title">content</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="title">article</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="title">article</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line">  <span class="tag">&lt;/<span class="title">article</span>&gt;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="tag">&lt;/<span class="title">articles</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">articles</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">article</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">author</span>&gt;</span>...<span class="tag">&lt;/<span class="name">author</span>&gt;</span></div><div class="line">      <span class="tag">&lt;<span class="name">date</span>&gt;</span>...<span class="tag">&lt;/<span class="name">date</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">title</span>&gt;</span>...<span class="tag">&lt;/<span class="name">title</span>&gt;</span></div><div class="line">    <span class="tag">&lt;<span class="name">content</span>&gt;</span>...<span class="tag">&lt;/<span class="name">content</span>&gt;</span></div><div class="line">  <span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line">  <span class="tag">&lt;<span class="name">article</span>&gt;</span></div><div class="line">  ...</div><div class="line">  <span class="tag">&lt;/<span class="name">article</span>&gt;</span></div><div class="line">  ...</div><div class="line"><span class="tag">&lt;/<span class="name">articles</span>&gt;</span></div></pre></td></tr></table></figure>
 <p>代码中reply是个API请求的回应，我的目的是吧这个回应中的每一条信息存放在articlelist中。值得注意的是14-16行那段代码，由于这个是一个增量parser，我们不能使用</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">ui-&gt;listWidget-&gt;addItem(xml.readElementText());</span><br><span class="line">record.title = xml.readElementText();</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">ui-&gt;listWidget-&gt;addItem(xml.readElementText());</div><div class="line">record.title = xml.readElementText();</div></pre></td></tr></table></figure>
 <p>否则<code>record.title</code>将为空。</p>
 	  
 	</div>
@@ -265,7 +266,7 @@ var disqus_shortname = 'wattlebirdgithubio';
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Ronnie Wang
+  &copy; 2017 Yet another tech blog!
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -294,15 +295,6 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
   <!-- mathjax config similar to math.stackexchange -->
 
@@ -333,6 +325,23 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.2/latest.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
    </html>

@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>Game Theory Note - week 3 | Dedication</title>
-  <meta name="author" content="Ronnie Wang">
+  <meta name="author" content="Yet another tech blog!">
   
-  <meta name="description" content="Yet another tech blog!">
+  <meta name="description" content="This week’s material is dedicated to concepts “beyond Nash Equilibrium”: iterative removal of strictly dominated strategies, minimax strategies and th">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -45,7 +45,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-53608123-1', 'auto');
   ga('send', 'pageview');
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -53,7 +53,7 @@
 </head>
 
  <body>
-  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	<span class="sr-only">Toggle navigation</span>
@@ -118,8 +118,8 @@
 
 	  <p>This week’s material is dedicated to concepts “beyond Nash Equilibrium”: iterative removal of strictly dominated strategies, minimax strategies and the minimax theorem for zero-sum game, correlated equilibria.</p>
 <p>Different from previous weeks’ notes, I will illustrate some concepts in Chinese.</p>
-<h2 id="Dominated_Strategies">Dominated Strategies</h2><p>Strictly dominated strategies are based on every player’s rationality: that is, everybody is rational, and everybody knows other players make rational decisions, and everybody knows that also… So, those strategies that are strictly dominated are to be dominated. We can get final strategy by using iterated removal.</p>
-<h3 id="Example_1:_Prisoner’s_dilemma">Example 1: Prisoner’s dilemma</h3><table>
+<h2 id="Dominated-Strategies"><a href="#Dominated-Strategies" class="headerlink" title="Dominated Strategies"></a>Dominated Strategies</h2><p>Strictly dominated strategies are based on every player’s rationality: that is, everybody is rational, and everybody knows other players make rational decisions, and everybody knows that also… So, those strategies that are strictly dominated are to be dominated. We can get final strategy by using iterated removal.</p>
+<h3 id="Example-1-Prisoner’s-dilemma"><a href="#Example-1-Prisoner’s-dilemma" class="headerlink" title="Example 1: Prisoner’s dilemma"></a>Example 1: Prisoner’s dilemma</h3><table>
 <thead>
 <tr>
 <th>Prisoner 1 and 2</th>
@@ -142,7 +142,7 @@
 </table>
 <p>Follow the rational thinking, both prisoners will chose betrayal because choosing betrayal will definitely have him/her spent somewhat less time in prison in comparison to choosing cooperation. In this case, we say that betrayal dominates cooperation.</p>
 <p>What’s interesting is that the final strategy, which is a Nash Equilibrium, is not optimal in a overall view. This is where dilemma lies, which illustrates that 非零和博弈中，帕累托最优和纳什均衡是相冲突的.</p>
-<h3 id="Example_2:_Intelligent_Pigs">Example 2: Intelligent Pigs</h3><p>The illustration of this game can be found <a href="http://wiki.mbalib.com/wiki/%E4%B8%A5%E6%A0%BC%E5%8A%A3%E5%8A%BF%E7%AD%96%E7%95%A5" target="_blank" rel="external">here</a>.</p>
+<h3 id="Example-2-Intelligent-Pigs"><a href="#Example-2-Intelligent-Pigs" class="headerlink" title="Example 2: Intelligent Pigs"></a>Example 2: Intelligent Pigs</h3><p>The illustration of this game can be found <a href="http://wiki.mbalib.com/wiki/%E4%B8%A5%E6%A0%BC%E5%8A%A3%E5%8A%BF%E7%AD%96%E7%95%A5" target="_blank" rel="external">here</a>.</p>
 <table>
 <thead>
 <tr>
@@ -166,11 +166,11 @@
 </table>
 <p>In this experiment, we can see that for the small pig, there is a dominate strategy, so the small pig would prefer waiting. After eliminating pressing for small pig, the big pig would chose to press. However, for the big pig, there is no dominate strategy, but after iterative eliminating, (wait, press) becomes the nash equilibrium.</p>
 <p>Someone may question about the relationship between Nash equilibrium and dominant strategy equilibrium. 优势策略均衡和纳什均衡的区别在于：在优势策略均衡中，我所做的是不管你做什么，我所能做的是最好的；在纳什均衡中，我所做的是给定你所做的前提下，我所能做的是最好的，你所做的是在给定我所做的前提下你所能做的是最好的，从二者的关系可以看出，优势策略均衡是纳什均衡的一个特例，一个优势策略均衡首先是一个纳什均衡.</p>
-<h2 id="Maxmin_Strategies_and_Minmax_Strategies">Maxmin Strategies and Minmax Strategies</h2><p>Maxmin strategy is a strategy that maximizes one’s worst-case payoff. Maxmin Value of the game for player i is that minimum payoff guaranteed by a maxmin strategy. A conservative agent would prefer the maxmin strategy.</p>
+<h2 id="Maxmin-Strategies-and-Minmax-Strategies"><a href="#Maxmin-Strategies-and-Minmax-Strategies" class="headerlink" title="Maxmin Strategies and Minmax Strategies"></a>Maxmin Strategies and Minmax Strategies</h2><p>Maxmin strategy is a strategy that maximizes one’s worst-case payoff. Maxmin Value of the game for player i is that minimum payoff guaranteed by a maxmin strategy. A conservative agent would prefer the maxmin strategy.</p>
 <p>Minmax strategy is a strategy that minimizes other’s worst-case payoff.</p>
 <p>Theorem<br>: In any finite, two-player, zero-sum game, in any Nash equilibrium each player receives a payoff that is equal to both his maxmin value and his minmax value.</p>
 <p>Note: in non-zero-sum game, Nash equilibrium may not equal to maxmin or minmax strategy.<a href="http://wiki.mbalib.com/zh-tw/%E6%9C%80%E5%A4%A7%E6%9C%80%E5%B0%8F%E7%AD%96%E7%95%A5" target="_blank" rel="external">^1</a></p>
-<h2 id="Corrleated_Equilibrium">Corrleated Equilibrium</h2><p>Correlated Equilibrium (informal): a randomized assignment of (potentially correlated) action recommendations to agents, such that nobody wants to deviate.</p>
+<h2 id="Corrleated-Equilibrium"><a href="#Corrleated-Equilibrium" class="headerlink" title="Corrleated Equilibrium"></a>Corrleated Equilibrium</h2><p>Correlated Equilibrium (informal): a randomized assignment of (potentially correlated) action recommendations to agents, such that nobody wants to deviate.</p>
 <p>Reference: Correlated equilibrium<a href="https://en.wikipedia.org/wiki/Correlated_equilibrium" target="_blank" rel="external">^2</a>.</p>
 	  
 	</div>
@@ -302,7 +302,7 @@ var disqus_shortname = 'wattlebirdgithubio';
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Ronnie Wang
+  &copy; 2017 Yet another tech blog!
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -331,15 +331,6 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
   <!-- mathjax config similar to math.stackexchange -->
 
@@ -370,6 +361,23 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.2/latest.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
    </html>

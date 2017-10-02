@@ -1,12 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>OJ 总结(Depricated) | Dedication</title>
-  <meta name="author" content="Ronnie Wang">
+  <meta name="author" content="Yet another tech blog!">
   
-  <meta name="description" content="Yet another tech blog!">
+  <meta name="description" content="2015.01.04Simple Binary Search
+题目大意就是一种更好的 Binary Search，在一个已经排好序的数组里面找到 target，返回 target 索引。如果找不到，那么就返回 target 应该插入的位置。
+我觉得还是 Acclerated C++ 那本书给了我很多">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -45,7 +47,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-53608123-1', 'auto');
   ga('send', 'pageview');
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -53,7 +55,7 @@
 </head>
 
  <body>
-  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	<span class="sr-only">Toggle navigation</span>
@@ -116,7 +118,7 @@
 	<div class="mypage">		
 	  		
 
-	  <h3 id="2015-01-04">2015.01.04</h3><p><a href="https://oj.leetcode.com/problems/search-insert-position/" target="_blank" rel="external">Simple Binary Search</a></p>
+	  <h3 id="2015-01-04"><a href="#2015-01-04" class="headerlink" title="2015.01.04"></a>2015.01.04</h3><p><a href="https://oj.leetcode.com/problems/search-insert-position/" target="_blank" rel="external">Simple Binary Search</a></p>
 <p>题目大意就是一种更好的 Binary Search，在一个已经排好序的数组里面找到 target，返回 target 索引。如果找不到，那么就返回 target 应该插入的位置。</p>
 <p>我觉得还是 <em>Acclerated C++</em> 那本书给了我很多启示。Binary  search 的搜索区间看作是一个左闭右开区间，每次迭代的过程中，不变的准则是：区间的右边是开区间。这样可以省去考虑中间点恰好是 target 的麻烦。这样做的好处除了省去中间点的考量外，也省略掉了尾端的考虑：在 C 语言中，整数类型向 0 取整，所以 4 是 end 的话，所有小于 4 的数与之相加除以 2 的结果都必然小于 4。</p>
 <p>当然这样没考虑区间左端。有一种情况区间左端小于 target，这时候就简单地和等于的情况合并喽。</p>
@@ -254,7 +256,7 @@ var disqus_shortname = 'wattlebirdgithubio';
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Ronnie Wang
+  &copy; 2017 Yet another tech blog!
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -283,15 +285,6 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
   <!-- mathjax config similar to math.stackexchange -->
 
@@ -322,6 +315,23 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.2/latest.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
    </html>

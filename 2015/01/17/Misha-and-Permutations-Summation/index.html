@@ -1,12 +1,14 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>Misha and Permutations Summation | Dedication</title>
-  <meta name="author" content="Ronnie Wang">
+  <meta name="author" content="Yet another tech blog!">
   
-  <meta name="description" content="Yet another tech blog!">
+  <meta name="description" content="此题为 CF 上的一道中等难度题。题目的原文见这里。用中文简单说一下吧：给定0到N-1的两个排列，求这两个排列的“和”。之所以会有“和”的概念出现，是因为排列的大小可以依据字典序确定。
+　　所以，解决这个问题需要的两个关键步骤是：根据排列确定字典序大小；根据字典序大小还原排列。
+　　一个排列和其字典">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -45,7 +47,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-53608123-1', 'auto');
   ga('send', 'pageview');
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -53,7 +55,7 @@
 </head>
 
  <body>
-  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	<span class="sr-only">Toggle navigation</span>
@@ -155,9 +157,9 @@
 </table>
 <p>　　要完成互相转换的任务，必须借助于 factorial number system。这种 system 和通常的十进制、十六进制很相似，只是把“基”换成了数乘。比如说，如何表示 42，利用 factorial number system？ 4! &lt; 42 &lt; 5!</p>
 <span>$$\begin{aligned}
-42 &amp; =  1 \times 4! + 3 \times 3! + 0 \times 2! + 0 \times 1! + 0 \times 0! \\
-　 &amp; =  (((1 \times 4 + 3) \times 3 + 0) \times 2 + 0) \times 1 + 0 \\
-　 &amp; =  13000_{!}
+42 &amp;amp; =  1 \times 4! + 3 \times 3! + 0 \times 2! + 0 \times 1! + 0 \times 0! \\
+　 &amp;amp; =  (((1 \times 4 + 3) \times 3 + 0) \times 2 + 0) \times 1 + 0 \\
+　 &amp;amp; =  13000_{!}
 \end{aligned}$$</span><!-- Has MathJax -->
 <p>　　可以看到，首先 42 小于 5!，因此 42 可以由 5 以下的阶乘表示。<strong>在拆分的时候，每一位的数字不得大于当前位的阶乘数字</strong>。如$13000_{!}$的最高位为 1，1&lt;4。各位看官可以自行拆解几个数字看看。</p>
 <p>　　由此，我们可以把第一个表再增加一项，表示出每一个字典序大小的阶乘数系表示：</p>
@@ -362,7 +364,7 @@ var disqus_shortname = 'wattlebirdgithubio';
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Ronnie Wang
+  &copy; 2017 Yet another tech blog!
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -391,15 +393,6 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
   <!-- mathjax config similar to math.stackexchange -->
 
@@ -430,36 +423,23 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
 </script>
-<!-- mathjax config similar to math.stackexchange -->
 
 <script type="text/x-mathjax-config">
-  MathJax.Hub.Config({
-    tex2jax: {
-      inlineMath: [ ['$','$'], ["\\(","\\)"] ],
-      processEscapes: true
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
     }
   });
 </script>
 
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Config({
-      tex2jax: {
-        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
-      }
-    });
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.2/latest.js">
 </script>
-
-<script type="text/x-mathjax-config">
-    MathJax.Hub.Queue(function() {
-        var all = MathJax.Hub.getAllJax(), i;
-        for(i=0; i < all.length; i += 1) {
-            all[i].SourceElement().parentNode.className += ' has-jax';
-        }
-    });
-</script>
-
-<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
-</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
    </html>

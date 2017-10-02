@@ -1,12 +1,12 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>一种树的表达法 | Dedication</title>
-  <meta name="author" content="Ronnie Wang">
+  <meta name="author" content="Yet another tech blog!">
   
-  <meta name="description" content="Yet another tech blog!">
+  <meta name="description" content="《算法导论》教导我们，图有两种表达方法：邻接链表和邻接矩阵。至少是对于有环的图来说，的确是这样。对于树和图究竟怎样表达最好，我一直都在摸索之中。以前在写与图有关的算法的时候，总是要把整个邻接链表（通常是一个很大的std::vector&amp;lt;std::list&amp;lt;T&amp;gt;&amp;gt;&amp;amp;）当">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -45,7 +45,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-53608123-1', 'auto');
   ga('send', 'pageview');
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -53,7 +53,7 @@
 </head>
 
  <body>
-  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	<span class="sr-only">Toggle navigation</span>
@@ -120,9 +120,9 @@
 <p>因此我对我的代码质量深表担忧。但是幸运的是，最近我开始学习起别人的代码，从中获得了一些启示。今天总结的是这么一种特殊的图————自由树的表达方法。这种方法高效，无论是从时间上还是空间上。</p>
 <p>假定现在给出一系列树边，每行一条树边记录，由两个数组成。第一个数代表父结点，第二个数代表子结点。这一系列树边可以组成一棵树（或一片森林）。对于这样的信息，利用下面这种方法可以给出高效的表达。</p>
 <p>首先我们定义如下结构和数组：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="keyword">struct</span>&#123;</span><br><span class="line">    <span class="keyword">int</span> v;</span><br><span class="line">    <span class="keyword">int</span> prev;</span><br><span class="line">&#125;<span class="keyword">edge_t</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">edge_t</span> edges[N]; <span class="comment">//边</span></span><br><span class="line"><span class="keyword">int</span> head[N];     <span class="comment">//结点</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span>&#123;</span></div><div class="line">    <span class="keyword">int</span> v;</div><div class="line">    <span class="keyword">int</span> prev;</div><div class="line">&#125;<span class="keyword">edge_t</span>;</div><div class="line"></div><div class="line"><span class="keyword">edge_t</span> edges[N]; <span class="comment">//边</span></div><div class="line"><span class="keyword">int</span> head[N];     <span class="comment">//结点</span></div></pre></td></tr></table></figure>
 <p>我们知道，在一棵结点数为V的树中，一共有V-1条边。因此给结点和边各开V大小的数组是没问题的。利用这样的数据结构，我们使用如下方法读取边：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//for each edge (u,v)</span></span><br><span class="line">edges[i].v=v;</span><br><span class="line">edges[i].prev=head[u];</span><br><span class="line">head[u]=i;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">//for each edge (u,v)</span></div><div class="line">edges[i].v=v;</div><div class="line">edges[i].prev=head[u];</div><div class="line">head[u]=i;</div></pre></td></tr></table></figure>
 <p>从这段代码中，我们可以看出如下基本事实：</p>
 <ol>
 <li>edges以边序号为索引，其中v记录的是该边的子结点，prev记录的是另一条边序号；</li>
@@ -132,7 +132,7 @@
 <li>因此，head实际上存储着以某个结点为父结点时，其在读取顺序中的最后一条边。如果无子结点，则为0.</li>
 </ol>
 <p>那么，每个结点最多只存储一条边，如何实现多个子结点的情况？事实上，我们在读到这“最后一条边”时，依照读取顺序的上一条边已经被存储在edges[i].prev中了。按照如下代码，可以方便地完成对某个结点所有子结点的遍历：</p>
-<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">for</span>(<span class="keyword">int</span> k=head[i]; k!=<span class="number">0</span>; k=edges[k].prev)&#123;</span><br><span class="line">    <span class="comment">//do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">for</span>(<span class="keyword">int</span> k=head[i]; k!=<span class="number">0</span>; k=edges[k].prev)&#123;</div><div class="line">    <span class="comment">//do something</span></div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这种方法适用于：</p>
 <ul>
 <li>数据以自由树形式表达；</li>
@@ -269,7 +269,7 @@ var disqus_shortname = 'wattlebirdgithubio';
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Ronnie Wang
+  &copy; 2017 Yet another tech blog!
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -298,15 +298,6 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
   <!-- mathjax config similar to math.stackexchange -->
 
@@ -337,6 +328,23 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.2/latest.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
    </html>

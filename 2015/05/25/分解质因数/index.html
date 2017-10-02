@@ -1,12 +1,13 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-  <meta charset="utf-8">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta charset="utf-8">
   
   <title>分解质因数 | Dedication</title>
-  <meta name="author" content="Ronnie Wang">
+  <meta name="author" content="Yet another tech blog!">
   
-  <meta name="description" content="Yet another tech blog!">
+  <meta name="description" content="今天要说的题目来源于 Soldier and Number Game. 这道题到底干什么呢，说白了就是求两个数$1 \le b \le a \le 5 000 000$之间的所有数的质因数数目之和。快速求解一个数的质因数数目是这道题的关键。
+Sieve of Eratosthenes 是这道题的关键">
   
   
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -45,7 +46,7 @@
   })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
   ga('create', 'UA-53608123-1', 'auto');
   ga('send', 'pageview');
-</script>
+</script><!-- hexo-inject:begin --><!-- hexo-inject:end -->
 
 
 
@@ -53,7 +54,7 @@
 </head>
 
  <body>
-  <nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
+  <!-- hexo-inject:begin --><!-- hexo-inject:end --><nav id="main-nav" class="navbar  navbar-default navbar-fixed-top" role="navigation">
     <div class="container">
       <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
 	<span class="sr-only">Toggle navigation</span>
@@ -118,11 +119,11 @@
 
 	  <p>今天要说的题目来源于 <a href="http://codeforces.com/contest/546/problem/D" target="_blank" rel="external">Soldier and Number Game</a>. 这道题到底干什么呢，说白了就是求两个数$1 \le b \le a \le 5 000 000$之间的所有数的质因数数目之和。快速求解一个数的质因数数目是这道题的关键。</p>
 <p><a href="http://en.wikipedia.org/wiki/Sieve_of_Eratosthenes" target="_blank" rel="external">Sieve of Eratosthenes</a> 是这道题的关键。这是一个求解质数/质数判定的方法，其思想是筛选出一个质数的整数倍，质数的整数倍必然不是质数，所以都被筛选出去。在没有筛选的结果中继续求解当前最小数字的整数倍，直至筛完为止。其 C++ 代码如下所示：</p>
-<figure class="highlight cpp"><figcaption><span>Sieve of Eratosthenes</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// prime number table from 2 to 5000000</span></span><br><span class="line"><span class="comment">// those who have number 0 are prime numbers.</span></span><br><span class="line"><span class="keyword">int</span> table[<span class="number">5000001</span>];</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build_table</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="keyword">int</span> limit = <span class="built_in">sqrt</span>(<span class="number">5000000</span>)+<span class="number">1</span>;</span><br><span class="line">    table[<span class="number">0</span>]=table[<span class="number">1</span>]=-<span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=limit; i++)</span><br><span class="line">        <span class="keyword">if</span>(!table[i])</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">2</span>; j*i&lt;=<span class="number">5000000</span>; j++)</span><br><span class="line">                table[i*j]=i;</span><br><span class="line">&#125;</span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">isprime</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;<span class="keyword">return</span> !table[i];&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><figcaption><span>Sieve of Eratosthenes</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// prime number table from 2 to 5000000</span></div><div class="line"><span class="comment">// those who have number 0 are prime numbers.</span></div><div class="line"><span class="keyword">int</span> table[<span class="number">5000001</span>];</div><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">build_table</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="keyword">const</span> <span class="keyword">int</span> limit = <span class="built_in">sqrt</span>(<span class="number">5000000</span>)+<span class="number">1</span>;</div><div class="line">    table[<span class="number">0</span>]=table[<span class="number">1</span>]=<span class="number">-1</span>;</div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=limit; i++)</div><div class="line">        <span class="keyword">if</span>(!table[i])</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">2</span>; j*i&lt;=<span class="number">5000000</span>; j++)</div><div class="line">                table[i*j]=i;</div><div class="line">&#125;</div><div class="line"><span class="function"><span class="keyword">int</span> <span class="title">isprime</span><span class="params">(<span class="keyword">int</span> i)</span></span>&#123;<span class="keyword">return</span> !table[i];&#125;</div></pre></td></tr></table></figure>
 <p>你可以发现，在这个质数表中实际上还存储了每个数字的一个质因数。要提取出一个数的完整质因数分解，只要依据<s>基本法</s><code>a/=table[a]</code>不断迭代就可以了。</p>
 <p>但是如果按照这样的思路去数每个数的质因数个数的话，在原题中还是会超时。其一个原因是我们要求的是质因数的个数，其可以在建立质数表的时候完成。其二，求从 a 到 b 中每个质因数的个数之和，倾向于使用部分和的方法。</p>
 <p>那么怎么求每个数的质因数个数呢，在 Sieve of Eratosthenes 的基础之上？</p>
-<figure class="highlight cpp"><figcaption><span>Number of Prime Factors</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">build_table</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">//const int limit = sqrt(5000000)+1;</span></span><br><span class="line">    <span class="comment">//table[0]=table[1]=-1;</span></span><br><span class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=<span class="number">5000000</span>; i++)</span><br><span class="line">        <span class="keyword">if</span>(!table[i])</span><br><span class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i; j&lt;=<span class="number">5000000</span>; j+=i)</span><br><span class="line">                table[j]=table[j/i]+<span class="number">1</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight cpp"><figcaption><span>Number of Prime Factors</span></figcaption><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">void</span> <span class="title">build_table</span><span class="params">()</span></span>&#123;</div><div class="line">    <span class="comment">//const int limit = sqrt(5000000)+1;</span></div><div class="line">    <span class="comment">//table[0]=table[1]=-1;</span></div><div class="line">    <span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">2</span>; i&lt;=<span class="number">5000000</span>; i++)</div><div class="line">        <span class="keyword">if</span>(!table[i])</div><div class="line">            <span class="keyword">for</span>(<span class="keyword">int</span> j=i; j&lt;=<span class="number">5000000</span>; j+=i)</div><div class="line">                table[j]=table[j/i]+<span class="number">1</span>;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 	  
 	</div>
 
@@ -253,7 +254,7 @@ var disqus_shortname = 'wattlebirdgithubio';
   </div>
   <div class="container-narrow">
   <footer> <p>
-  &copy; 2017 Ronnie Wang
+  &copy; 2017 Yet another tech blog!
   
       with help from <a href="http://hexo.io/" target="_blank">Hexo</a> and <a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a>. Theme by <a href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>.    
 </p> </footer>
@@ -282,15 +283,6 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 
-
-   <script type="text/javascript">      
-     var search_path = "search.xml";
-	 if (search_path.length == 0) {
-	 	search_path = "search.xml";
-	 }
-	 var path = "/" + search_path;
-     searchFunc(path, 'local-search-input', 'local-search-result');
-   </script>
 
   <!-- mathjax config similar to math.stackexchange -->
 
@@ -321,6 +313,23 @@ var disqus_shortname = 'wattlebirdgithubio';
 </script>
 
 <script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config("");
 </script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="https://cdn.bootcss.com/mathjax/2.7.2/latest.js">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
 </body>
    </html>
