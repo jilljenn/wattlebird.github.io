@@ -128,7 +128,7 @@
 <p>运行以下命令：</p>
 <figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo find / -<span class="keyword">type</span> <span class="type">f </span>-iname <span class="string">"httpd.conf"</span></div></pre></td></tr></table></figure>
 <p>找到Apache的配置文件的位置。据相关文献报道，需要做的是将</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#LoadModule rewrite_module modules/mod_rewrite.so</span></div></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#LoadModule rewrite_module modules/mod_rewrite.so</span></div></pre></td></tr></table></figure>
 <p>的注释去掉。</p>
 <p>但甚为坑爹的是，Ike发现虚拟机上的Apache配置文件本来就没有把这一行给注释掉。</p>
 <p>经过一番查证，这里一篇<a href="https://stackoverflow.com/questions/17206524/404-error-after-changing-permalinks-wordpress" target="_blank" rel="external">帖子</a>为我们给出了解决方案的暗示。于是Ike在配置文件下找到了如下若干行：</p>
@@ -143,13 +143,13 @@
 <ul class="pagination">
 	 
 				
-    	<li class="prev"><a href="/2014/01/26/坡道的起点——AWS上Wordpress建站小记/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
+    	<li class="prev"><a href="/2014/02/04/简单易懂的Sublime-Text-2/" class="alignleft prev"><i class="fa fa-arrow-circle-o-left"></i>上一页</a></li>
   		
 
         <li><a href="/archives"><i class="fa fa-archive"></i>Archive</a></li>
 
 		
-		   <li class="next"><a href="/2013/07/20/关于-CUDA-中-reduction-运算的优化/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
+		   <li class="next"><a href="/2014/01/26/坡道的起点——AWS上Wordpress建站小记/" class="alignright next">下一页<i class="fa fa-arrow-circle-o-right"></i></a></li>         
         
 	
 </ul>

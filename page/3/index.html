@@ -164,6 +164,45 @@
 	<!-- display as entry -->	
 		<h3 class="title">
 			<div class="date"> 2014-01-26 </div>
+			<div class="article-title"><a href="/2014/01/26/Permalink-404-Error-之解决方案/" >Permalink 404 Error 之解决方案</a></div>						
+		</h3>
+	
+
+
+			  <div class="entry">
+  <div class="row">
+	
+	
+		<p>Ike本人在设置wordpress的时候，在settings里面发现了Permalink。从这个页面的主要介绍来看，Permalink的作用就是自定义文章的Link，使之更为结构化和友好。</p>
+<p>但是当Ike设置了某个除Default之外的某个Permalink的时候，如果点击一篇发表的文章，就会出现Page Not Found的404错误。</p>
+<p>经反复查证，Ike发现Permalink与.htaccess和Apache的设置紧密相关。</p>
+<p>如果我们在Settings页面的Permalink中就某个选项进行了保存，wordpress在后台就会改写.htaccess：</p>
+<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># BEGIN WordPress</span></div><div class="line"><span class="section">&lt;IfModule mod_rewrite.c&gt;</span></div><div class="line"><span class="attribute"><span class="nomarkup">RewriteEngine</span></span> <span class="literal">On</span></div><div class="line"><span class="attribute">RewriteBase</span> /blog/</div><div class="line"><span class="attribute"><span class="nomarkup">RewriteRule</span></span> ^index\.php$ -<span class="meta"> [L]</span></div><div class="line"><span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%&#123;REQUEST_FILENAME&#125;</span> !-f</div><div class="line"><span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%&#123;REQUEST_FILENAME&#125;</span> !-d</div><div class="line"><span class="attribute"><span class="nomarkup">RewriteRule</span></span> . /blog/index.php<span class="meta"> [L]</span></div><div class="line"><span class="section">&lt;/IfModule&gt;</span></div><div class="line"><span class="comment"># END WordPress</span></div></pre></td></tr></table></figure>
+<p>这个.htaccess文件是存放在网页的根目录下的，和wp-config.php存放的位置一样。如果wordpress不能改写此文件，则需要手动改写，但需要注意到的是Ike本人的网页是放在/blog文件夹下的，如果放在别的文件夹下，正确的.htaccess内容可能和上面不一样。</p>
+<p>如果成功改写.htaccess，只是成功了一半。因为Ike本人发现即使赋予了后台改写.htaccess的权限，还是不能访问。</p>
+<p>有文献报道指出，Apache需要使能rewrite_module才能使得Permalink正常工作。这就需要改写Aapche的配置文件。</p>
+<p>运行以下命令：</p>
+<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo find / -<span class="keyword">type</span> <span class="type">f </span>-iname <span class="string">"httpd.conf"</span></div></pre></td></tr></table></figure>
+<p>找到Apache的配置文件的位置。据相关文献报道，需要做的是将</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#LoadModule rewrite_module modules/mod_rewrite.so</span></div></pre></td></tr></table></figure>
+<p>的注释去掉。</p>
+<p>但甚为坑爹的是，Ike发现虚拟机上的Apache配置文件本来就没有把这一行给注释掉。</p>
+<p>经过一番查证，这里一篇<a href="https://stackoverflow.com/questions/17206524/404-error-after-changing-permalinks-wordpress" target="_blank" rel="external">帖子</a>为我们给出了解决方案的暗示。于是Ike在配置文件下找到了如下若干行：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> Each directory to <span class="built_in">which</span> Apache has access can be configured with respect</span></div><div class="line"><span class="meta">#</span><span class="bash"> to <span class="built_in">which</span> services and features are allowed and/or disabled <span class="keyword">in</span> that</span></div><div class="line"><span class="meta">#</span><span class="bash"> directory (and its subdirectories).</span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> First, we configure the <span class="string">"default"</span> to be a very restrictive <span class="built_in">set</span> of</span></div><div class="line"><span class="meta">#</span><span class="bash"> features.</span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line">&lt;Directory /&gt;</div><div class="line">    Options FollowSymLinks</div><div class="line">    AllowOverride All</div><div class="line">&lt;/Directory&gt;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> Possible values <span class="keyword">for</span> the Options directive are <span class="string">"None"</span>, <span class="string">"All"</span>,</span></div><div class="line"><span class="meta">#</span><span class="bash"> or any combination of:</span></div><div class="line"><span class="meta">#</span><span class="bash">   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews</span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> Note that <span class="string">"MultiViews"</span> must be named *explicitly* --- <span class="string">"Options All"</span></span></div><div class="line"><span class="meta">#</span><span class="bash"> doesn<span class="string">'t give it to you.</span></span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> The Options directive is both complicated and important.  Please see</span></div><div class="line"><span class="meta">#</span><span class="bash"> http://httpd.apache.org/docs/2.2/mod/core.html<span class="comment">#options</span></span></div><div class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> more information.</span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line">    Options Indexes FollowSymLinks</div><div class="line"></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> AllowOverride controls what directives may be placed <span class="keyword">in</span> .htaccess files.</span></div><div class="line"><span class="meta">#</span><span class="bash"> AllowOverride controls what directives may be placed <span class="keyword">in</span> .htaccess files.</span></div><div class="line"><span class="meta">#</span><span class="bash"> It can be <span class="string">"All"</span>, <span class="string">"None"</span>, or any combination of the keywords:</span></div><div class="line"><span class="meta">#</span><span class="bash">   Options FileInfo AuthConfig Limit</span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line">    AllowOverride All</div></pre></td></tr></table></figure>
+<p>按照上面配置，再重启Apache即可。大功告成。</p>
+
+	
+	</div>
+</div>
+
+           
+		
+           
+			  
+	
+	<!-- display as entry -->	
+		<h3 class="title">
+			<div class="date"> 2014-01-26 </div>
 			<div class="article-title"><a href="/2014/01/26/坡道的起点——AWS上Wordpress建站小记/" >坡道的起点——AWS上Wordpress建站小记</a></div>						
 		</h3>
 	
@@ -187,45 +226,6 @@
 <p>但是真正麻烦的，是Wordpress服务器经常连接不上数据库的问题。虽然wp-config.php里面的参数都配置正确，但就是无法连接。这个博客其实是第三代博客，就是因为这个问题。一种可能的解决方案是重启虚拟机，但是发现有时候不可行。这个问题Ike参考了许多中外网站，总的来说都不适用。博客所维持时间的长短几乎就取决于什么时候出现这个数据库的问题。</p>
 <p>Ike对Linux只是略知皮毛，连鸟哥私房菜第一卷都没看完的战五渣，上面这些问题的解决真的是瞎搞，所以要是把详细的步骤写出来反而有误人子弟之嫌。所以说，建立了这个博客只是站在长长的坡道的起点，以后还要建设邮件系统之类的东西，还要有个像模像样的主页面，但在当前看来最重要的是把MySQL学会。</p>
 <p>域名的注册是在Godaddy上注册的，原来想用ikely.cc以暗示真名，或是ike.ly，但是.me的域名实在是便宜，10刀一年。域名前面原来有www，要去掉www很简单，只要在Godaddy的域名转发里面设置子域名转发就可以了。</p>
-
-	
-	</div>
-</div>
-
-           
-		
-           
-			  
-	
-	<!-- display as entry -->	
-		<h3 class="title">
-			<div class="date"> 2014-01-26 </div>
-			<div class="article-title"><a href="/2014/01/26/Permalink-404-Error-之解决方案/" >Permalink 404 Error 之解决方案</a></div>						
-		</h3>
-	
-
-
-			  <div class="entry">
-  <div class="row">
-	
-	
-		<p>Ike本人在设置wordpress的时候，在settings里面发现了Permalink。从这个页面的主要介绍来看，Permalink的作用就是自定义文章的Link，使之更为结构化和友好。</p>
-<p>但是当Ike设置了某个除Default之外的某个Permalink的时候，如果点击一篇发表的文章，就会出现Page Not Found的404错误。</p>
-<p>经反复查证，Ike发现Permalink与.htaccess和Apache的设置紧密相关。</p>
-<p>如果我们在Settings页面的Permalink中就某个选项进行了保存，wordpress在后台就会改写.htaccess：</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment"># BEGIN WordPress</span></div><div class="line"><span class="section">&lt;IfModule mod_rewrite.c&gt;</span></div><div class="line"><span class="attribute"><span class="nomarkup">RewriteEngine</span></span> <span class="literal">On</span></div><div class="line"><span class="attribute">RewriteBase</span> /blog/</div><div class="line"><span class="attribute"><span class="nomarkup">RewriteRule</span></span> ^index\.php$ -<span class="meta"> [L]</span></div><div class="line"><span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%&#123;REQUEST_FILENAME&#125;</span> !-f</div><div class="line"><span class="attribute"><span class="nomarkup">RewriteCond</span></span> <span class="variable">%&#123;REQUEST_FILENAME&#125;</span> !-d</div><div class="line"><span class="attribute"><span class="nomarkup">RewriteRule</span></span> . /blog/index.php<span class="meta"> [L]</span></div><div class="line"><span class="section">&lt;/IfModule&gt;</span></div><div class="line"><span class="comment"># END WordPress</span></div></pre></td></tr></table></figure>
-<p>这个.htaccess文件是存放在网页的根目录下的，和wp-config.php存放的位置一样。如果wordpress不能改写此文件，则需要手动改写，但需要注意到的是Ike本人的网页是放在/blog文件夹下的，如果放在别的文件夹下，正确的.htaccess内容可能和上面不一样。</p>
-<p>如果成功改写.htaccess，只是成功了一半。因为Ike本人发现即使赋予了后台改写.htaccess的权限，还是不能访问。</p>
-<p>有文献报道指出，Apache需要使能rewrite_module才能使得Permalink正常工作。这就需要改写Aapche的配置文件。</p>
-<p>运行以下命令：</p>
-<figure class="highlight ada"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">sudo find / -<span class="keyword">type</span> <span class="type">f </span>-iname <span class="string">"httpd.conf"</span></div></pre></td></tr></table></figure>
-<p>找到Apache的配置文件的位置。据相关文献报道，需要做的是将</p>
-<figure class="highlight apache"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="comment">#LoadModule rewrite_module modules/mod_rewrite.so</span></div></pre></td></tr></table></figure>
-<p>的注释去掉。</p>
-<p>但甚为坑爹的是，Ike发现虚拟机上的Apache配置文件本来就没有把这一行给注释掉。</p>
-<p>经过一番查证，这里一篇<a href="https://stackoverflow.com/questions/17206524/404-error-after-changing-permalinks-wordpress" target="_blank" rel="external">帖子</a>为我们给出了解决方案的暗示。于是Ike在配置文件下找到了如下若干行：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div></pre></td><td class="code"><pre><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> Each directory to <span class="built_in">which</span> Apache has access can be configured with respect</span></div><div class="line"><span class="meta">#</span><span class="bash"> to <span class="built_in">which</span> services and features are allowed and/or disabled <span class="keyword">in</span> that</span></div><div class="line"><span class="meta">#</span><span class="bash"> directory (and its subdirectories).</span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> First, we configure the <span class="string">"default"</span> to be a very restrictive <span class="built_in">set</span> of</span></div><div class="line"><span class="meta">#</span><span class="bash"> features.</span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line">&lt;Directory /&gt;</div><div class="line">    Options FollowSymLinks</div><div class="line">    AllowOverride All</div><div class="line">&lt;/Directory&gt;</div><div class="line"></div><div class="line">...</div><div class="line"></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> Possible values <span class="keyword">for</span> the Options directive are <span class="string">"None"</span>, <span class="string">"All"</span>,</span></div><div class="line"><span class="meta">#</span><span class="bash"> or any combination of:</span></div><div class="line"><span class="meta">#</span><span class="bash">   Indexes Includes FollowSymLinks SymLinksifOwnerMatch ExecCGI MultiViews</span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> Note that <span class="string">"MultiViews"</span> must be named *explicitly* --- <span class="string">"Options All"</span></span></div><div class="line"><span class="meta">#</span><span class="bash"> doesn<span class="string">'t give it to you.</span></span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> The Options directive is both complicated and important.  Please see</span></div><div class="line"><span class="meta">#</span><span class="bash"> http://httpd.apache.org/docs/2.2/mod/core.html<span class="comment">#options</span></span></div><div class="line"><span class="meta">#</span><span class="bash"> <span class="keyword">for</span> more information.</span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line">    Options Indexes FollowSymLinks</div><div class="line"></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line"><span class="meta">#</span><span class="bash"> AllowOverride controls what directives may be placed <span class="keyword">in</span> .htaccess files.</span></div><div class="line"><span class="meta">#</span><span class="bash"> AllowOverride controls what directives may be placed <span class="keyword">in</span> .htaccess files.</span></div><div class="line"><span class="meta">#</span><span class="bash"> It can be <span class="string">"All"</span>, <span class="string">"None"</span>, or any combination of the keywords:</span></div><div class="line"><span class="meta">#</span><span class="bash">   Options FileInfo AuthConfig Limit</span></div><div class="line"><span class="meta">#</span><span class="bash"></span></div><div class="line">    AllowOverride All</div></pre></td></tr></table></figure>
-<p>按照上面配置，再重启Apache即可。大功告成。</p>
 
 	
 	</div>
@@ -349,41 +349,41 @@
 		<h4>标签云</h4>
 		<ul class="tag_box inline list-unstyled">		
 		
-			<li><a href="/tags/xml/">xml<span>2</span></a></li>
+			<li><a href="/tags/Minimun-cut/">Minimun cut<span>1</span></a></li>
 		
-			<li><a href="/tags/Game-theory/">Game theory<span>3</span></a></li>
-		
-			<li><a href="/tags/Algorithm/">Algorithm<span>10</span></a></li>
-		
-			<li><a href="/tags/CUDA-C/">CUDA C<span>1</span></a></li>
+			<li><a href="/tags/C/">C++<span>10</span></a></li>
 		
 			<li><a href="/tags/sublime-text-2/">sublime text 2<span>1</span></a></li>
 		
-			<li><a href="/tags/Minimun-cut/">Minimun cut<span>1</span></a></li>
+			<li><a href="/tags/linux/">linux<span>1</span></a></li>
 		
-			<li><a href="/tags/Backend/">Backend<span>2</span></a></li>
+			<li><a href="/tags/xml/">xml<span>2</span></a></li>
+		
+			<li><a href="/tags/Algorithm/">Algorithm<span>10</span></a></li>
+		
+			<li><a href="/tags/apache/">apache<span>2</span></a></li>
+		
+			<li><a href="/tags/tools/">tools<span>2</span></a></li>
 		
 			<li><a href="/tags/Coursera/">Coursera<span>3</span></a></li>
 		
 			<li><a href="/tags/matlab/">matlab<span>1</span></a></li>
 		
-			<li><a href="/tags/C/">C++<span>10</span></a></li>
+			<li><a href="/tags/Data-Structure/">Data Structure<span>3</span></a></li>
 		
 			<li><a href="/tags/Machine-Learning/">Machine Learning<span>5</span></a></li>
 		
-			<li><a href="/tags/Data-Structure/">Data Structure<span>3</span></a></li>
+			<li><a href="/tags/Backend/">Backend<span>2</span></a></li>
 		
-			<li><a href="/tags/linux/">linux<span>1</span></a></li>
+			<li><a href="/tags/coreutils/">coreutils<span>1</span></a></li>
 		
 			<li><a href="/tags/wordpress/">wordpress<span>2</span></a></li>
 		
-			<li><a href="/tags/apache/">apache<span>2</span></a></li>
-		
 			<li><a href="/tags/Max-flow/">Max flow<span>1</span></a></li>
 		
-			<li><a href="/tags/tools/">tools<span>2</span></a></li>
+			<li><a href="/tags/Game-theory/">Game theory<span>3</span></a></li>
 		
-			<li><a href="/tags/coreutils/">coreutils<span>1</span></a></li>
+			<li><a href="/tags/CUDA-C/">CUDA C<span>1</span></a></li>
 		
 		 
 		</ul>
